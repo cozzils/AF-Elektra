@@ -1,0 +1,186 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-white: #FFFFFF;
+    --color-black: #000000;
+    --color-gray-light: #F2F2F2;
+    --color-gray-medium: #808080;
+    --color-gray-dark: #3E3F41;
+    --color-accent: #83F570;
+    --color-overlay: rgba(0, 0, 0, 0.15);
+
+    --font-primary: 'Inter', system-ui, sans-serif;
+
+    --ease-out-circ: cubic-bezier(0.075, 0.820, 0.165, 1);
+
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 0%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 0%;
+    --primary: 0 0% 24.7%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 0 0% 94.9%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 94.9%;
+    --muted-foreground: 0 0% 50.2%;
+    --accent: 110 85% 70%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 90%;
+    --input: 0 0% 90%;
+    --ring: 110 85% 70%;
+    --radius: 0.625rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    font-family: var(--font-primary);
+    @apply bg-white text-black antialiased;
+    overflow-x: hidden;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Scroll Reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s var(--ease-out-circ), transform 0.8s var(--ease-out-circ);
+}
+
+.reveal.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-gray-light);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-gray-medium);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-dark);
+}
+
+/* Hero Marquee */
+@keyframes marquee-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-marquee-left {
+  animation: marquee-left 20s linear infinite;
+}
+
+.animate-marquee-right {
+  animation: marquee-right 20s linear infinite;
+}
+
+.animate-marquee-left-slow {
+  animation: marquee-left 30s linear infinite;
+}
+
+.animate-marquee-right-slow {
+  animation: marquee-right 30s linear infinite;
+}
+
+.animate-marquee-left-fast {
+  animation: marquee-left 15s linear infinite;
+}
+
+.animate-marquee-right-fast {
+  animation: marquee-right 15s linear infinite;
+}
+
+/* Horizontal scroll rows */
+@keyframes scroll-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@keyframes scroll-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 25s linear infinite;
+}
+
+.animate-scroll-right {
+  animation: scroll-right 25s linear infinite;
+}
+
+/* Stagger children */
+.stagger-children > *:nth-child(1) { transition-delay: 0ms; }
+.stagger-children > *:nth-child(2) { transition-delay: 80ms; }
+.stagger-children > *:nth-child(3) { transition-delay: 160ms; }
+.stagger-children > *:nth-child(4) { transition-delay: 240ms; }
+.stagger-children > *:nth-child(5) { transition-delay: 320ms; }
+.stagger-children > *:nth-child(6) { transition-delay: 400ms; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee-left,
+  .animate-marquee-right,
+  .animate-marquee-left-slow,
+  .animate-marquee-right-slow,
+  .animate-marquee-left-fast,
+  .animate-marquee-right-fast,
+  .animate-scroll-left,
+  .animate-scroll-right {
+    animation: none !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Selection */
+::selection {
+  background: var(--color-accent);
+  color: var(--color-black);
+}
+
+/* Custom Editorial Brutalist Typography Outlines */
+.text-outline-gray {
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(0, 0, 0, 0.35);
+}
+
+.text-outline-accent {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--color-accent);
+}
+
