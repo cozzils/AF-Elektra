@@ -49,9 +49,17 @@ export default function Navbar() {
           {/* Logo */}
           <Link
             to="/"
-            className="font-bold text-lg lg:text-xl tracking-tight text-black hover:opacity-75 transition-opacity duration-300"
+            className="flex items-center gap-2 font-bold text-lg lg:text-xl tracking-tight text-black hover:opacity-75 transition-opacity duration-300"
           >
-            AF Elektra 2
+            <svg className="w-7 h-7 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
+              <path d="M2 12h4"></path>
+              <path d="M18 12h4"></path>
+              <path d="M12 2v4"></path>
+              <path d="M12 18v4"></path>
+              <circle cx="12" cy="12" r="3"></circle>
+            </svg>
+            AF Elektra
           </Link>
 
           {/* Desktop Nav */}

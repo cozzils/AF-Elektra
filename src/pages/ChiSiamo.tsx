@@ -38,7 +38,7 @@ export default function ChiSiamo() {
   return (
     <Layout>
       {/* ─── HERO ─── */}
-      <section className="relative min-h-[70vh] flex items-end bg-gray-light pt-32 pb-16 px-6 lg:px-10">
+      <section className="relative bg-gray-light pt-32 lg:pt-40 pb-16 px-6 lg:px-10">
         <div className="max-w-7xl mx-auto w-full">
           <motion.div
             initial={{ opacity: 0, y: 50 }}

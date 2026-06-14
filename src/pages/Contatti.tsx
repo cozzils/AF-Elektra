@@ -198,7 +198,7 @@ export default function Contatti() {
                       disabled={!formData.privacy}
                       className={`w-full flex items-center justify-center gap-2 text-sm font-medium px-6 py-3.5 rounded-lg transition-all duration-300 ${
                         formData.privacy
-                          ? 'bg-gray-dark text-white hover:bg-black'
+                          ? 'bg-elektra-accent text-white hover:bg-elektra-accent/90'
                           : 'bg-gray-light text-gray-medium cursor-not-allowed'
                       }`}
                     >

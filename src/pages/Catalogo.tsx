@@ -146,7 +146,7 @@ function ProductCard({ product }: { product: Product }) {
         {/* Badge */}
         <div className="absolute top-3 left-3">
           {product.available ? (
-            <span className="inline-flex items-center gap-1 bg-elektra-accent text-black text-xs font-medium px-2.5 py-1 rounded-full">
+            <span className="inline-flex items-center gap-1 bg-elektra-accent text-white text-xs font-medium px-2.5 py-1 rounded-full">
               Disponibile
             </span>
           ) : (
@@ -187,7 +187,7 @@ function ProductCard({ product }: { product: Product }) {
             <FileText size={14} />
             Scheda Tecnica
           </button>
-          <button className="flex items-center justify-center gap-1.5 text-xs font-medium bg-elektra-accent text-black px-3 py-2.5 rounded-lg hover:bg-black hover:text-white transition-colors duration-300">
+          <button className="flex items-center justify-center gap-1.5 text-xs font-medium bg-elektra-accent text-white px-3 py-2.5 rounded-lg hover:bg-black transition-colors duration-300">
             <Plus size={14} />
             Preventivo
           </button>
@@ -226,7 +226,7 @@ export default function Catalogo() {
               onClick={() => setSelectedCategory(cat)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedCategory === cat
-                  ? 'bg-elektra-accent text-black font-medium'
+                  ? 'bg-elektra-accent text-white font-medium'
                   : 'text-gray-medium hover:bg-gray-light hover:text-black'
               }`}
             >
@@ -246,7 +246,7 @@ export default function Catalogo() {
               onClick={() => setSelectedVoltage(v)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedVoltage === v
-                  ? 'bg-elektra-accent text-black font-medium'
+                  ? 'bg-elektra-accent text-white font-medium'
                   : 'text-gray-medium hover:bg-gray-light hover:text-black'
               }`}
             >
@@ -266,7 +266,7 @@ export default function Catalogo() {
               onClick={() => setSelectedMounting(m)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedMounting === m
-                  ? 'bg-elektra-accent text-black font-medium'
+                  ? 'bg-elektra-accent text-white font-medium'
                   : 'text-gray-medium hover:bg-gray-light hover:text-black'
               }`}
             >
@@ -365,19 +365,19 @@ export default function Catalogo() {
                 {/* Active filter pills */}
                 <div className="hidden sm:flex items-center gap-2 flex-wrap">
                   {selectedCategory !== 'Tutti' && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-black px-2.5 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       {selectedCategory}
                       <button onClick={() => setSelectedCategory('Tutti')}><X size={12} /></button>
                     </span>
                   )}
                   {selectedVoltage !== 'Tutti' && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-black px-2.5 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       {selectedVoltage}
                       <button onClick={() => setSelectedVoltage('Tutti')}><X size={12} /></button>
                     </span>
                   )}
                   {onlyAvailable && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-black px-2.5 py-1 rounded-full">
+                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       Solo disponibili
                       <button onClick={() => setOnlyAvailable(false)}><X size={12} /></button>
                     </span>

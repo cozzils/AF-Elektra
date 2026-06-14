@@ -183,31 +183,22 @@ export default function CasiStudio() {
                   className="group cursor-pointer"
                 >
                   <div className="relative rounded-2xl overflow-hidden bg-gray-light border border-black/5 hover:border-black/15 hover:shadow-panel transition-all duration-500">
-                    <div className="aspect-[4/3] overflow-hidden">
-                      <img
-                        src={c.image}
-                        alt={c.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.075,0.820,0.165,1)]"
-                      />
-                    </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6 translate-y-4 group-hover:translate-y-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-[cubic-bezier(0.075,0.820,0.165,1)]">
-                      <div className="flex items-center gap-2 mb-2">
-                        <span className="w-7 h-7 rounded-md bg-elektra-accent flex items-center justify-center text-black">
+                    <div className="aspect-[4/3] overflow-hidden relative group-hover:scale-[1.03] transition-transform duration-500">
+                      <div className="w-full h-full relative flex flex-col items-center justify-center p-6 text-center">
+                        <img src={c.image} alt={c.title} className="absolute inset-0 w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-black/50" />
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-white opacity-20 scale-[6] z-0">
                           {categoryIcons[c.category]}
-                        </span>
-                        <span className="text-xs text-white/70 uppercase tracking-wider">{c.category}</span>
+                        </div>
+                        <h3 className="text-white font-bold text-lg md:text-xl z-10 drop-shadow-md px-4">{c.title}</h3>
                       </div>
-                      <h3 className="font-semibold text-lg text-white">{c.title}</h3>
-                      <div className="flex items-center gap-2 mt-2">
-                        <span className="text-xs text-white/60">{c.client}</span>
-                        <span className="text-white/30">&middot;</span>
-                        <span className="text-xs text-white/60">{c.year}</span>
+                      <div className="absolute inset-0 bg-elektra-accent/80 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center z-20">
+                        <span className="text-white font-bold text-xl flex items-center gap-2">Scopri <ArrowRight size={24} /></span>
                       </div>
                     </div>
                     {/* Always visible tag */}
-                    <div className="absolute top-4 left-4 group-hover:opacity-0 transition-opacity duration-300">
-                      <span className="inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-black text-xs font-medium px-3 py-1.5 rounded-full">
+                    <div className="absolute top-4 left-4 z-30">
+                      <span className="inline-flex items-center gap-1.5 bg-white/90 backdrop-blur-sm text-black text-xs font-medium px-3 py-1.5 rounded-full shadow-sm">
                         {categoryIcons[c.category]}
                         {c.category}
                       </span>

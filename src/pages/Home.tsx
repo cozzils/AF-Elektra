@@ -106,8 +106,17 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-6 lg:px-10">
         
-        {/* Full-Screen Background Image Cover */}
-        <div className="absolute inset-0 z-0 bg-cover bg-center" style={{ backgroundImage: "url('/images/pcb-closeup.jpg')" }} />
+        {/* Full-Screen Background Video */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="w-full h-full object-cover grayscale"
+            src="https://www.mpe-electronics.co.uk/wp-content/uploads/2024/02/contract-electronics-manufacture-mpe.mp4"
+          />
+        </div>
         
         {/* Dark Vignette Overlay for Premium Readability */}
         <div className="absolute inset-0 z-10 bg-black/60 backdrop-blur-[1px]" />
@@ -116,16 +125,16 @@ export default function Home() {
         <div className="relative z-20 w-full max-w-5xl mx-auto flex flex-col items-center text-center gap-8">
           
           <div className="flex flex-col items-center">
-            <p className="text-xs lg:text-sm text-[#83F570] font-extrabold uppercase tracking-widest mb-4">
+            <p className="text-xs lg:text-sm text-elektra-accent font-extrabold uppercase tracking-widest mb-4">
               ECCELLENZA NELL&apos;ELETTRONICA INDUSTRIALE
             </p>
             
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-white uppercase tracking-tight leading-[1.05] max-w-4xl select-none">
               Realizza con noi <br />
-              la <span className="text-[#83F570] italic font-serif lowercase">tua</span> idea.
+              la <span className="text-elektra-accent italic font-serif lowercase">tua</span> idea.
             </h1>
             
-            <p className="text-base lg:text-lg text-white/90 mt-6 leading-relaxed max-w-2xl">
+            <p className="text-base lg:text-lg text-white font-medium drop-shadow-md mt-6 leading-relaxed max-w-2xl bg-black/20 px-4 py-2 rounded-lg">
               Progettazione, sviluppo e produzione di sistemi elettronici industriali ad alta precisione. Affidabilità e competenza per il settore B2B.
             </p>
           </div>
@@ -133,7 +142,7 @@ export default function Home() {
           <div className="flex flex-wrap gap-4 justify-center mt-2">
             <Link
               to="/catalogo"
-              className="bg-[#83F570] text-black text-sm font-bold px-8 py-4 rounded-xl hover:bg-[#83F570]/90 transition-all duration-300 shadow-lg shadow-[#83F570]/20"
+              className="bg-elektra-accent text-white text-sm font-bold px-8 py-4 rounded-xl hover:bg-elektra-accent/90 transition-all duration-300 shadow-lg shadow-elektra-accent/20"
             >
               Esplora i Servizi &rarr;
             </Link>
@@ -144,6 +153,12 @@ export default function Home() {
               Contatta un Esperto
             </Link>
           </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-20">
+          <svg className="w-8 h-8 text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
         </div>
       </section>
 
@@ -195,7 +210,8 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
                 icon: <CircuitBoard size={28} />,
@@ -230,13 +246,17 @@ export default function Home() {
             ].map((service, i) => (
               <div
                 key={i}
-                className="reveal bg-white rounded-2xl p-8 border border-black/5 hover:border-black/15 hover:shadow-panel transition-all duration-500 group"
+                className="opacity-0 animate-fade-in-up bg-white rounded-2xl p-8 border border-transparent hover:border-elektra-accent shadow-sm hover:shadow-panel transition-all duration-500 group flex flex-col h-full"
+                style={{ animationDelay: `${i * 150}ms`, animationFillMode: 'forwards' }}
               >
-                <div className="w-14 h-14 rounded-xl bg-gray-light flex items-center justify-center text-gray-dark group-hover:bg-elektra-accent group-hover:text-black transition-colors duration-300">
+                <div className="w-14 h-14 rounded-xl bg-elektra-accent flex items-center justify-center text-white flex-shrink-0">
                   {service.icon}
                 </div>
                 <h3 className="font-semibold text-xl text-black mt-6">{service.title}</h3>
-                <p className="text-sm text-gray-medium mt-3 leading-relaxed">{service.desc}</p>
+                <p className="text-sm text-gray-medium mt-3 leading-relaxed flex-grow">{service.desc}</p>
+                <Link to="/catalogo" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-elektra-accent hover:opacity-80 transition-opacity">
+                  Scopri di più <ArrowRight size={16} />
+                </Link>
               </div>
             ))}
           </div>

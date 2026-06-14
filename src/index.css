@@ -11,7 +11,7 @@
     --color-gray-light: #F2F2F2;
     --color-gray-medium: #808080;
     --color-gray-dark: #3E3F41;
-    --color-accent: #83F570;
+    --color-accent: #16A34A;
     --color-overlay: rgba(0, 0, 0, 0.15);
 
     --font-primary: 'Inter', system-ui, sans-serif;
@@ -30,13 +30,13 @@
     --secondary-foreground: 0 0% 0%;
     --muted: 0 0% 94.9%;
     --muted-foreground: 0 0% 50.2%;
-    --accent: 110 85% 70%;
-    --accent-foreground: 0 0% 0%;
+    --accent: 142 76% 36%;
+    --accent-foreground: 0 0% 100%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
     --border: 0 0% 90%;
     --input: 0 0% 90%;
-    --ring: 110 85% 70%;
+    --ring: 142 76% 36%;
     --radius: 0.625rem;
   }
 

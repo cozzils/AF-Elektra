@@ -16,7 +16,7 @@ module.exports = {
         'gray-light': '#F2F2F2',
         'gray-medium': '#808080',
         'gray-dark': '#3E3F41',
-        'elektra-accent': '#83F570',
+        'elektra-accent': '#16A34A',
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

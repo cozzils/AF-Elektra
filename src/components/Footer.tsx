@@ -11,6 +11,9 @@ export default function Footer() {
             <Link to="/" className="text-2xl font-semibold tracking-tight">
               AF Elektra 2
             </Link>
+            <p className="mt-2 text-xs text-elektra-accent font-semibold uppercase tracking-wider">
+              Membro Confindustria Brescia
+            </p>
             <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-xs">
               Eccellenza nell&apos;Elettronica Industriale. Dal concept al collaudo finale, il partner tecnologico per le tue idee.
             </p>
@@ -57,6 +60,12 @@ export default function Footer() {
                   {label}
                 </span>
               ))}
+              <a href="#" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">
+                LinkedIn
+              </a>
+              <a href="mailto:afelektra2@afelektra.com" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">
+                Email
+              </a>
             </nav>
           </div>
 
