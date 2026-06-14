@@ -323,7 +323,7 @@ export default function Catalogo() {
       {/* ─── CATALOG CONTENT ─── */}
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="flex gap-10">
+          <div className="flex flex-col lg:flex-row gap-10">
             {/* Sidebar Filters - Desktop */}
             <aside className="hidden lg:block w-64 flex-shrink-0">
               <div className="sticky top-24">
