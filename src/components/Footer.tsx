@@ -17,9 +17,11 @@ export default function Footer() {
             <p className="mt-4 text-sm text-white/60 leading-relaxed max-w-xs">
               Eccellenza nell&apos;Elettronica Industriale. Dal concept al collaudo finale, il partner tecnologico per le tue idee.
             </p>
-            <p className="mt-6 text-xs text-white/40 uppercase tracking-wider">
-              P.IVA 03286600980
-            </p>
+            <div className="mt-6 space-y-1 text-xs text-white/40">
+              <p>P.IVA / C.F. 03286600980</p>
+              <p>Via Artigiani 19, 25014 Castenedolo (BS)</p>
+              <p>[DA COMPLETARE: REA Brescia / PEC]</p>
+            </div>
           </div>
 
           {/* Navigation */}
@@ -52,14 +54,18 @@ export default function Footer() {
               Informazioni
             </h4>
             <nav className="flex flex-col gap-3">
-              {['Privacy Policy', 'Termini e Condizioni', 'Supporto Tecnico', 'Certificazioni ISO'].map((label) => (
-                <span
-                  key={label}
-                  className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300 cursor-pointer"
-                >
-                  {label}
-                </span>
-              ))}
+              <Link
+                to="/privacy"
+                className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/cookie-policy"
+                className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300"
+              >
+                Cookie Policy
+              </Link>
               <a href="#" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">
                 LinkedIn
               </a>
@@ -98,7 +104,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40">
-            &copy; {new Date().getFullYear()} AF Elektra 2. P.IVA 03286600980. Eccellenza nell&apos;Elettronica Industriale.
+            &copy; {new Date().getFullYear()} AF Elektra 2 &bull; P.IVA / C.F. 03286600980 &bull; Via Artigiani 19, Castenedolo (BS) &bull; [DA COMPLETARE: REA Brescia / PEC]
           </p>
           <p className="text-xs text-white/40">
             Ingegneria di precisione, dal 2019.
