@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   MapPin,
@@ -25,7 +26,9 @@ export default function Contatti() {
     privacy: false,
   });
   const [submitted, setSubmitted] = useState(false);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
+  // TODO BACKEND: collegare a endpoint PHP Aruba / servizio SMTP - nessun dato viene inviato oggi
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.privacy) return;
@@ -189,7 +192,11 @@ export default function Contatti() {
                         {formData.privacy && <CheckCircle2 size={14} className="text-black" />}
                       </div>
                       <span className="text-xs text-gray-medium leading-relaxed">
-                        Dichiaro di aver letto e accettato la Privacy Policy e acconsento al trattamento dei dati personali per le finalita indicate. *
+                        Dichiaro di aver letto e compreso la{' '}
+                        <Link to="/privacy" className="text-black underline font-medium hover:text-elektra-accent">
+                          Privacy Policy
+                        </Link>{' '}
+                        e acconsento a essere ricontattato in merito alla richiesta inoltrata. *
                       </span>
                     </label>
 
@@ -205,6 +212,14 @@ export default function Contatti() {
                       <Send size={16} />
                       Invia Richiesta
                     </button>
+
+                    {/* Testo informativo art. 13 */}
+                    <p className="text-[11px] text-gray-medium leading-relaxed pt-2">
+                      Inviando questo modulo accetti di essere ricontattato via email o telefono per la gestione delle informazioni richieste. I dati non saranno ceduti a terzi né utilizzati per scopi promozionali. Leggi l&apos;informativa completa sulla nostra{' '}
+                      <Link to="/privacy" className="text-black underline hover:text-elektra-accent font-medium">
+                        Privacy Policy
+                      </Link>.
+                    </p>
                   </form>
                 )}
               </div>
@@ -256,18 +271,40 @@ export default function Contatti() {
                 </div>
               </div>
 
-              {/* Map */}
+              {/* Map Facade (No third-party load without user interaction) */}
               <div className="rounded-2xl overflow-hidden border border-black/5 h-[350px]">
-                <iframe
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=10.265%2C45.475%2C10.315%2C45.505&layer=mapnik&marker=45.49%2C10.29"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, filter: 'grayscale(1) contrast(1.1)' }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Mappa AF Elektra 2"
-                />
+                {mapLoaded ? (
+                  <iframe
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=10.265%2C45.475%2C10.315%2C45.505&layer=mapnik&marker=45.49%2C10.29"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0, filter: 'grayscale(1) contrast(1.1)' }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    title="Mappa AF Elektra 2"
+                  />
+                ) : (
+                  <div className="h-[350px] rounded-2xl border bg-gray-light flex flex-col items-center justify-center p-6 text-center">
+                    <MapPin size={32} className="text-elektra-accent mb-3" />
+                    <p className="font-semibold text-sm text-black mb-1">
+                      Mappa di Castenedolo (BS) - Via Artigiani 19
+                    </p>
+                    <p className="text-xs text-gray-medium max-w-sm mb-4">
+                      Per visualizzare la mappa interattiva della nostra sede, clicca sul pulsante qui sotto.
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => setMapLoaded(true)}
+                      className="bg-black text-white hover:bg-black/80 text-xs font-semibold px-5 py-2.5 rounded-lg transition-colors duration-300"
+                    >
+                      Carica mappa interattiva
+                    </button>
+                    <p className="text-[11px] text-gray-medium/80 mt-3">
+                      Caricando la mappa contatti OpenStreetMap (terza parte - OSM Foundation).
+                    </p>
+                  </div>
+                )}
               </div>
             </motion.div>
           </div>

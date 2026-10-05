@@ -106,15 +106,16 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-6 lg:px-10">
         
-        {/* Full-Screen Background Video */}
+        {/* Full-Screen Background Video / Poster (Self-hosted only, no external third-party calls) */}
         <div className="absolute inset-0 z-0">
+          {/* TODO: caricare mp4 self-hostato in public/videos/ */}
           <video 
             autoPlay 
             muted 
             loop 
             playsInline 
+            poster="/images/stabilimento.jpg"
             className="w-full h-full object-cover grayscale"
-            src="https://www.mpe-electronics.co.uk/wp-content/uploads/2024/02/contract-electronics-manufacture-mpe.mp4"
           />
         </div>
         
