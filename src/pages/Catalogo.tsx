@@ -314,7 +314,7 @@ export default function Catalogo() {
               Catalogo Prodotti
             </h1>
             <p className="text-base text-gray-medium mt-4 max-w-xl">
-              148 prodotti per l&apos;elettronica industriale. Alimentatori, schede interfaccia, relè statici e componenti.
+              Selezione di prodotti per l&apos;elettronica industriale. Alimentatori, schede interfaccia, relè statici e componenti.
             </p>
           </motion.div>
         </div>

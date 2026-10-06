@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import { ShieldCheck, Mail, Phone, MapPin, Building2, AlertCircle } from 'lucide-react';
+import { ShieldCheck, Mail, Phone, MapPin, Building2 } from 'lucide-react';
 
 export default function Privacy() {
   return (
@@ -24,17 +24,6 @@ export default function Privacy() {
         <div className="max-w-7xl mx-auto">
           <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-black/5 space-y-10 text-gray-dark leading-relaxed">
 
-            {/* Nota validazione legale */}
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm">
-              <AlertCircle size={20} className="flex-shrink-0 mt-0.5 text-amber-700" />
-              <div>
-                <p className="font-medium">Avvertenza di trasparenza:</p>
-                <p className="text-amber-800 text-xs mt-1">
-                  Questo documento descrive la gestione dei dati personali del presente sito vetrina privo di strumenti di profilazione o tracciamento commerciale. Testo da far validare al legale o consulente privacy del Titolare.
-                </p>
-              </div>
-            </div>
-
             {/* 1. Titolare del Trattamento */}
             <section className="space-y-4">
               <div className="flex items-center gap-2">
@@ -51,7 +40,6 @@ export default function Privacy() {
                   <strong>Sede:</strong> Via Artigiani 19, 25014 Castenedolo (BS), Italia
                 </p>
                 <p><strong>Codice Fiscale e Partita IVA:</strong> 03286600980</p>
-                <p><strong>Iscrizione R.E.A.:</strong> [DA COMPLETARE: REA Brescia]</p>
                 <p className="flex items-center gap-2">
                   <Phone size={16} className="text-gray-medium" />
                   <strong>Telefono:</strong> 030 2130630
@@ -60,7 +48,7 @@ export default function Privacy() {
                   <Mail size={16} className="text-gray-medium" />
                   <strong>Email:</strong> afelektra2@afelektra.com
                 </p>
-                <p><strong>PEC:</strong> [DA COMPLETARE: PEC]</p>
+                <p><strong>PEC:</strong> monica.romano@pec.it</p>
               </div>
               <p>
                 Per qualsiasi richiesta relativa all&apos;esercizio dei diritti previsti dal GDPR o per chiarimenti in merito al trattamento dei dati, l&apos;interessato può rivolgersi direttamente al Titolare inviando una comunicazione via email all&apos;indirizzo <strong>afelektra2@afelektra.com</strong>.
@@ -131,10 +119,10 @@ export default function Privacy() {
             <section className="space-y-4">
               <h2 className="text-2xl font-bold text-black">5. Periodo di Conservazione dei Dati</h2>
               <p>
-                I dati raccolti tramite il form di contatto o via posta elettronica saranno conservati per il tempo strettamente necessario a gestire ed evadere compiutamente la richiesta dell&apos;interessato, e comunque per un periodo non superiore a <strong>12 mesi</strong> dalla conclusione dello scambio [DA VALIDARE DAL TITOLARE], a meno che l&apos;interazione non si traduca in un rapporto contrattuale formale (nel qual caso i dati fiscali e contrattuali saranno conservati per i termini di legge, pari a 10 anni).
+                I dati raccolti tramite il form di contatto o via posta elettronica saranno conservati per il tempo strettamente necessario a gestire ed evadere compiutamente la richiesta dell&apos;interessato, e comunque per un periodo non superiore a <strong>12 mesi</strong> dalla conclusione dello scambio, a meno che l&apos;interazione non si traduca in un rapporto contrattuale formale (nel qual caso i dati fiscali e contrattuali saranno conservati per i termini di legge, pari a 10 anni).
               </p>
               <p className="text-sm">
-                I log tecnici di sicurezza registrati a livello server da Aruba S.p.A. vengono conservati secondo le tempistiche standard dell&apos;infrastruttura di hosting, di norma stimate in 6-12 mesi [DA VALIDARE DAL TITOLARE].
+                I log tecnici di sicurezza registrati a livello server da Aruba S.p.A. vengono conservati secondo le tempistiche standard dell&apos;infrastruttura di hosting, di norma stimate in 6-12 mesi.
               </p>
             </section>
 
@@ -196,7 +184,6 @@ export default function Privacy() {
             {/* 9. Aggiornamento dell'Informativa */}
             <section className="pt-6 border-t border-black/10 text-xs text-gray-medium space-y-1">
               <p><strong>Ultimo aggiornamento:</strong> Ottobre 2026</p>
-              <p>Testo da far validare al legale o consulente privacy del Titolare prima della messa in produzione definitiva.</p>
             </section>
 
           </div>

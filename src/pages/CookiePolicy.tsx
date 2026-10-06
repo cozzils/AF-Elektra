@@ -1,6 +1,6 @@
 import { Link } from 'react-router';
 import Layout from '@/components/Layout';
-import { Cookie, ShieldAlert, CheckCircle2, ExternalLink, AlertCircle } from 'lucide-react';
+import { Cookie, ShieldAlert, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export default function CookiePolicy() {
   return (
@@ -24,17 +24,6 @@ export default function CookiePolicy() {
       <section className="py-16 px-6 lg:px-10 bg-gray-light/40">
         <div className="max-w-7xl mx-auto">
           <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-black/5 space-y-10 text-gray-dark leading-relaxed">
-
-            {/* Nota validazione legale */}
-            <div className="flex items-start gap-3 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-900 text-sm">
-              <AlertCircle size={20} className="flex-shrink-0 mt-0.5 text-amber-700" />
-              <div>
-                <p className="font-medium">Avvertenza di trasparenza:</p>
-                <p className="text-amber-800 text-xs mt-1">
-                  Questo sito adotta una configurazione &ldquo;Privacy by Design&rdquo; esente da obbligo di cookie banner preventivo poiché non impiega alcun cookie di profilazione, marketing o analytics di terze parti. Testo da far validare al legale del Titolare.
-                </p>
-              </div>
-            </div>
 
             {/* 1. Cosa sono i cookie */}
             <section className="space-y-4">
@@ -185,7 +174,6 @@ export default function CookiePolicy() {
               </p>
               <div className="text-xs text-gray-medium space-y-1 pt-2">
                 <p><strong>Ultimo aggiornamento:</strong> Ottobre 2026</p>
-                <p>Testo da far validare al legale o consulente privacy del Titolare prima della messa in produzione definitiva.</p>
               </div>
             </section>
 

@@ -43,7 +43,7 @@ function ServiceRow({ items, direction = 'left' }: { items: { icon: React.ReactN
 }
 
 /* ─── Product Category Card ─── */
-function CategoryCard({ title, count, image, icon }: { title: string; count: number; image: string; icon: React.ReactNode }) {
+function CategoryCard({ title, image, icon }: { title: string; image: string; icon: React.ReactNode }) {
   return (
     <Link
       to="/catalogo"
@@ -64,7 +64,6 @@ function CategoryCard({ title, count, image, icon }: { title: string; count: num
             </div>
             <h3 className="font-semibold text-lg text-black">{title}</h3>
           </div>
-          <span className="text-xs text-gray-medium bg-gray-light px-2.5 py-1 rounded-full">{count}</span>
         </div>
       </div>
     </Link>
@@ -298,25 +297,21 @@ export default function Home() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
             <CategoryCard
               title="Alimentatori"
-              count={42}
               image="/images/alimentatore.jpg"
               icon={<Zap size={18} />}
             />
             <CategoryCard
               title="Schede Interfaccia"
-              count={35}
               image="/images/scheda-interfaccia.jpg"
               icon={<CircuitBoard size={18} />}
             />
             <CategoryCard
               title="Relè Statici"
-              count={28}
               image="/images/rele.jpg"
               icon={<ToggleRight size={18} />}
             />
             <CategoryCard
               title="Componenti"
-              count={43}
               image="/images/pcb-closeup.jpg"
               icon={<Puzzle size={18} />}
             />
@@ -350,8 +345,8 @@ export default function Home() {
             />
             <StatBlock
               number="03"
-              title="Qualita Certificata"
-              desc="ISO 9001. Ogni prodotto viene collaudato secondo rigorosi standard qualitativi."
+              title="Qualità Controllata"
+              desc="Ogni prodotto viene collaudato secondo rigorosi standard qualitativi."
             />
           </div>
         </div>

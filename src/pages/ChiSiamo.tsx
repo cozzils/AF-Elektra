@@ -56,12 +56,11 @@ export default function ChiSiamo() {
 
       {/* ─── STATS BAR ─── */}
       <section className="bg-black text-white py-12 px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             { label: 'Anni di Competenza', value: '40+' },
             { label: 'Fondazione', value: '2019' },
             { label: 'Sede', value: 'Brescia' },
-            { label: 'Prodotti', value: '148' },
           ].map((stat, i) => (
             <motion.div
               key={i}

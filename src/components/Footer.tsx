@@ -20,7 +20,7 @@ export default function Footer() {
             <div className="mt-6 space-y-1 text-xs text-white/40">
               <p>P.IVA / C.F. 03286600980</p>
               <p>Via Artigiani 19, 25014 Castenedolo (BS)</p>
-              <p>[DA COMPLETARE: REA Brescia / PEC]</p>
+              <p>PEC: monica.romano@pec.it</p>
             </div>
           </div>
 
@@ -104,7 +104,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/40">
-            &copy; {new Date().getFullYear()} AF Elektra 2 &bull; P.IVA / C.F. 03286600980 &bull; Via Artigiani 19, Castenedolo (BS) &bull; [DA COMPLETARE: REA Brescia / PEC]
+            &copy; {new Date().getFullYear()} AF Elektra 2 &bull; P.IVA / C.F. 03286600980 &bull; Via Artigiani 19, Castenedolo (BS) &bull; PEC: monica.romano@pec.it
           </p>
           <p className="text-xs text-white/40">
             Ingegneria di precisione, dal 2019.
