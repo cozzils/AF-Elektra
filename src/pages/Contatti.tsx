@@ -18,22 +18,53 @@ import Layout from '@/components/Layout';
 export default function Contatti() {
   const [formData, setFormData] = useState({
     nome: '',
-    azienda: '',
     email: '',
     telefono: '',
     area: '',
     messaggio: '',
     privacy: false,
+    website: '', // honeypot anti-bot: deve restare vuoto
   });
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState('');
   const [mapLoaded, setMapLoaded] = useState(false);
 
-  // TODO BACKEND: collegare a endpoint PHP Aruba / servizio SMTP - nessun dato viene inviato oggi
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.privacy) return;
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 5000);
+    if (!formData.privacy || sending) return;
+    setSending(true);
+    setSendError('');
+    try {
+      const res = await fetch('/send.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome: formData.nome,
+          email: formData.email,
+          telefono: formData.telefono,
+          area: formData.area,
+          messaggio: formData.messaggio,
+          privacy: formData.privacy,
+          website: formData.website,
+        }),
+      });
+      const data = await res.json().catch(() => null);
+      if (!res.ok || !data?.ok) {
+        throw new Error(data?.error || 'Invio non riuscito. Riprova tra poco.');
+      }
+      setSubmitted(true);
+    } catch (err) {
+      setSendError(err instanceof Error ? err.message : 'Invio non riuscito. Riprova tra poco.');
+    } finally {
+      setSending(false);
+    }
+  };
+
+  const handleNewRequest = () => {
+    setSubmitted(false);
+    setSendError('');
+    setFormData({ nome: '', email: '', telefono: '', area: '', messaggio: '', privacy: false, website: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -88,10 +119,28 @@ export default function Contatti() {
                       <CheckCircle2 size={32} />
                     </div>
                     <h3 className="text-lg font-semibold text-black">Richiesta Inviata!</h3>
-                    <p className="text-sm text-gray-medium mt-2">Ti risponderemo al piu presto.</p>
+                    <p className="text-sm text-gray-medium mt-2">Ti risponderemo al piu presto all&apos;indirizzo indicato.</p>
+                    <button
+                      type="button"
+                      onClick={handleNewRequest}
+                      className="mt-6 text-sm font-medium text-black underline hover:no-underline"
+                    >
+                      Invia un&apos;altra richiesta
+                    </button>
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
+                    {/* Honeypot anti-bot: invisibile agli umani, i bot lo compilano */}
+                    <input
+                      type="text"
+                      name="website"
+                      value={formData.website}
+                      onChange={handleChange}
+                      tabIndex={-1}
+                      autoComplete="off"
+                      aria-hidden="true"
+                      className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none"
+                    />
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
@@ -200,17 +249,23 @@ export default function Contatti() {
                       </span>
                     </label>
 
+                    {sendError && (
+                      <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        {sendError}
+                      </p>
+                    )}
+
                     <button
                       type="submit"
-                      disabled={!formData.privacy}
+                      disabled={!formData.privacy || sending}
                       className={`w-full flex items-center justify-center gap-2 text-sm font-medium px-6 py-3.5 rounded-lg transition-all duration-300 ${
-                        formData.privacy
+                        formData.privacy && !sending
                           ? 'bg-elektra-accent text-white hover:bg-elektra-accent/90'
                           : 'bg-gray-light text-gray-medium cursor-not-allowed'
                       }`}
                     >
                       <Send size={16} />
-                      Invia Richiesta
+                      {sending ? 'Invio in corso...' : 'Invia Richiesta'}
                     </button>
 
                     {/* Testo informativo art. 13 */}
