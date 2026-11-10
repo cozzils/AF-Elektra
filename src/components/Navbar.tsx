@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
 import { Menu, X } from 'lucide-react';
+import Logo from '@/components/Logo';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -33,32 +34,49 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
 
+  // Se la rotta cambia (link, back/forward del browser), il menu mobile
+  // non deve restare aperto sopra la nuova pagina. Adeguiamo lo stato
+  // durante il render invece di usare un effect con setState.
+  const [menuPath, setMenuPath] = useState(location.pathname);
+  if (location.pathname !== menuPath) {
+    setMenuPath(location.pathname);
+    setMobileOpen(false);
+  }
+
+  // Esc chiude il menu, come ci si aspetta da un overlay a tutto schermo.
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileOpen(false);
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [mobileOpen]);
+
   const closeMobileMenu = () => setMobileOpen(false);
+
+  // Sulla home l'header è sopra la foto scura: finché non si scrolla (o non si
+  // apre il menu) serve la variante chiara, altrimenti il contrasto crolla.
+  const solidHeader = scrolled || mobileOpen || location.pathname !== '/';
+  const darkHeader = !solidHeader;
 
   return (
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-          scrolled
-            ? 'bg-white/90 backdrop-blur-md border-b border-black/5 shadow-xs'
-            : 'bg-transparent'
+          solidHeader
+            ? 'bg-white/95 backdrop-blur-md border-b border-black/5 shadow-xs'
+            : 'bg-gradient-to-b from-black/60 via-black/25 to-transparent'
         }`}
       >
         <div className="flex items-center justify-between px-6 lg:px-10 h-16 lg:h-20">
           {/* Logo */}
           <Link
             to="/"
-            className="flex items-center gap-2 font-bold text-lg lg:text-xl tracking-tight text-black hover:opacity-75 transition-opacity duration-300"
+            className="flex items-center hover:opacity-80 transition-opacity duration-300"
+            aria-label="AF Elektra 2 — torna alla home"
           >
-            <svg className="w-7 h-7 text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <rect x="2" y="2" width="20" height="20" rx="2" ry="2"></rect>
-              <path d="M2 12h4"></path>
-              <path d="M18 12h4"></path>
-              <path d="M12 2v4"></path>
-              <path d="M12 18v4"></path>
-              <circle cx="12" cy="12" r="3"></circle>
-            </svg>
-            AF Elektra 2
+            <Logo className="h-10 lg:h-12 w-auto" />
           </Link>
 
           {/* Desktop Nav */}
@@ -70,8 +88,8 @@ export default function Navbar() {
                 aria-current={location.pathname === link.path ? 'page' : undefined}
                 className={`text-sm font-semibold tracking-wide uppercase transition-colors duration-300 ${
                   location.pathname === link.path
-                    ? 'text-black'
-                    : 'text-gray-medium hover:text-black'
+                    ? darkHeader ? 'text-white' : 'text-black'
+                    : darkHeader ? 'text-white/80 hover:text-white' : 'text-gray-medium hover:text-black'
                 }`}
               >
                 {link.label}
@@ -80,10 +98,14 @@ export default function Navbar() {
           </nav>
 
           {/* Desktop Actions */}
-          <div className="hidden lg:flex items-center gap-4 text-black">
+          <div className="hidden lg:flex items-center gap-4">
             <Link
               to="/contatti"
-              className="ml-2 bg-black text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-black/80 transition-all duration-300 shadow-sm"
+              className={`ml-2 text-sm font-bold px-5 py-2.5 rounded-lg transition-all duration-300 shadow-sm ${
+                darkHeader
+                  ? 'bg-white text-black hover:bg-white/90'
+                  : 'bg-black text-white hover:bg-black/80'
+              }`}
             >
               Richiedi Preventivo
             </Link>
@@ -91,7 +113,7 @@ export default function Navbar() {
 
           {/* Mobile Toggle */}
           <button
-            className="lg:hidden p-2 text-black"
+            className={`lg:hidden p-2 ${darkHeader ? 'text-white' : 'text-black'}`}
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
             aria-expanded={mobileOpen}

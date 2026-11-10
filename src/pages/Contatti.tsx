@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 import {
@@ -10,11 +10,15 @@ import {
   Send,
   CheckCircle2,
   User,
-  Briefcase,
   MessageSquare,
+  Clock,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import { usePageMeta } from '@/hooks/usePageMeta';
+
+// Su Vercel la funzione serverless è /api/contact. Per un hosting PHP si può
+// impostare VITE_CONTACT_ENDPOINT (es. /send.php) in fase di build.
+const CONTACT_ENDPOINT = import.meta.env.VITE_CONTACT_ENDPOINT || '/api/contact';
 
 export default function Contatti() {
   usePageMeta(
@@ -35,15 +39,25 @@ export default function Contatti() {
   const [submitted, setSubmitted] = useState(false);
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState('');
+  const [privacyError, setPrivacyError] = useState('');
   const [mapLoaded, setMapLoaded] = useState(false);
+  const privacyRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.privacy || sending) return;
+    if (sending) return;
+
+    if (!formData.privacy) {
+      setPrivacyError('Per inviare la richiesta devi accettare la Privacy Policy.');
+      privacyRef.current?.focus();
+      return;
+    }
+
+    setPrivacyError('');
     setSending(true);
     setSendError('');
     try {
-      const res = await fetch('/send.php', {
+      const res = await fetch(CONTACT_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -71,11 +85,13 @@ export default function Contatti() {
   const handleNewRequest = () => {
     setSubmitted(false);
     setSendError('');
+    setPrivacyError('');
     setFormData({ nome: '', email: '', telefono: '', area: '', messaggio: '', privacy: false, website: '' });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
+    if (name === 'privacy') setPrivacyError('');
     setFormData((prev) => ({
       ...prev,
       [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value,
@@ -124,7 +140,7 @@ export default function Contatti() {
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
                   >
-                    <div className="w-16 h-16 rounded-full bg-elektra-accent flex items-center justify-center text-black mb-4">
+                    <div className="w-16 h-16 rounded-full bg-elektra-accent flex items-center justify-center text-white mb-4">
                       <CheckCircle2 size={32} />
                     </div>
                     <h3 className="text-lg font-semibold text-black">Richiesta Inviata!</h3>
@@ -174,7 +190,7 @@ export default function Contatti() {
                       </div>
                       <div>
                         <label htmlFor="email" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                          <Briefcase size={14} className="text-gray-medium" />
+                          <Mail size={14} className="text-gray-medium" />
                           Email *
                         </label>
                         <input
@@ -257,11 +273,14 @@ export default function Contatti() {
                     <label htmlFor="privacy" className="flex items-start gap-3 cursor-pointer group">
                       <input
                         id="privacy"
+                        ref={privacyRef}
                         name="privacy"
                         type="checkbox"
                         checked={formData.privacy}
                         onChange={handleChange}
-                        required
+                        aria-required="true"
+                        aria-invalid={privacyError ? 'true' : undefined}
+                        aria-describedby={privacyError ? 'privacy-error' : undefined}
                         className="peer sr-only"
                       />
                       <span
@@ -283,6 +302,12 @@ export default function Contatti() {
                       </span>
                     </label>
 
+                    {privacyError && (
+                      <p id="privacy-error" role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
+                        {privacyError}
+                      </p>
+                    )}
+
                     {sendError && (
                       <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
                         {sendError}
@@ -291,11 +316,11 @@ export default function Contatti() {
 
                     <button
                       type="submit"
-                      disabled={!formData.privacy || sending}
+                      disabled={sending}
                       className={`w-full flex items-center justify-center gap-2 text-sm font-medium px-6 py-3.5 rounded-lg transition-all duration-300 ${
-                        formData.privacy && !sending
-                          ? 'bg-elektra-accent text-white hover:bg-elektra-accent/90'
-                          : 'bg-gray-light text-gray-medium cursor-not-allowed'
+                        sending
+                          ? 'bg-gray-light text-gray-medium cursor-wait'
+                          : 'bg-elektra-accent text-white hover:bg-elektra-accent/90'
                       }`}
                     >
                       <Send size={16} />
@@ -324,7 +349,7 @@ export default function Contatti() {
               {/* Contact Info Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
-                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-black mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-white mb-4">
                     <MapPin size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Indirizzo</h3>
@@ -336,7 +361,7 @@ export default function Contatti() {
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
-                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-black mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-white mb-4">
                     <Phone size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Telefono</h3>
@@ -344,7 +369,7 @@ export default function Contatti() {
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
-                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-black mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-white mb-4">
                     <Mail size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Email Commerciale</h3>
@@ -352,11 +377,22 @@ export default function Contatti() {
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
-                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-black mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-white mb-4">
                     <Building2 size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">P.IVA / C.F.</h3>
                   <p className="text-sm text-gray-medium">03286600980</p>
+                </div>
+
+                <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
+                  <div className="w-10 h-10 rounded-xl bg-elektra-accent flex items-center justify-center text-white mb-4">
+                    <Clock size={18} />
+                  </div>
+                  <h3 className="font-semibold text-sm text-black mb-1">Orari</h3>
+                  <p className="text-sm text-gray-medium leading-relaxed">
+                    Lun–Ven, su appuntamento<br />
+                    <span className="text-xs">Chiamaci per fissare un incontro.</span>
+                  </p>
                 </div>
               </div>
 
@@ -364,7 +400,7 @@ export default function Contatti() {
               <div className="rounded-2xl overflow-hidden border border-black/5 h-[350px]">
                 {mapLoaded ? (
                   <iframe
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=10.265%2C45.475%2C10.315%2C45.505&layer=mapnik&marker=45.49%2C10.29"
+                    src="https://www.openstreetmap.org/export/embed.html?bbox=10.2705%2C45.4764%2C10.2867%2C45.4864&layer=mapnik&marker=45.4814%2C10.2786"
                     width="100%"
                     height="100%"
                     style={{ border: 0, filter: 'grayscale(1) contrast(1.1)' }}

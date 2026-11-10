@@ -21,12 +21,10 @@ export default defineConfig([
     },
   },
   {
-    // Componenti shadcn/ui generati: non li usiamo nel sito e le regole di
-    // fast-refresh/purezza non hanno senso su codice di libreria.
-    files: ['src/components/ui/**/*.{ts,tsx}'],
-    rules: {
-      'react-refresh/only-export-components': 'off',
-      'react-hooks/purity': 'off',
+    // Funzione serverless Vercel
+    files: ['api/**/*.ts'],
+    languageOptions: {
+      globals: globals.node,
     },
   },
 ])

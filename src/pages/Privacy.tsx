@@ -38,10 +38,10 @@ export default function Privacy() {
                 <h2 className="text-2xl font-bold text-black">1. Titolare del Trattamento</h2>
               </div>
               <p>
-                Il Titolare del trattamento dei dati personali è <strong>AF Elektra 2</strong>, con sede legale e operativa in:
+                Il Titolare del trattamento dei dati personali è <strong>AF Elektra 2 di Romano Monica</strong>, con sede legale e operativa in:
               </p>
               <div className="bg-gray-light p-6 rounded-xl space-y-2 text-sm">
-                <p><strong>Ragione sociale:</strong> AF Elektra 2</p>
+                <p><strong>Ragione sociale:</strong> AF Elektra 2 di Romano Monica</p>
                 <p className="flex items-center gap-2">
                   <MapPin size={16} className="text-gray-medium" />
                   <strong>Sede:</strong> Via Artigiani 19, 25014 Castenedolo (BS), Italia
@@ -55,7 +55,6 @@ export default function Privacy() {
                   <Mail size={16} className="text-gray-medium" />
                   <strong>Email:</strong> afelektra2@afelektra.com
                 </p>
-                <p><strong>PEC:</strong> monica.romano@pec.it</p>
               </div>
               <p>
                 Per qualsiasi richiesta relativa all&apos;esercizio dei diritti previsti dal GDPR o per chiarimenti in merito al trattamento dei dati, l&apos;interessato può rivolgersi direttamente al Titolare inviando una comunicazione via email all&apos;indirizzo <strong>afelektra2@afelektra.com</strong>.
@@ -85,7 +84,7 @@ export default function Privacy() {
                     I sistemi informatici e le procedure software preposte al funzionamento di questo sito acquisiscono, nel corso del loro normale esercizio, alcuni dati di traffico la cui trasmissione è implicita nell&apos;uso dei protocolli di comunicazione di Internet.
                   </p>
                   <p className="text-sm mt-2">
-                    Tra questi rientrano: indirizzi IP o nomi a dominio dei computer utilizzati dagli utenti, orario della richiesta, metodo utilizzato nel sottoporre la richiesta al server, codice numerico indicante lo stato della risposta e altri parametri relativi al sistema operativo e all&apos;ambiente informatico dell&apos;utente. Questi dati vengono registrati nei file di log dell&apos;infrastruttura di hosting fornita da Aruba S.p.A. per fini esclusivamente tecnici di sicurezza, prevenzione di attacchi o accessi abusivi e corretto funzionamento del servizio.
+                    Tra questi rientrano: indirizzi IP o nomi a dominio dei computer utilizzati dagli utenti, orario della richiesta, metodo utilizzato nel sottoporre la richiesta al server, codice numerico indicante lo stato della risposta e altri parametri relativi al sistema operativo e all&apos;ambiente informatico dell&apos;utente. Questi dati vengono registrati nei file di log e nei sistemi di sicurezza dell&apos;infrastruttura di hosting e distribuzione fornita da Vercel Inc. per fini esclusivamente tecnici di sicurezza, prevenzione di attacchi o accessi abusivi e corretto funzionamento del servizio.
                   </p>
                 </div>
               </div>
@@ -129,7 +128,7 @@ export default function Privacy() {
                 I dati raccolti tramite il form di contatto o via posta elettronica saranno conservati per il tempo strettamente necessario a gestire ed evadere compiutamente la richiesta dell&apos;interessato, e comunque per un periodo non superiore a <strong>12 mesi</strong> dalla conclusione dello scambio, a meno che l&apos;interazione non si traduca in un rapporto contrattuale formale (nel qual caso i dati fiscali e contrattuali saranno conservati per i termini di legge, pari a 10 anni).
               </p>
               <p className="text-sm">
-                I log tecnici di sicurezza registrati a livello server da Aruba S.p.A. vengono conservati secondo le tempistiche standard dell&apos;infrastruttura di hosting, di norma stimate in 6-12 mesi.
+                I log tecnici di sicurezza registrati dal fornitore di hosting vengono conservati secondo le tempistiche tecniche del fornitore, comunque non oltre il periodo necessario alle finalità di sicurezza e diagnosi.
               </p>
             </section>
 
@@ -144,11 +143,14 @@ export default function Privacy() {
               </p>
               <ul className="list-disc list-inside text-sm space-y-1 pl-2">
                 <li>
-                  <strong>Aruba S.p.A.</strong> (con sede in Italia e datacenter situati nel territorio dell&apos;Unione Europea), fornitore dei servizi di web hosting, posta elettronica e infrastruttura server.
+                  <strong>Vercel Inc.</strong>, fornitore dei servizi di hosting, distribuzione e infrastruttura server del sito.
+                </li>
+                <li>
+                  <strong>Fornitori di servizi di invio email transazionale</strong>, nominati responsabili del trattamento ai sensi dell&apos;art. 28 GDPR e utilizzati esclusivamente per recapitare le richieste inviate tramite il modulo di contatto.
                 </li>
               </ul>
               <p className="text-sm">
-                <strong>Nessun trasferimento extra-UE:</strong> Nessun dato personale raccolto tramite il sito viene trasferito al di fuori dello Spazio Economico Europeo (SEE). I dati non vengono ceduti, venduti o diffusi a terzi per finalità proprie di questi ultimi.
+                <strong>Trasferimenti extra-UE:</strong> alcuni fornitori possono avere sede o infrastrutture al di fuori dello Spazio Economico Europeo. In tal caso il trasferimento avviene sulla base di garanzie adeguate ai sensi degli artt. 44 e seguenti del GDPR (decisioni di adeguatezza o clausole contrattuali standard). I dati non vengono ceduti, venduti o diffusi a terzi per finalità proprie di questi ultimi.
               </p>
               <p className="text-sm">
                 <strong>Servizi di terze parti opzionali (OpenStreetMap):</strong> Nel sito è presente una mappa interattiva fornita da OpenStreetMap Foundation (OSMF). Tale mappa non viene caricata all&apos;avvio della pagina (nessuna connessione automatica né cookie di terze parti), bensì è protetta da un meccanismo di &ldquo;click attivo&rdquo; (facade): l&apos;utente può scegliere autonomamente se caricare il riquadro interattivo, instaurando una connessione diretta con i server della fondazione OSM.
@@ -190,7 +192,7 @@ export default function Privacy() {
 
             {/* 9. Aggiornamento dell'Informativa */}
             <section className="pt-6 border-t border-black/10 text-xs text-gray-medium space-y-1">
-              <p><strong>Ultimo aggiornamento:</strong> Ottobre 2026</p>
+              <p><strong>Ultimo aggiornamento:</strong> Novembre 2026</p>
             </section>
 
           </div>

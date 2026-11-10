@@ -23,16 +23,26 @@ function upsertCanonical(href: string) {
 }
 
 /**
- * Aggiorna title, meta description, Open Graph e canonical per la rotta corrente.
+ * Aggiorna title, meta description, Open Graph, Twitter e canonical per la rotta corrente.
  * Il sito è una SPA: senza questo tutte le pagine condividono i meta della home.
  */
-export function usePageMeta(title: string, description: string, path: string) {
+export function usePageMeta(
+  title: string,
+  description: string,
+  path: string,
+  options: { noindex?: boolean } = {},
+) {
+  const noindex = options.noindex === true;
+
   useEffect(() => {
     document.title = title;
     upsertMeta('name', 'description', description);
+    upsertMeta('name', 'robots', noindex ? 'noindex,follow' : 'index,follow,max-image-preview:large');
     upsertMeta('property', 'og:title', title);
     upsertMeta('property', 'og:description', description);
     upsertMeta('property', 'og:url', `${SITE_URL}${path}`);
+    upsertMeta('name', 'twitter:title', title);
+    upsertMeta('name', 'twitter:description', description);
     upsertCanonical(`${SITE_URL}${path}`);
-  }, [title, description, path]);
+  }, [title, description, path, noindex]);
 }

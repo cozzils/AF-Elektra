@@ -92,12 +92,12 @@ export default function CookiePolicy() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="p-3 border border-black/10 font-mono text-xs">Cookie tecnici di hosting Aruba</td>
-                      <td className="p-3 border border-black/10">Tecnico di sistema (Aruba S.p.A.)</td>
+                      <td className="p-3 border border-black/10 font-mono text-xs">—</td>
+                      <td className="p-3 border border-black/10">Nessun cookie installato dal sito</td>
                       <td className="p-3 border border-black/10">
-                        Gestione del bilanciamento di carico, sicurezza dell&apos;infrastruttura di rete e routing delle richieste HTTP/HTTPS.
+                        Il sito non utilizza cookie propri di prima parte, né <em>localStorage</em> o <em>sessionStorage</em> per finalità di tracciamento. L&apos;infrastruttura di hosting può registrare log tecnici di sicurezza, che non sono cookie.
                       </td>
-                      <td className="p-3 border border-black/10">Sessione</td>
+                      <td className="p-3 border border-black/10">—</td>
                     </tr>
                   </tbody>
                 </table>
@@ -167,7 +167,7 @@ export default function CookiePolicy() {
                 </Link>.
               </p>
               <div className="text-xs text-gray-medium space-y-1 pt-2">
-                <p><strong>Ultimo aggiornamento:</strong> Ottobre 2026</p>
+                <p><strong>Ultimo aggiornamento:</strong> Novembre 2026</p>
               </div>
             </section>
 

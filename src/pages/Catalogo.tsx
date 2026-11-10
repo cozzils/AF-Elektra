@@ -13,6 +13,7 @@ import {
   Puzzle,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SmartImage from '@/components/SmartImage';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 /* ─── Types ─── */
@@ -25,7 +26,7 @@ interface Product {
   mounting: string;
   available: boolean;
   delivery?: string;
-  image: string;
+  image: string | null;
   specs: string[];
 }
 
@@ -84,10 +85,9 @@ const products: Product[] = [
     voltage: '4-32 VDC',
     mounting: 'DIN Rail',
     available: true,
-    image: '/images/rele.jpg',
+    image: null,
     specs: ['4-32 VDC ctrl', '24-600 VAC', '25A max'],
-  },
-  {
+  },  {
     id: '6',
     name: 'Scheda I/O Analogica 4ch',
     code: 'INT-BRD-4A-10V',
@@ -95,7 +95,7 @@ const products: Product[] = [
     voltage: '24 VDC',
     mounting: 'DIN Rail',
     available: true,
-    image: '/images/pcb-closeup.jpg',
+    image: null,
     specs: ['4 canali', '0-10V / 4-20mA', 'Isolata'],
   },
   {
@@ -107,7 +107,7 @@ const products: Product[] = [
     mounting: 'DIN Rail',
     available: false,
     delivery: '3 settimane',
-    image: '/images/alimentatore.jpg',
+    image: null,
     specs: ['85-264 VAC in', '24VDC 10A', 'Backup batteria'],
   },
   {
@@ -118,12 +118,12 @@ const products: Product[] = [
     voltage: '3-32 VDC',
     mounting: 'Panel',
     available: true,
-    image: '/images/rele.jpg',
+    image: null,
     specs: ['3-32 VDC ctrl', '12-120 VDC', '100A max'],
   },
 ];
 
-const categories = ['Tutti', 'Alimentatori', 'Schede Interfaccia', 'Relè Statici', 'Componenti'];
+const categories = ['Tutti', 'Alimentatori', 'Schede Interfaccia', 'Relè Statici'];
 const voltages = ['Tutti', '85-264 VAC', '230 VAC', '4-32 VDC', '24 VDC', '3-32 VDC'];
 const mountings = ['Tutti', 'DIN Rail', 'Aperto', 'Panel'];
 
@@ -131,7 +131,6 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'Alimentatori': <Zap size={16} />,
   'Relè Statici': <ToggleRight size={16} />,
   'Schede Interfaccia': <CircuitBoard size={16} />,
-  'Componenti': <Puzzle size={16} />,
 };
 
 /* ─── Product Card ─── */
@@ -140,13 +139,25 @@ function ProductCard({ product }: { product: Product }) {
     <div className="group bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-black/15 hover:shadow-panel transition-all duration-500">
       {/* Image */}
       <div className="relative aspect-square bg-gray-light overflow-hidden">
-        <img
-          src={product.image}
-          alt={product.name}
-          loading="lazy"
-          decoding="async"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out-circ"
-        />
+        {product.image ? (
+          <SmartImage
+            src={product.image}
+            alt={product.name}
+            width={1024}
+            height={1024}
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out-circ"
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center gap-3 p-6 text-center">
+            <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-elektra-accent">
+              {categoryIcons[product.category] || <Puzzle size={24} />}
+            </div>
+            <p className="text-xs uppercase tracking-widest text-gray-medium">Foto in aggiornamento</p>
+            <p className="text-xs font-mono text-gray-medium">{product.code}</p>
+          </div>
+        )}
         {/* Badge */}
         <div className="absolute top-3 left-3">
           {product.available ? (
@@ -332,7 +343,7 @@ function FilterPanel({
 export default function Catalogo() {
   usePageMeta(
     'Catalogo Prodotti | AF Elektra 2',
-    'Alimentatori, schede interfaccia, relè statici e componenti per l’elettronica industriale. Scopri il catalogo AF Elektra 2 e richiedi un preventivo.',
+    'Alimentatori, schede interfaccia e relè statici per l’elettronica industriale. Scopri il catalogo AF Elektra 2 e richiedi un preventivo.',
     '/catalogo',
   );
 
@@ -377,7 +388,7 @@ export default function Catalogo() {
               Catalogo Prodotti
             </h1>
             <p className="text-base text-gray-medium mt-4 max-w-xl">
-              Selezione di prodotti per l&apos;elettronica industriale. Alimentatori, schede interfaccia, relè statici e componenti.
+              Selezione di prodotti per l&apos;elettronica industriale. Alimentatori, schede interfaccia e relè statici.
             </p>
           </motion.div>
         </div>
@@ -427,15 +438,15 @@ export default function Catalogo() {
                     </button>
                   </div>
                   <FilterPanel
-                  selectedCategory={selectedCategory}
-                  onCategoryChange={setSelectedCategory}
-                  selectedVoltage={selectedVoltage}
-                  onVoltageChange={setSelectedVoltage}
-                  selectedMounting={selectedMounting}
-                  onMountingChange={setSelectedMounting}
-                  onlyAvailable={onlyAvailable}
-                  onOnlyAvailableChange={setOnlyAvailable}
-                />
+                    selectedCategory={selectedCategory}
+                    onCategoryChange={setSelectedCategory}
+                    selectedVoltage={selectedVoltage}
+                    onVoltageChange={setSelectedVoltage}
+                    selectedMounting={selectedMounting}
+                    onMountingChange={setSelectedMounting}
+                    onlyAvailable={onlyAvailable}
+                    onOnlyAvailableChange={setOnlyAvailable}
+                  />
                 </div>
               )}
             </div>
@@ -443,7 +454,7 @@ export default function Catalogo() {
             {/* Products Grid */}
             <div className="flex-1">
               <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
-                <p className="text-sm text-gray-medium">
+                <p className="text-sm text-gray-medium" aria-live="polite">
                   {filteredProducts.length} prodott{filteredProducts.length === 1 ? 'o' : 'i'} trovat{filteredProducts.length === 1 ? 'o' : 'i'}
                 </p>
                 {/* Active filter pills */}
@@ -517,6 +528,10 @@ export default function Catalogo() {
                   </button>
                 </div>
               )}
+
+              <p className="text-xs text-gray-medium mt-10 max-w-2xl">
+                Le immagini sono indicative e alcune sono in aggiornamento. Per schede tecniche, disponibilità aggiornata e codici alternativi contattaci: ti rispondiamo con la documentazione del prodotto.
+              </p>
             </div>
           </div>
         </div>

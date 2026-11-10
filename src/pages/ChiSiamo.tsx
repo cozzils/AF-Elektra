@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import SmartImage from '@/components/SmartImage';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 const processSteps = [
@@ -65,8 +66,8 @@ export default function ChiSiamo() {
       <section className="bg-black text-white py-12 px-6 lg:px-10">
         <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-8">
           {[
-            { label: 'Anni di Competenza', value: '40+' },
-            { label: 'Fondazione', value: '2019' },
+            { label: 'Esperienza dei fondatori', value: '40+' },
+            { label: 'Fondazione AF Elektra 2', value: '2019' },
             { label: 'Sede', value: 'Brescia' },
           ].map((stat, i) => (
             <motion.div
@@ -84,8 +85,8 @@ export default function ChiSiamo() {
       </section>
 
       {/* ─── ABOUT ─── */}
-      <section className="py-24 lg:py-32 px-6 lg:px-10 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16">
+      <section className="py-16 lg:py-24 px-6 lg:px-10 bg-white">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
           <div className="lg:col-span-5 reveal">
             <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">La Nostra Storia</p>
             <h2 className="text-3xl lg:text-4xl font-semibold text-black tracking-tight leading-tight">
@@ -119,27 +120,33 @@ export default function ChiSiamo() {
           <div className="lg:col-span-7 reveal">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden">
-                <img
+                <SmartImage
                   src="/images/cablaggio.jpg"
                   alt="Cablaggio quadri elettrici"
+                  width={1184}
+                  height={864}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-[300px] lg:h-full object-cover"
                 />
               </div>
               <div className="rounded-2xl overflow-hidden">
-                <img
+                <SmartImage
                   src="/images/pcb-closeup.jpg"
                   alt="Circuito stampato"
+                  width={1024}
+                  height={1024}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-[300px] object-cover"
                 />
               </div>
               <div className="sm:col-span-2 rounded-2xl overflow-hidden">
-                <img
-                  src="/images/stabilimento.jpg"
-                  alt="Stabilimento AF Elektra 2"
+                <SmartImage
+                  src="/images/caso-quadristica.jpg"
+                  alt="Quadro elettrico di comando e controllo"
+                  width={1344}
+                  height={768}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-[250px] object-cover"
@@ -151,9 +158,9 @@ export default function ChiSiamo() {
       </section>
 
       {/* ─── SPECIALIZZAZIONI ─── */}
-      <section className="py-24 lg:py-32 px-6 lg:px-10 bg-gray-light">
+      <section id="competenze" className="py-16 lg:py-24 px-6 lg:px-10 bg-gray-light">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-12 lg:mb-16 reveal">
             <p className="text-xs uppercase tracking-widest text-gray-medium mb-3">Competenze</p>
             <h2 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
               Le Nostre Specializzazioni
@@ -182,7 +189,7 @@ export default function ChiSiamo() {
                 key={i}
                 className="reveal bg-white rounded-2xl p-8 border border-black/5 hover:border-black/15 hover:shadow-panel transition-all duration-500 group"
               >
-                <div className="w-16 h-16 rounded-xl bg-gray-light flex items-center justify-center text-gray-dark group-hover:bg-elektra-accent group-hover:text-black transition-colors duration-300">
+                <div className="w-16 h-16 rounded-xl bg-gray-light flex items-center justify-center text-gray-dark group-hover:bg-elektra-accent group-hover:text-white transition-colors duration-300">
                   {spec.icon}
                 </div>
                 <h3 className="font-semibold text-xl text-black mt-6">{spec.title}</h3>
@@ -194,9 +201,9 @@ export default function ChiSiamo() {
       </section>
 
       {/* ─── PROCESSO 3 FASI ─── */}
-      <section className="py-24 lg:py-32 px-6 lg:px-10 bg-white">
+      <section className="py-16 lg:py-24 px-6 lg:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16 reveal">
+          <div className="text-center mb-12 lg:mb-16 reveal">
             <p className="text-xs uppercase tracking-widest text-gray-medium mb-3">Come Lavoriamo</p>
             <h2 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
               Il Nostro Processo
@@ -214,7 +221,7 @@ export default function ChiSiamo() {
                 className="relative"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-elektra-accent flex items-center justify-center text-black">
+                  <div className="w-14 h-14 rounded-xl bg-elektra-accent flex items-center justify-center text-white">
                     {step.icon}
                   </div>
                   <div>

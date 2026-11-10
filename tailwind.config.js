@@ -14,9 +14,10 @@ module.exports = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         'gray-light': '#F2F2F2',
-        'gray-medium': '#808080',
+        'gray-medium': '#5F6368',
         'gray-dark': '#3E3F41',
-        'elektra-accent': '#16A34A',
+        'elektra-accent': '#15803D',
+        'elektra-accent-light': '#4ADE80',
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
