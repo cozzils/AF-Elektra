@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router';
-import { Menu, X, ShoppingCart, User, Search } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const navLinks = [
   { label: 'Home', path: '/' },
@@ -19,13 +19,10 @@ export default function Navbar() {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
     };
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [location.pathname]);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -35,6 +32,8 @@ export default function Navbar() {
     }
     return () => { document.body.style.overflow = ''; };
   }, [mobileOpen]);
+
+  const closeMobileMenu = () => setMobileOpen(false);
 
   return (
     <>
@@ -59,7 +58,7 @@ export default function Navbar() {
               <path d="M12 18v4"></path>
               <circle cx="12" cy="12" r="3"></circle>
             </svg>
-            AF Elektra
+            AF Elektra 2
           </Link>
 
           {/* Desktop Nav */}
@@ -68,6 +67,7 @@ export default function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
+                aria-current={location.pathname === link.path ? 'page' : undefined}
                 className={`text-sm font-semibold tracking-wide uppercase transition-colors duration-300 ${
                   location.pathname === link.path
                     ? 'text-black'
@@ -81,15 +81,6 @@ export default function Navbar() {
 
           {/* Desktop Actions */}
           <div className="hidden lg:flex items-center gap-4 text-black">
-            <button className="p-2 hover:bg-gray-light rounded-lg transition-colors duration-300" aria-label="Cerca">
-              <Search size={18} strokeWidth={1.5} />
-            </button>
-            <button className="p-2 hover:bg-gray-light rounded-lg transition-colors duration-300" aria-label="Account">
-              <User size={18} strokeWidth={1.5} />
-            </button>
-            <button className="p-2 hover:bg-gray-light rounded-lg transition-colors duration-300 relative" aria-label="Carrello">
-              <ShoppingCart size={18} strokeWidth={1.5} />
-            </button>
             <Link
               to="/contatti"
               className="ml-2 bg-black text-white text-sm font-bold px-5 py-2.5 rounded-lg hover:bg-black/80 transition-all duration-300 shadow-sm"
@@ -102,7 +93,9 @@ export default function Navbar() {
           <button
             className="lg:hidden p-2 text-black"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Menu"
+            aria-label={mobileOpen ? 'Chiudi menu' : 'Apri menu'}
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
           >
             {mobileOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -111,18 +104,22 @@ export default function Navbar() {
 
       {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 z-40 bg-white transition-transform duration-500 ease-[cubic-bezier(0.075,0.820,0.165,1)] lg:hidden ${
+        id="mobile-menu"
+        aria-hidden={!mobileOpen}
+        inert={!mobileOpen}
+        className={`fixed inset-0 z-40 bg-white transition-transform duration-500 ease-out-circ lg:hidden overflow-y-auto ${
           mobileOpen ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
         <div className="flex flex-col items-start justify-center h-full px-8 pt-20">
           <nav className="flex flex-col gap-6">
-            {navLinks.map((link, i) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.path}
                 to={link.path}
+                onClick={closeMobileMenu}
+                aria-current={location.pathname === link.path ? 'page' : undefined}
                 className="text-4xl font-bold text-black hover:text-gray-medium transition-colors duration-300"
-                style={{ animationDelay: `${i * 60}ms` }}
               >
                 {link.label}
               </Link>
@@ -131,15 +128,10 @@ export default function Navbar() {
           <div className="mt-12 flex flex-col gap-4 w-full max-w-xs">
             <Link
               to="/contatti"
+              onClick={closeMobileMenu}
               className="bg-black text-white text-lg font-semibold px-8 py-4 rounded-lg text-center hover:bg-black/80 transition-colors duration-300"
             >
               Richiedi Preventivo
-            </Link>
-            <Link
-              to="/contatti"
-              className="border border-black text-black text-lg font-semibold px-8 py-4 rounded-lg text-center hover:bg-gray-light transition-colors duration-300"
-            >
-              Login
             </Link>
           </div>
         </div>

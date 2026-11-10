@@ -66,9 +66,6 @@ export default function Footer() {
               >
                 Cookie Policy
               </Link>
-              <a href="#" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">
-                LinkedIn
-              </a>
               <a href="mailto:afelektra2@afelektra.com" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">
                 Email
               </a>
@@ -91,11 +88,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <Phone size={16} className="text-white/40 flex-shrink-0" />
-                <span className="text-sm text-white/70">030 2130630</span>
+                <a href="tel:+390302130630" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">030 2130630</a>
               </div>
               <div className="flex items-center gap-3">
                 <Mail size={16} className="text-white/40 flex-shrink-0" />
-                <span className="text-sm text-white/70">afelektra2@afelektra.com</span>
+                <a href="mailto:afelektra2@afelektra.com" className="text-sm text-white/70 hover:text-elektra-accent transition-colors duration-300">afelektra2@afelektra.com</a>
               </div>
             </div>
           </div>

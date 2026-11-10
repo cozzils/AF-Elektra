@@ -12,6 +12,7 @@ import {
   ArrowRight,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 const processSteps = [
   {
@@ -35,6 +36,12 @@ const processSteps = [
 ];
 
 export default function ChiSiamo() {
+  usePageMeta(
+    'Chi Siamo | AF Elektra 2',
+    'AF Elektra 2 nasce nel 2019 a Castenedolo (BS) e porta avanti oltre 40 anni di know-how nell’elettronica industriale: progettazione, prototipazione, produzione e collaudo.',
+    '/chi-siamo',
+  );
+
   return (
     <Layout>
       {/* ─── HERO ─── */}
@@ -89,7 +96,7 @@ export default function ChiSiamo() {
                 AF Elektra 2 nasce nel 2019, ereditando oltre 40 anni di know-how dei suoi fondatori nel settore dell&apos;elettronica industriale. Situata nel cuore produttivo del nord Italia, a Castenedolo in provincia di Brescia, l&apos;azienda rappresenta un punto di riferimento per la progettazione e produzione di sistemi elettronici ad alta precisione.
               </p>
               <p className="text-sm lg:text-base text-gray-medium leading-relaxed">
-                Il nostro approccio si distingue per la capacita di affiancare il cliente in ogni fase del processo produttivo: dalla consulenza iniziale alla progettazione, dalla realizzazione del prototipo fino alla produzione di serie e al collaudo finale.
+                Il nostro approccio si distingue per la capacità di affiancare il cliente in ogni fase del processo produttivo: dalla consulenza iniziale alla progettazione, dalla realizzazione del prototipo fino alla produzione di serie e al collaudo finale.
               </p>
             </div>
 
@@ -115,6 +122,8 @@ export default function ChiSiamo() {
                 <img
                   src="/images/cablaggio.jpg"
                   alt="Cablaggio quadri elettrici"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[300px] lg:h-full object-cover"
                 />
               </div>
@@ -122,6 +131,8 @@ export default function ChiSiamo() {
                 <img
                   src="/images/pcb-closeup.jpg"
                   alt="Circuito stampato"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[300px] object-cover"
                 />
               </div>
@@ -129,6 +140,8 @@ export default function ChiSiamo() {
                 <img
                   src="/images/stabilimento.jpg"
                   alt="Stabilimento AF Elektra 2"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-[250px] object-cover"
                 />
               </div>

@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Settings,
@@ -8,6 +9,7 @@ import {
   X,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 /* ─── Types ─── */
 interface CaseStudy {
@@ -58,7 +60,7 @@ const caseStudies: CaseStudy[] = [
     client: 'Settore Aerospaziale',
     year: '2024',
     image: '/images/caso-pcb.jpg',
-    description: 'Progettazione di una scheda elettronica a 6 strati per il controllo di motori brushless in applicazioni ad alta affidabilita. Design del layout, routing differenziale e gestione termica.',
+    description: 'Progettazione di una scheda elettronica a 6 strati per il controllo di motori brushless in applicazioni ad alta affidabilità. Design del layout, routing differenziale e gestione termica.',
     results: [
       '6 strati PCB con impedenza controllata',
       'Testing burn-in 72 ore',
@@ -76,7 +78,7 @@ const caseStudies: CaseStudy[] = [
     results: [
       'Riduzione consumi energetici del 25%',
       'Manutenzione predittiva implementata',
-      'Connettivita Industry 4.0',
+      'Connettività Industry 4.0',
     ],
   },
   {
@@ -100,7 +102,7 @@ const caseStudies: CaseStudy[] = [
     client: 'Settore Farmaceutico',
     year: '2023',
     image: '/images/caso-pcb.jpg',
-    description: 'Sviluppo di un sistema embedded per l&apos;acquisizione e trasmissione dati da sensori di processo in ambiente GMP. Scheda con connettivita Ethernet, convertitori ADC 24bit e isolamento galvanico.',
+    description: 'Sviluppo di un sistema embedded per l\u2019acquisizione e trasmissione dati da sensori di processo in ambiente GMP. Scheda con connettività Ethernet, convertitori ADC 24bit e isolamento galvanico.',
     results: [
       '16 canali ADC 24bit simultanei',
       'Isolamento galvanico 2.5kV',
@@ -120,8 +122,29 @@ const categoryIcons: Record<string, React.ReactNode> = {
 /* ═══════════════════════════════════════════════════════════ */
 
 export default function CasiStudio() {
+  usePageMeta(
+    'Casi di Studio | AF Elektra 2',
+    'Progetti di automazione PLC, quadristica e progettazione PCB realizzati da AF Elektra 2 per clienti industriali in diversi settori.',
+    '/casi-studio',
+  );
+
   const [activeFilter, setActiveFilter] = useState('Tutti');
   const [selectedCase, setSelectedCase] = useState<CaseStudy | null>(null);
+
+  // Chiudi il modale con Esc e blocca lo scroll della pagina sottostante
+  useEffect(() => {
+    if (!selectedCase) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedCase(null);
+    };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+      document.body.style.overflow = previousOverflow;
+    };
+  }, [selectedCase]);
 
   const filtered = activeFilter === 'Tutti'
     ? caseStudies
@@ -142,7 +165,7 @@ export default function CasiStudio() {
               Casi di Studio
             </h1>
             <p className="text-base text-gray-medium mt-4 max-w-xl">
-              Progetti realizzati per clienti in diversi settori industriali. Ogni caso e una testimonianza della nostra competenza.
+              Progetti realizzati per clienti in diversi settori industriali. Ogni caso è una testimonianza della nostra competenza.
             </p>
           </motion.div>
         </div>
@@ -180,12 +203,21 @@ export default function CasiStudio() {
                   exit={{ opacity: 0, scale: 0.95 }}
                   transition={{ duration: 0.4, delay: i * 0.06, ease: [0.075, 0.82, 0.165, 1] }}
                   onClick={() => setSelectedCase(c)}
-                  className="group cursor-pointer"
+                  onKeyDown={(event) => {
+                    if (event.key === 'Enter' || event.key === ' ') {
+                      event.preventDefault();
+                      setSelectedCase(c);
+                    }
+                  }}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Apri il caso di studio ${c.title}`}
+                  className="group cursor-pointer rounded-2xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-elektra-accent focus-visible:ring-offset-2"
                 >
                   <div className="relative rounded-2xl overflow-hidden bg-gray-light border border-black/5 hover:border-black/15 hover:shadow-panel transition-all duration-500">
                     <div className="aspect-[4/3] overflow-hidden relative group-hover:scale-[1.03] transition-transform duration-500">
                       <div className="w-full h-full relative flex flex-col items-center justify-center p-6 text-center">
-                        <img src={c.image} alt={c.title} className="absolute inset-0 w-full h-full object-cover" />
+                        <img src={c.image} alt={c.title} loading="lazy" decoding="async" className="absolute inset-0 w-full h-full object-cover" />
                         <div className="absolute inset-0 bg-black/50" />
                         <div className="absolute inset-0 flex items-center justify-center pointer-events-none text-white opacity-20 scale-[6] z-0">
                           {categoryIcons[c.category]}
@@ -232,11 +264,16 @@ export default function CasiStudio() {
               exit={{ opacity: 0, y: 40, scale: 0.97 }}
               transition={{ duration: 0.5, ease: [0.075, 0.82, 0.165, 1] }}
               onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="case-study-title"
               className="relative bg-white rounded-2xl shadow-panel w-full max-w-4xl max-h-[90vh] overflow-y-auto"
             >
               {/* Close */}
               <button
                 onClick={() => setSelectedCase(null)}
+                aria-label="Chiudi il caso di studio"
+                autoFocus
                 className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center hover:bg-gray-light transition-colors duration-300"
               >
                 <X size={18} />
@@ -248,6 +285,8 @@ export default function CasiStudio() {
                   <img
                     src={selectedCase.image}
                     alt={selectedCase.title}
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -261,7 +300,7 @@ export default function CasiStudio() {
                     <span className="text-xs uppercase tracking-widest text-gray-medium">{selectedCase.category}</span>
                   </div>
 
-                  <h2 className="text-2xl lg:text-3xl font-semibold text-black tracking-tight">
+                  <h2 id="case-study-title" className="text-2xl lg:text-3xl font-semibold text-black tracking-tight">
                     {selectedCase.title}
                   </h2>
 
@@ -287,9 +326,12 @@ export default function CasiStudio() {
                     </ul>
                   </div>
 
-                  <button className="mt-8 w-full bg-gray-dark text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-black transition-colors duration-300">
+                  <Link
+                    to="/contatti"
+                    className="mt-8 flex w-full items-center justify-center bg-gray-dark text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-black transition-colors duration-300"
+                  >
                     Richiedi Informazioni
-                  </button>
+                  </Link>
                 </div>
               </div>
             </motion.div>

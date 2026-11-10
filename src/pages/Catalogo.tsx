@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   Filter,
@@ -12,6 +13,7 @@ import {
   Puzzle,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 /* ─── Types ─── */
 interface Product {
@@ -141,7 +143,9 @@ function ProductCard({ product }: { product: Product }) {
         <img
           src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.075,0.820,0.165,1)]"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out-circ"
         />
         {/* Badge */}
         <div className="absolute top-3 left-3">
@@ -183,38 +187,49 @@ function ProductCard({ product }: { product: Product }) {
 
         {/* Actions */}
         <div className="flex gap-2 mt-4">
-          <button className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-gray-dark px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300">
+          <a
+            href={`mailto:afelektra2@afelektra.com?subject=${encodeURIComponent(`Richiesta scheda tecnica ${product.code}`)}`}
+            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-gray-dark px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300"
+          >
             <FileText size={14} />
             Scheda Tecnica
-          </button>
-          <button className="flex items-center justify-center gap-1.5 text-xs font-medium bg-elektra-accent text-white px-3 py-2.5 rounded-lg hover:bg-black transition-colors duration-300">
+          </a>
+          <Link
+            to="/contatti"
+            className="flex items-center justify-center gap-1.5 text-xs font-medium bg-elektra-accent text-white px-3 py-2.5 rounded-lg hover:bg-black transition-colors duration-300"
+          >
             <Plus size={14} />
             Preventivo
-          </button>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-/* ═══════════════════════════════════════════════════════════ */
+/* ─── Filter Panel ─── */
+interface FilterPanelProps {
+  selectedCategory: string;
+  onCategoryChange: (category: string) => void;
+  selectedVoltage: string;
+  onVoltageChange: (voltage: string) => void;
+  selectedMounting: string;
+  onMountingChange: (mounting: string) => void;
+  onlyAvailable: boolean;
+  onOnlyAvailableChange: (value: boolean) => void;
+}
 
-export default function Catalogo() {
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('Tutti');
-  const [selectedVoltage, setSelectedVoltage] = useState('Tutti');
-  const [selectedMounting, setSelectedMounting] = useState('Tutti');
-  const [onlyAvailable, setOnlyAvailable] = useState(false);
-
-  const filteredProducts = products.filter((p) => {
-    if (selectedCategory !== 'Tutti' && p.category !== selectedCategory) return false;
-    if (selectedVoltage !== 'Tutti' && !p.voltage.includes(selectedVoltage.split(' ')[0])) return false;
-    if (selectedMounting !== 'Tutti' && p.mounting !== selectedMounting) return false;
-    if (onlyAvailable && !p.available) return false;
-    return true;
-  });
-
-  const FilterPanel = () => (
+function FilterPanel({
+  selectedCategory,
+  onCategoryChange,
+  selectedVoltage,
+  onVoltageChange,
+  selectedMounting,
+  onMountingChange,
+  onlyAvailable,
+  onOnlyAvailableChange,
+}: FilterPanelProps) {
+  return (
     <div className="space-y-8">
       {/* Category */}
       <div>
@@ -223,7 +238,9 @@ export default function Catalogo() {
           {categories.map((cat) => (
             <button
               key={cat}
-              onClick={() => setSelectedCategory(cat)}
+              type="button"
+              aria-pressed={selectedCategory === cat}
+              onClick={() => onCategoryChange(cat)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedCategory === cat
                   ? 'bg-elektra-accent text-white font-medium'
@@ -243,7 +260,9 @@ export default function Catalogo() {
           {voltages.map((v) => (
             <button
               key={v}
-              onClick={() => setSelectedVoltage(v)}
+              type="button"
+              aria-pressed={selectedVoltage === v}
+              onClick={() => onVoltageChange(v)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedVoltage === v
                   ? 'bg-elektra-accent text-white font-medium'
@@ -263,7 +282,9 @@ export default function Catalogo() {
           {mountings.map((m) => (
             <button
               key={m}
-              onClick={() => setSelectedMounting(m)}
+              type="button"
+              aria-pressed={selectedMounting === m}
+              onClick={() => onMountingChange(m)}
               className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
                 selectedMounting === m
                   ? 'bg-elektra-accent text-white font-medium'
@@ -278,26 +299,68 @@ export default function Catalogo() {
 
       {/* Availability */}
       <div>
-        <label className="flex items-center gap-3 cursor-pointer group">
-          <div
-            className={`w-10 h-6 rounded-full transition-colors duration-300 flex items-center ${
+        <button
+          type="button"
+          role="switch"
+          aria-checked={onlyAvailable}
+          onClick={() => onOnlyAvailableChange(!onlyAvailable)}
+          className="flex items-center gap-3 cursor-pointer group w-full text-left"
+        >
+          <span
+            aria-hidden="true"
+            className={`w-10 h-6 rounded-full transition-colors duration-300 flex items-center flex-shrink-0 ${
               onlyAvailable ? 'bg-elektra-accent' : 'bg-gray-medium/30'
             }`}
-            onClick={() => setOnlyAvailable(!onlyAvailable)}
           >
-            <div
+            <span
               className={`w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-300 ${
                 onlyAvailable ? 'translate-x-5' : 'translate-x-0.5'
               }`}
             />
-          </div>
+          </span>
           <span className="text-sm text-gray-medium group-hover:text-black transition-colors duration-300">
             Solo disponibili
           </span>
-        </label>
+        </button>
       </div>
     </div>
   );
+}
+
+/* ═══════════════════════════════════════════════════════════ */
+
+export default function Catalogo() {
+  usePageMeta(
+    'Catalogo Prodotti | AF Elektra 2',
+    'Alimentatori, schede interfaccia, relè statici e componenti per l’elettronica industriale. Scopri il catalogo AF Elektra 2 e richiedi un preventivo.',
+    '/catalogo',
+  );
+
+  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('Tutti');
+  const [selectedVoltage, setSelectedVoltage] = useState('Tutti');
+  const [selectedMounting, setSelectedMounting] = useState('Tutti');
+  const [onlyAvailable, setOnlyAvailable] = useState(false);
+
+  const filteredProducts = products.filter((p) => {
+    if (selectedCategory !== 'Tutti' && p.category !== selectedCategory) return false;
+    if (selectedVoltage !== 'Tutti' && p.voltage !== selectedVoltage) return false;
+    if (selectedMounting !== 'Tutti' && p.mounting !== selectedMounting) return false;
+    if (onlyAvailable && !p.available) return false;
+    return true;
+  });
+
+  const filtersActive = selectedCategory !== 'Tutti'
+    || selectedVoltage !== 'Tutti'
+    || selectedMounting !== 'Tutti'
+    || onlyAvailable;
+
+  const resetFilters = () => {
+    setSelectedCategory('Tutti');
+    setSelectedVoltage('Tutti');
+    setSelectedMounting('Tutti');
+    setOnlyAvailable(false);
+  };
 
   return (
     <Layout>
@@ -328,14 +391,26 @@ export default function Catalogo() {
             <aside className="hidden lg:block w-64 flex-shrink-0">
               <div className="sticky top-24">
                 <h3 className="font-semibold text-sm text-black mb-6">Filtri</h3>
-                <FilterPanel />
+                <FilterPanel
+                  selectedCategory={selectedCategory}
+                  onCategoryChange={setSelectedCategory}
+                  selectedVoltage={selectedVoltage}
+                  onVoltageChange={setSelectedVoltage}
+                  selectedMounting={selectedMounting}
+                  onMountingChange={setSelectedMounting}
+                  onlyAvailable={onlyAvailable}
+                  onOnlyAvailableChange={setOnlyAvailable}
+                />
               </div>
             </aside>
 
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden w-full mb-6">
               <button
+                type="button"
                 onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
+                aria-expanded={mobileFilterOpen}
+                aria-controls="mobile-filter-panel"
                 className="flex items-center gap-2 bg-gray-light text-black text-sm font-medium px-4 py-2.5 rounded-lg"
               >
                 <Filter size={16} />
@@ -344,43 +419,75 @@ export default function Catalogo() {
               </button>
 
               {mobileFilterOpen && (
-                <div className="mt-4 bg-gray-light rounded-2xl p-6">
+                <div id="mobile-filter-panel" className="mt-4 bg-gray-light rounded-2xl p-6">
                   <div className="flex items-center justify-between mb-4">
                     <h3 className="font-semibold text-sm">Filtri</h3>
-                    <button onClick={() => setMobileFilterOpen(false)}>
+                    <button type="button" onClick={() => setMobileFilterOpen(false)} aria-label="Chiudi i filtri">
                       <X size={18} />
                     </button>
                   </div>
-                  <FilterPanel />
+                  <FilterPanel
+                  selectedCategory={selectedCategory}
+                  onCategoryChange={setSelectedCategory}
+                  selectedVoltage={selectedVoltage}
+                  onVoltageChange={setSelectedVoltage}
+                  selectedMounting={selectedMounting}
+                  onMountingChange={setSelectedMounting}
+                  onlyAvailable={onlyAvailable}
+                  onOnlyAvailableChange={setOnlyAvailable}
+                />
                 </div>
               )}
             </div>
 
             {/* Products Grid */}
             <div className="flex-1">
-              <div className="flex items-center justify-between mb-6">
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
                 <p className="text-sm text-gray-medium">
                   {filteredProducts.length} prodott{filteredProducts.length === 1 ? 'o' : 'i'} trovat{filteredProducts.length === 1 ? 'o' : 'i'}
                 </p>
                 {/* Active filter pills */}
-                <div className="hidden sm:flex items-center gap-2 flex-wrap">
+                <div className="flex items-center gap-2 flex-wrap">
                   {selectedCategory !== 'Tutti' && (
                     <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       {selectedCategory}
-                      <button onClick={() => setSelectedCategory('Tutti')}><X size={12} /></button>
+                      <button type="button" onClick={() => setSelectedCategory('Tutti')} aria-label={`Rimuovi il filtro ${selectedCategory}`}>
+                        <X size={12} />
+                      </button>
                     </span>
                   )}
                   {selectedVoltage !== 'Tutti' && (
                     <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       {selectedVoltage}
-                      <button onClick={() => setSelectedVoltage('Tutti')}><X size={12} /></button>
+                      <button type="button" onClick={() => setSelectedVoltage('Tutti')} aria-label={`Rimuovi il filtro ${selectedVoltage}`}>
+                        <X size={12} />
+                      </button>
+                    </span>
+                  )}
+                  {selectedMounting !== 'Tutti' && (
+                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
+                      {selectedMounting}
+                      <button type="button" onClick={() => setSelectedMounting('Tutti')} aria-label={`Rimuovi il filtro ${selectedMounting}`}>
+                        <X size={12} />
+                      </button>
                     </span>
                   )}
                   {onlyAvailable && (
                     <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       Solo disponibili
-                      <button onClick={() => setOnlyAvailable(false)}><X size={12} /></button>
+                      <button type="button" onClick={() => setOnlyAvailable(false)} aria-label="Rimuovi il filtro Solo disponibili">
+                        <X size={12} />
+                      </button>
                     </span>
+                  )}
+                  {filtersActive && (
+                    <button
+                      type="button"
+                      onClick={resetFilters}
+                      className="text-xs font-medium text-black underline hover:no-underline px-1"
+                    >
+                      Azzera filtri
+                    </button>
                   )}
                 </div>
               </div>
@@ -402,12 +509,8 @@ export default function Catalogo() {
                 <div className="text-center py-20">
                   <p className="text-gray-medium text-lg">Nessun prodotto trovato con i filtri selezionati.</p>
                   <button
-                    onClick={() => {
-                      setSelectedCategory('Tutti');
-                      setSelectedVoltage('Tutti');
-                      setSelectedMounting('Tutti');
-                      setOnlyAvailable(false);
-                    }}
+                    type="button"
+                    onClick={resetFilters}
                     className="mt-4 text-sm font-medium text-black underline hover:no-underline"
                   >
                     Resetta filtri

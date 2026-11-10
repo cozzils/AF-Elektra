@@ -1,8 +1,15 @@
 import { Link } from 'react-router';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 import { Cookie, ShieldAlert, CheckCircle2, ExternalLink } from 'lucide-react';
 
 export default function CookiePolicy() {
+  usePageMeta(
+    'Cookie Policy | AF Elektra 2',
+    'Informativa sull’uso dei cookie del sito AF Elektra 2: nessun cookie di profilazione, mappa OpenStreetMap caricata solo su azione dell’utente.',
+    '/cookie-policy',
+  );
+
   return (
     <Layout>
       {/* ─── HERO ─── */}
@@ -85,22 +92,6 @@ export default function CookiePolicy() {
                   </thead>
                   <tbody>
                     <tr>
-                      <td className="p-3 border border-black/10 font-mono text-xs">sidebar_state</td>
-                      <td className="p-3 border border-black/10">Tecnico funzionale (Prima Parte)</td>
-                      <td className="p-3 border border-black/10">
-                        Memorizza lo stato di apertura o chiusura dei menu laterali e dell&apos;interfaccia utente (componente UI).
-                      </td>
-                      <td className="p-3 border border-black/10">7 giorni</td>
-                    </tr>
-                    <tr className="bg-gray-50/50">
-                      <td className="p-3 border border-black/10 font-mono text-xs">next-themes / theme</td>
-                      <td className="p-3 border border-black/10">Archiviazione locale (localStorage)</td>
-                      <td className="p-3 border border-black/10">
-                        Memorizza la preferenza visuale dell&apos;utente (tema chiaro/sistema) direttamente nel browser.
-                      </td>
-                      <td className="p-3 border border-black/10">Persistente fino a pulizia browser</td>
-                    </tr>
-                    <tr>
                       <td className="p-3 border border-black/10 font-mono text-xs">Cookie tecnici di hosting Aruba</td>
                       <td className="p-3 border border-black/10">Tecnico di sistema (Aruba S.p.A.)</td>
                       <td className="p-3 border border-black/10">
@@ -111,6 +102,9 @@ export default function CookiePolicy() {
                   </tbody>
                 </table>
               </div>
+              <p className="text-xs text-gray-medium">
+                Il sito non installa cookie propri di prima parte e non utilizza <em>localStorage</em> o <em>sessionStorage</em> per finalità di tracciamento.
+              </p>
             </section>
 
             {/* 4. Servizi di terze parti e mappe interattive (OpenStreetMap) */}

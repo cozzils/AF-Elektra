@@ -14,8 +14,15 @@ import {
   MessageSquare,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 export default function Contatti() {
+  usePageMeta(
+    'Contatti | AF Elektra 2',
+    'Contatta AF Elektra 2 a Castenedolo (BS): modulo online, telefono 030 2130630 ed email per richieste di preventivo su elettronica industriale.',
+    '/contatti',
+  );
+
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
@@ -111,6 +118,8 @@ export default function Contatti() {
 
                 {submitted ? (
                   <motion.div
+                    role="status"
+                    aria-live="polite"
                     initial={{ opacity: 0, scale: 0.95 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex flex-col items-center justify-center py-12 text-center"
@@ -119,7 +128,7 @@ export default function Contatti() {
                       <CheckCircle2 size={32} />
                     </div>
                     <h3 className="text-lg font-semibold text-black">Richiesta Inviata!</h3>
-                    <p className="text-sm text-gray-medium mt-2">Ti risponderemo al piu presto all&apos;indirizzo indicato.</p>
+                    <p className="text-sm text-gray-medium mt-2">Ti risponderemo al più presto all&apos;indirizzo indicato.</p>
                     <button
                       type="button"
                       onClick={handleNewRequest}
@@ -130,27 +139,33 @@ export default function Contatti() {
                   </motion.div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    {/* Honeypot anti-bot: invisibile agli umani, i bot lo compilano */}
-                    <input
-                      type="text"
-                      name="website"
-                      value={formData.website}
-                      onChange={handleChange}
-                      tabIndex={-1}
-                      autoComplete="off"
-                      aria-hidden="true"
-                      className="absolute opacity-0 h-0 w-0 overflow-hidden pointer-events-none"
-                    />
+                    {/* Honeypot anti-bot: fuori schermo per gli umani, i bot lo compilano */}
+                    <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+                      <label htmlFor="website">Non compilare questo campo</label>
+                      <input
+                        type="text"
+                        id="website"
+                        name="website"
+                        value={formData.website}
+                        onChange={handleChange}
+                        tabIndex={-1}
+                        autoComplete="off"
+                        data-lpignore="true"
+                      />
+                    </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
+                        <label htmlFor="nome" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
                           <User size={14} className="text-gray-medium" />
                           Nome / Azienda *
                         </label>
                         <input
+                          id="nome"
                           type="text"
                           name="nome"
                           required
+                          maxLength={120}
+                          autoComplete="name"
                           value={formData.nome}
                           onChange={handleChange}
                           className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
@@ -158,14 +173,17 @@ export default function Contatti() {
                         />
                       </div>
                       <div>
-                        <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
+                        <label htmlFor="email" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
                           <Briefcase size={14} className="text-gray-medium" />
                           Email *
                         </label>
                         <input
+                          id="email"
                           type="email"
                           name="email"
                           required
+                          maxLength={254}
+                          autoComplete="email"
                           value={formData.email}
                           onChange={handleChange}
                           className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
@@ -176,13 +194,16 @@ export default function Contatti() {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
-                        <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
+                        <label htmlFor="telefono" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
                           <Phone size={14} className="text-gray-medium" />
                           Telefono
                         </label>
                         <input
+                          id="telefono"
                           type="tel"
                           name="telefono"
+                          maxLength={40}
+                          autoComplete="tel"
                           value={formData.telefono}
                           onChange={handleChange}
                           className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
@@ -190,11 +211,12 @@ export default function Contatti() {
                         />
                       </div>
                       <div>
-                        <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
+                        <label htmlFor="area" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
                           <FileText size={14} className="text-gray-medium" />
                           Area di Interesse
                         </label>
                         <select
+                          id="area"
                           name="area"
                           value={formData.area}
                           onChange={handleChange}
@@ -213,13 +235,16 @@ export default function Contatti() {
                     </div>
 
                     <div>
-                      <label className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
+                      <label htmlFor="messaggio" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
                         <MessageSquare size={14} className="text-gray-medium" />
                         Messaggio *
                       </label>
                       <textarea
+                        id="messaggio"
                         name="messaggio"
                         required
+                        minLength={10}
+                        maxLength={5000}
                         rows={5}
                         value={formData.messaggio}
                         onChange={handleChange}
@@ -229,17 +254,26 @@ export default function Contatti() {
                     </div>
 
                     {/* Privacy */}
-                    <label className="flex items-start gap-3 cursor-pointer group">
-                      <div
-                        className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300 ${
+                    <label htmlFor="privacy" className="flex items-start gap-3 cursor-pointer group">
+                      <input
+                        id="privacy"
+                        name="privacy"
+                        type="checkbox"
+                        checked={formData.privacy}
+                        onChange={handleChange}
+                        required
+                        className="peer sr-only"
+                      />
+                      <span
+                        aria-hidden="true"
+                        className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-black/40 peer-focus-visible:ring-offset-2 ${
                           formData.privacy
                             ? 'bg-elektra-accent border-elektra-accent'
                             : 'border-gray-medium/30 group-hover:border-gray-medium'
                         }`}
-                        onClick={() => setFormData((p) => ({ ...p, privacy: !p.privacy }))}
                       >
-                        {formData.privacy && <CheckCircle2 size={14} className="text-black" />}
-                      </div>
+                        {formData.privacy && <CheckCircle2 size={14} className="text-white" />}
+                      </span>
                       <span className="text-xs text-gray-medium leading-relaxed">
                         Dichiaro di aver letto e compreso la{' '}
                         <Link to="/privacy" className="text-black underline font-medium hover:text-elektra-accent">
@@ -306,7 +340,7 @@ export default function Contatti() {
                     <Phone size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Telefono</h3>
-                  <p className="text-sm text-gray-medium">030 2130630</p>
+                  <a href="tel:+390302130630" className="text-sm text-gray-medium hover:text-black transition-colors duration-300">030 2130630</a>
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
@@ -314,7 +348,7 @@ export default function Contatti() {
                     <Mail size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Email Commerciale</h3>
-                  <p className="text-sm text-gray-medium">afelektra2@afelektra.com</p>
+                  <a href="mailto:afelektra2@afelektra.com" className="text-sm text-gray-medium hover:text-black transition-colors duration-300 break-all">afelektra2@afelektra.com</a>
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">

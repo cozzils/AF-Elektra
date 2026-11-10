@@ -11,6 +11,10 @@ declare(strict_types=1);
 
 header('Content-Type: application/json; charset=UTF-8');
 header('X-Content-Type-Options: nosniff');
+header('X-Frame-Options: DENY');
+header('Referrer-Policy: strict-origin-when-cross-origin');
+header('Permissions-Policy: geolocation=(), microphone=(), camera=()');
+header("Content-Security-Policy: default-src 'none'; frame-ancestors 'none'");
 
 // ---------------------------------------------------------------- Config
 const DESTINATARIO = 'afelektra2@afelektra.com';   // dove arrivano i preventivi
@@ -35,16 +39,27 @@ const AREE_LABEL = [
 function rispondi(bool $ok, string $msg = '', int $code = 200, array $extra = []): void
 {
     http_response_code($code);
-    echo json_encode(['ok' => $ok] + ($msg !== '' ? ['error' => $msg] : []) + $extra, JSON_UNESCAPED_UNICODE);
+    echo json_encode(
+        ['ok' => $ok] + ($msg !== '' ? ['error' => $msg] : []) + $extra,
+        JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE
+    );
     exit;
+}
+
+/** Converte un valore arbitrario del payload in stringa senza warning. */
+function testo(mixed $v): string
+{
+    return is_scalar($v) ? (string) $v : '';
 }
 
 function pulisci(string $s, int $max): string
 {
     $s = trim(strip_tags($s));
     // normalizza spazi, rimuove caratteri di controllo (anti header-injection)
-    $s = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', $s);
-    $s = preg_replace('/[ \t]{2,}/u', ' ', $s);
+    // Se l'input non è UTF-8 valido preg_replace restituisce null: in quel caso
+    // teniamo la stringa originale invece di andare in TypeError su mb_substr.
+    $s = preg_replace('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]+/u', '', $s) ?? $s;
+    $s = preg_replace('/[ \t]{2,}/u', ' ', $s) ?? $s;
     return mb_substr($s, 0, $max, 'UTF-8');
 }
 
@@ -87,24 +102,24 @@ if (!is_array($dati) || $dati === []) {
 // ------------------------------------------------------------ Honeypot anti-bot
 // Campo invisibile "website": gli umani lo lasciano vuoto, i bot lo riempiono.
 // Se pieno -> finto successo (il bot crede di avercela fatta, tu non ricevi spam).
-$honeypot = trim((string) ($dati['website'] ?? $dati['azienda_website'] ?? $dati['company'] ?? ''));
+$honeypot = trim(testo($dati['website'] ?? $dati['azienda_website'] ?? $dati['company'] ?? ''));
 if ($honeypot !== '') {
     rispondi(true); // 200 ok, nessuna email inviata
 }
 
 // ------------------------------------------------------------ Validazione server
-$nome      = pulisci((string) ($dati['nome'] ?? ''), 120);
-$emailRaw  = trim((string) ($dati['email'] ?? ''));
-$telefono  = pulisci((string) ($dati['telefono'] ?? ''), 40);
-$area      = trim((string) ($dati['area'] ?? ''));
-$messaggio = pulisci((string) ($dati['messaggio'] ?? ''), 5000);
+$nome      = pulisci(testo($dati['nome'] ?? ''), 120);
+$emailRaw  = trim(testo($dati['email'] ?? ''));
+$telefono  = pulisci(testo($dati['telefono'] ?? ''), 40);
+$area      = trim(testo($dati['area'] ?? ''));
+$messaggio = pulisci(testo($dati['messaggio'] ?? ''), 5000);
 $privacy   = $dati['privacy'] ?? false;
 $privacyOk = $privacy === true || $privacy === 1 || $privacy === '1' || $privacy === 'true' || $privacy === 'on';
 
 if (mb_strlen($nome, 'UTF-8') < 2) {
     rispondi(false, 'Inserisci il tuo nome o la ragione sociale.', 400);
 }
-if (haACapo($nome) || haACapo($emailRaw)) {
+if (haACapo($nome) || haACapo($emailRaw) || haACapo($telefono)) {
     rispondi(false, 'Dati non validi.', 400);
 }
 $email = filter_var(mb_substr($emailRaw, 0, 254), FILTER_VALIDATE_EMAIL);
@@ -125,16 +140,29 @@ if (!$privacyOk) {
 }
 
 // ------------------------------------------------------------ Rate-limit per IP (file-based, funziona su hosting condiviso)
-$ip = $_SERVER['REMOTE_ADDR'] ?? 'sconosciuto';
+$ip = testo($_SERVER['REMOTE_ADDR'] ?? 'sconosciuto');
 $dir = rtrim(sys_get_temp_dir(), '/\\') . '/af_elektra_ratelimit';
 if (!is_dir($dir)) {
     @mkdir($dir, 0700, true);
 }
 $rateFile = $dir . '/rl_' . md5($ip) . '.json';
 $ora = time();
-$stato = ['count' => 0, 'window_start' => $ora, 'last' => 0];
-if (is_file($rateFile)) {
-    $letto = json_decode(@file_get_contents($rateFile) ?: '', true);
+$bloccato = null;
+
+// Il file viene aperto in lettura/scrittura e il lock resta attivo per tutta
+// l'operazione: senza flock due richieste simultanee leggerebbero lo stesso
+// contatore e potrebbero superare il limite.
+$rateHandle = @fopen($rateFile, 'c+');
+if ($rateHandle === false) {
+    error_log('[AF Elektra] rate limit non disponibile: impossibile aprire ' . $rateFile);
+} else {
+    $lockOk = flock($rateHandle, LOCK_EX);
+    if (!$lockOk) {
+        error_log('[AF Elektra] rate limit: flock fallita su ' . $rateFile);
+    }
+
+    $letto = json_decode((string) stream_get_contents($rateHandle), true);
+    $stato = ['count' => 0, 'window_start' => $ora, 'last' => 0];
     if (is_array($letto)) {
         $stato = [
             'count'        => (int) ($letto['count'] ?? 0),
@@ -142,19 +170,31 @@ if (is_file($rateFile)) {
             'last'         => (int) ($letto['last'] ?? 0),
         ];
     }
+    if ($ora - $stato['window_start'] > 3600) {
+        $stato = ['count' => 0, 'window_start' => $ora, 'last' => $stato['last']];
+    }
+    if ($ora - $stato['last'] < MIN_INTERVALLO) {
+        $bloccato = 'Attendi qualche secondo prima di inviare un\'altra richiesta.';
+    } elseif ($stato['count'] >= MAX_PER_ORA) {
+        $bloccato = 'Hai inviato troppe richieste. Riprova tra un po\' oppure chiamaci allo 030 2130630.';
+    } else {
+        $stato['count']++;
+        $stato['last'] = $ora;
+        rewind($rateHandle);
+        ftruncate($rateHandle, 0);
+        fwrite($rateHandle, (string) json_encode($stato));
+        fflush($rateHandle);
+    }
+
+    if ($lockOk) {
+        flock($rateHandle, LOCK_UN);
+    }
+    fclose($rateHandle);
 }
-if ($ora - $stato['window_start'] > 3600) {
-    $stato = ['count' => 0, 'window_start' => $ora, 'last' => $stato['last']];
+
+if ($bloccato !== null) {
+    rispondi(false, $bloccato, 429);
 }
-if ($ora - $stato['last'] < MIN_INTERVALLO) {
-    rispondi(false, 'Attendi qualche secondo prima di inviare un\'altra richiesta.', 429);
-}
-if ($stato['count'] >= MAX_PER_ORA) {
-    rispondi(false, 'Hai inviato troppe richieste. Riprova tra un po\' oppure chiamaci allo 030 2130630.', 429);
-}
-$stato['count']++;
-$stato['last'] = $ora;
-@file_put_contents($rateFile, json_encode($stato), LOCK_EX);
 
 // ------------------------------------------------------------ Composizione email
 $areaLabel = $area !== '' ? ($AREE_LABEL[$area] ?? $area) : 'Non specificata';

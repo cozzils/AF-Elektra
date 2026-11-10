@@ -54,6 +54,12 @@
 }
 
 /* Scroll Reveal */
+@layer utilities {
+  .ease-out-circ {
+    transition-timing-function: cubic-bezier(0.075, 0.820, 0.165, 1);
+  }
+}
+
 .reveal {
   opacity: 0;
   transform: translateY(40px);

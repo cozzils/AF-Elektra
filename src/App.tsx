@@ -6,6 +6,7 @@ import CasiStudio from './pages/CasiStudio'
 import Contatti from './pages/Contatti'
 import Privacy from './pages/Privacy'
 import CookiePolicy from './pages/CookiePolicy'
+import NotFound from './pages/NotFound'
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
       <Route path="/contatti" element={<Contatti />} />
       <Route path="/privacy" element={<Privacy />} />
       <Route path="/cookie-policy" element={<CookiePolicy />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   )
 }

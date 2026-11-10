@@ -13,6 +13,7 @@ import {
   Puzzle,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 
 
 
@@ -53,7 +54,9 @@ function CategoryCard({ title, image, icon }: { title: string; image: string; ic
         <img
           src={image}
           alt={title}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.075,0.820,0.165,1)]"
+          loading="lazy"
+          decoding="async"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out-circ"
         />
       </div>
       <div className="p-5">
@@ -86,10 +89,16 @@ function StatBlock({ number, title, desc }: { number: string; title: string; des
 /* ═══════════════════════════════════════════════════════════ */
 
 export default function Home() {
+  usePageMeta(
+    'AF Elektra 2 | Elettronica Industriale Brescia',
+    'AF Elektra 2 a Castenedolo (BS): progettazione PCB, montaggio SMT, quadristica e programmazione PLC. Partner B2B per elettronica industriale.',
+    '/',
+  );
+
   const servicesRow1 = [
     { icon: <Cpu size={20} />, label: 'Elettrotecnica Generale', desc: 'Soluzioni complete per impianti' },
     { icon: <Zap size={20} />, label: 'Illuminazione', desc: 'Progetti luce su misura' },
-    { icon: <Settings size={20} />, label: 'Risparmio Energetico', desc: 'Efficienza e sostenibilita' },
+    { icon: <Settings size={20} />, label: 'Risparmio Energetico', desc: 'Efficienza e sostenibilità' },
     { icon: <CircuitBoard size={20} />, label: 'Cablaggio Quadri', desc: 'Assemblaggio professionale' },
   ];
 
@@ -105,15 +114,14 @@ export default function Home() {
       {/* ─── HERO ─── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center bg-black overflow-hidden px-6 lg:px-10">
         
-        {/* Full-Screen Background Video / Poster (Self-hosted only, no external third-party calls) */}
+        {/* Sfondo hero: immagine self-hosted, nessuna chiamata a terze parti.
+            Per usare un video basta aggiungere <source src="/videos/hero.mp4" type="video/mp4" />. */}
         <div className="absolute inset-0 z-0">
-          {/* TODO: caricare mp4 self-hostato in public/videos/ */}
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            poster="/images/stabilimento.jpg"
+          <img
+            src="/images/stabilimento.jpg"
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
             className="w-full h-full object-cover grayscale"
           />
         </div>
@@ -174,13 +182,13 @@ export default function Home() {
               Dal concept al collaudo finale, il partner giusto per le tue idee.
             </p>
             <p className="text-sm lg:text-base text-gray-medium mt-6 leading-relaxed">
-              Con oltre 40 anni di esperienza, AF Elektra 2 e il partner ideale per chi cerca un&apos;azienda affidabile e competente, in grado di seguire il cliente in ogni fase del processo, dalla progettazione alla realizzazione finale.
+              Con oltre 40 anni di esperienza, AF Elektra 2 è il partner ideale per chi cerca un&apos;azienda affidabile e competente, in grado di seguire il cliente in ogni fase del processo, dalla progettazione alla realizzazione finale.
             </p>
             <Link
               to="/chi-siamo"
               className="inline-flex items-center gap-2 mt-8 bg-gray-dark text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-black transition-colors duration-300"
             >
-              Scopri di Piu <ArrowRight size={16} />
+              Scopri di Più <ArrowRight size={16} />
             </Link>
           </div>
 
@@ -189,6 +197,8 @@ export default function Home() {
               <img
                 src="/images/stabilimento.jpg"
                 alt="Stabilimento AF Elektra 2"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-[400px] lg:h-[550px] object-cover"
               />
               <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-5 py-3 shadow-panel">
@@ -226,7 +236,7 @@ export default function Home() {
               {
                 icon: <Factory size={28} />,
                 title: 'Montaggio SMT',
-                desc: 'Assemblaggio automatizzato ad alta precisione per componenti superficiali con controllo qualita AOI.',
+                desc: 'Assemblaggio automatizzato ad alta precisione per componenti superficiali con controllo qualità AOI.',
               },
               {
                 icon: <Settings size={28} />,
@@ -328,7 +338,7 @@ export default function Home() {
               Dalla progettazione alla produzione.
             </h2>
             <p className="text-base text-gray-medium mt-6 leading-relaxed max-w-md">
-              Numeri che parlano di competenza, flessibilita e qualita. Ogni progetto e una sfida che affrontiamo con precisione e passione.
+              Numeri che parlano di competenza, flessibilità e qualità. Ogni progetto è una sfida che affrontiamo con precisione e passione.
             </p>
           </div>
 
@@ -341,7 +351,7 @@ export default function Home() {
             <StatBlock
               number="02"
               title="Produzione Flessibile"
-              desc="Quantita da 1 a 1000+ pezzi. Adattiamo la produzione alle tue esigenze."
+              desc="Quantità da 1 a 1000+ pezzi. Adattiamo la produzione alle tue esigenze."
             />
             <StatBlock
               number="03"

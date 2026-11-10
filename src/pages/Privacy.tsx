@@ -1,7 +1,14 @@
 import Layout from '@/components/Layout';
+import { usePageMeta } from '@/hooks/usePageMeta';
 import { ShieldCheck, Mail, Phone, MapPin, Building2 } from 'lucide-react';
 
 export default function Privacy() {
+  usePageMeta(
+    'Privacy Policy | AF Elektra 2',
+    'Informativa sul trattamento dei dati personali ai sensi dell’art. 13 del Regolamento UE 2016/679 (GDPR) di AF Elektra 2.',
+    '/privacy',
+  );
+
   return (
     <Layout>
       {/* ─── HERO ─── */}
