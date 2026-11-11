@@ -54,8 +54,8 @@ function ProductCard({ product }: { product: Product }) {
             <div className="w-14 h-14 rounded-xl bg-white flex items-center justify-center text-elektra-accent">
               {categoryIcons[product.category] || <Puzzle size={24} />}
             </div>
-            <p className="text-xs uppercase tracking-widest text-gray-medium">Foto in aggiornamento</p>
-            <p className="text-xs font-mono text-gray-medium">{product.code}</p>
+            <p className="text-xs uppercase tracking-widest text-white/55">Foto in aggiornamento</p>
+            <p className="text-xs font-mono text-white/55">{product.code}</p>
           </div>
         )}
         {/* Badge */}
@@ -65,7 +65,7 @@ function ProductCard({ product }: { product: Product }) {
           </span>
         </div>
         {/* Category icon */}
-        <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-dark">
+        <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center text-white/70">
           {categoryIcons[product.category] || <Puzzle size={14} />}
         </div>
         {/* Hover affordance */}
@@ -80,7 +80,7 @@ function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-col flex-1 p-5">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <p className="text-xs text-gray-medium font-mono">{product.code}</p>
+            <p className="text-xs text-white/55 font-mono">{product.code}</p>
             <h3 className="font-semibold text-base text-black mt-0.5">
               <Link
                 to={`/catalogo/${product.slug}`}
@@ -92,12 +92,12 @@ function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
 
-        <p className="text-sm text-gray-medium mt-2 leading-relaxed">{product.tagline}</p>
+        <p className="text-sm text-white/55 mt-2 leading-relaxed">{product.tagline}</p>
 
         {/* Specs */}
         <div className="flex flex-wrap gap-1.5 mt-3">
           {product.specs.map((spec, i) => (
-            <span key={i} className="text-xs text-gray-medium bg-gray-light px-2 py-0.5 rounded-md">
+            <span key={i} className="text-xs text-white/55 bg-gray-light px-2 py-0.5 rounded-md">
               {spec}
             </span>
           ))}
@@ -110,7 +110,7 @@ function ProductCard({ product }: { product: Product }) {
             target="_blank"
             rel="noreferrer"
             aria-label={`Scarica la scheda tecnica PDF di ${product.name}`}
-            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-gray-dark px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300"
+            className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-white/70 px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300"
           >
             <FileText size={14} />
             Scheda PDF
@@ -151,7 +151,7 @@ function FacetSelect({
 }) {
   return (
     <div className="min-w-0">
-      <label htmlFor={id} className="block text-[11px] uppercase tracking-widest text-gray-medium mb-2">
+      <label htmlFor={id} className="block text-[11px] uppercase tracking-widest text-white/55 mb-2">
         {label}
       </label>
       <div className="relative">
@@ -171,7 +171,7 @@ function FacetSelect({
         <ChevronDown
           size={15}
           aria-hidden="true"
-          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-medium pointer-events-none"
+          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-white/55 pointer-events-none"
         />
       </div>
     </div>
@@ -286,11 +286,11 @@ export default function Catalogo() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.075, 0.82, 0.165, 1] }}
           >
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Prodotti</p>
+            <p className="text-xs uppercase tracking-widest text-white/55 mb-4">Prodotti</p>
             <h1 className="text-5xl lg:text-6xl font-semibold text-black tracking-tight">
               Catalogo Prodotti
             </h1>
-            <p className="text-base text-gray-medium mt-4 max-w-xl">
+            <p className="text-base text-white/55 mt-4 max-w-xl">
               Alimentatori switching e lineari, schede interfaccia e tastatori, relè statici. Prodotti normalmente disponibili a magazzino, personalizzabili su richiesta.
             </p>
           </motion.div>
@@ -306,7 +306,7 @@ export default function Catalogo() {
               <div className="flex-1 min-w-0">
                 <label
                   htmlFor="catalogo-search"
-                  className="block text-[11px] uppercase tracking-widest text-gray-medium mb-2"
+                  className="block text-[11px] uppercase tracking-widest text-white/55 mb-2"
                 >
                   Cerca
                 </label>
@@ -314,7 +314,7 @@ export default function Catalogo() {
                   <Search
                     size={16}
                     aria-hidden="true"
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-medium"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-white/55"
                   />
                   <input
                     id="catalogo-search"
@@ -323,14 +323,14 @@ export default function Catalogo() {
                     onChange={(e) => setQuery(e.target.value)}
                     placeholder="Nome, codice o caratteristica"
                     autoComplete="off"
-                    className="w-full bg-white border border-black/10 rounded-xl pl-10 pr-10 py-2.5 text-sm text-black placeholder:text-gray-medium/70 hover:border-black/25 focus:outline-none focus:border-elektra-accent focus:ring-2 focus:ring-elektra-accent/20 transition-colors duration-200"
+                    className="w-full bg-white border border-black/10 rounded-xl pl-10 pr-10 py-2.5 text-sm text-black placeholder:text-white/55 hover:border-black/25 focus:outline-none focus:border-elektra-accent focus:ring-2 focus:ring-elektra-accent/20 transition-colors duration-200"
                   />
                   {query && (
                     <button
                       type="button"
                       onClick={() => setQuery('')}
                       aria-label="Cancella la ricerca"
-                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-medium hover:text-black transition-colors"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-white/55 hover:text-black transition-colors"
                     >
                       <X size={15} />
                     </button>
@@ -376,11 +376,11 @@ export default function Catalogo() {
                     className={`inline-flex shrink-0 items-center gap-2 text-sm px-4 py-2 rounded-full border transition-colors duration-300 ${
                       active
                         ? 'bg-elektra-accent border-elektra-accent text-white font-medium'
-                        : 'border-black/10 text-gray-medium hover:border-black/30 hover:text-black'
+                        : 'border-black/10 text-white/55 hover:border-black/30 hover:text-black'
                     }`}
                   >
                     {cat === 'Tutti' ? 'Tutti i prodotti' : cat}
-                    <span className={`text-xs tabular-nums ${active ? 'text-white/75' : 'text-gray-medium/70'}`}>
+                    <span className={`text-xs tabular-nums ${active ? 'text-white/75' : 'text-white/55'}`}>
                       {categoryCounts.get(cat)}
                     </span>
                   </button>
@@ -391,7 +391,7 @@ export default function Catalogo() {
 
           {/* ─── Riepilogo ─── */}
           <div className="flex items-center justify-between gap-4 mb-5">
-            <p className="text-sm text-gray-medium" aria-live="polite">
+            <p className="text-sm text-white/55" aria-live="polite">
               {filteredProducts.length}{' '}
               {filteredProducts.length === 1 ? 'prodotto trovato' : 'prodotti trovati'}
             </p>
@@ -422,7 +422,7 @@ export default function Catalogo() {
 
           {filteredProducts.length === 0 && (
             <div className="text-center py-20">
-              <p className="text-gray-medium text-lg">Nessun prodotto trovato.</p>
+              <p className="text-white/55 text-lg">Nessun prodotto trovato.</p>
               <button
                 type="button"
                 onClick={resetFilters}
@@ -433,7 +433,7 @@ export default function Catalogo() {
             </div>
           )}
 
-          <p className="text-xs text-gray-medium mt-10 max-w-2xl">
+          <p className="text-xs text-white/55 mt-10 max-w-2xl">
             Immagini dei prodotti reali. Caratteristiche, tensioni e configurazioni possono essere personalizzate su richiesta: per varianti, disponibilità aggiornata e codici alternativi scrivici.
           </p>
         </div>
@@ -443,11 +443,11 @@ export default function Catalogo() {
       <section className="py-16 lg:py-20 px-6 lg:px-10 bg-gray-light">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
           <div className="lg:col-span-5">
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Oltre il catalogo</p>
+            <p className="text-xs uppercase tracking-widest text-white/55 mb-4">Oltre il catalogo</p>
             <h2 className="text-3xl lg:text-4xl font-semibold text-black tracking-tight">
               Componentistica a magazzino
             </h2>
-            <p className="text-base text-gray-medium mt-5 leading-relaxed">
+            <p className="text-base text-white/55 mt-5 leading-relaxed">
               Per la nostra clientela è sempre possibile reperire la componentistica necessaria per le sostituzioni e le riparazioni. Se non trovi un codice, scrivici: verifichiamo disponibilità e alternative.
             </p>
             <Link
@@ -475,12 +475,12 @@ export default function Catalogo() {
                   <Package size={16} className="mt-0.5 flex-shrink-0 text-elektra-accent" />
                   <div>
                     <p className="text-sm font-medium text-black">{item.title}</p>
-                    <p className="text-xs text-gray-medium mt-0.5 leading-relaxed">{item.desc}</p>
+                    <p className="text-xs text-white/55 mt-0.5 leading-relaxed">{item.desc}</p>
                   </div>
                 </li>
               ))}
             </ul>
-            <p className="text-xs text-gray-medium mt-4">
+            <p className="text-xs text-white/55 mt-4">
               …e molto altro ancora. Disponibilità e codici si confermano su richiesta.
             </p>
           </div>

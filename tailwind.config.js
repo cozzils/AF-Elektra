@@ -6,8 +6,18 @@ module.exports = {
     extend: {
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
       },
       colors: {
+        night: '#070908',
+        surface: '#0B0F0C',
+        panel: '#101511',
+        ink: '#F2F6F2',
+        'ink-soft': '#DCE5DE',
+        'ink-muted': '#9AA69E',
+        line: 'rgba(255,255,255,0.08)',
+        neon: '#6EF59B',
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -56,10 +66,32 @@ module.exports = {
         '2xl': '20px',
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
-        panel: "rgba(0, 0, 0, 0.15) 0px 0px 20px",
+        xs: "0 1px 2px 0 rgb(0 0 0 / 0.35)",
+        panel: "0 24px 70px -24px rgba(0,0,0,0.75), 0 0 0 1px rgba(255,255,255,0.04)",
+        glow: "0 0 40px -8px rgba(21,128,61,0.55)",
+        'glow-neon': "0 0 36px -6px rgba(110,245,155,0.35)",
       },
       keyframes: {
+        "marquee": {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        "scan": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(600%)" },
+        },
+        "pulse-soft": {
+          "0%, 100%": { opacity: "0.35" },
+          "50%": { opacity: "0.9" },
+        },
+        "float": {
+          "0%, 100%": { transform: "translateY(-4px)" },
+          "50%": { transform: "translateY(6px)" },
+        },
+        "trace": {
+          "0%": { strokeDashoffset: "120" },
+          "100%": { strokeDashoffset: "0" },
+        },
         "accordion-down": {
           from: { height: "0" },
           to: { height: "var(--radix-accordion-content-height)" },
@@ -92,6 +124,11 @@ module.exports = {
         "fade-in-up": "fade-in-up 0.7s cubic-bezier(0.075, 0.820, 0.165, 1) forwards",
         "slide-in-left": "slide-in-left 0.7s cubic-bezier(0.075, 0.820, 0.165, 1) forwards",
         "slide-in-right": "slide-in-right 0.7s cubic-bezier(0.075, 0.820, 0.165, 1) forwards",
+        "marquee": "marquee 32s linear infinite",
+        "scan": "scan 5s linear infinite",
+        "pulse-soft": "pulse-soft 3.2s ease-in-out infinite",
+        "float": "float 7s ease-in-out infinite",
+        "trace": "trace 3s cubic-bezier(0.075, 0.820, 0.165, 1) forwards",
       },
     },
   },

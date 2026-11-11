@@ -12,24 +12,28 @@ export default function Privacy() {
   return (
     <Layout>
       {/* ─── HERO ─── */}
-      <section className="bg-gray-light pt-32 pb-16 px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto">
-          <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">
+      <section className="relative overflow-hidden pb-14 pt-32 lg:pb-20 lg:pt-40">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 top-10 h-[380px] w-[380px] rounded-full bg-elektra-accent/15 blur-[120px]"
+        />
+        <div className="relative mx-auto max-w-7xl px-5 lg:px-10">
+          <p className="tech-label text-white/45">
             Informativa sul Trattamento dei Dati Personali
           </p>
-          <h1 className="text-4xl lg:text-6xl font-semibold text-black tracking-tight">
+          <h1 className="mt-5 font-display text-4xl font-medium tracking-tight text-white sm:text-5xl lg:text-6xl">
             Privacy Policy
           </h1>
-          <p className="text-base text-gray-medium mt-4 max-w-2xl">
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/55">
             Informativa resa ai sensi dell&apos;art. 13 del Regolamento UE 2016/679 (GDPR) e della normativa italiana vigente.
           </p>
         </div>
       </section>
 
       {/* ─── CONTENT ─── */}
-      <section className="py-16 px-6 lg:px-10 bg-gray-light/40">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-black/5 space-y-10 text-gray-dark leading-relaxed">
+      <section className="px-5 pb-20 lg:px-10 lg:pb-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="space-y-10 rounded-2xl border border-white/[0.08] bg-white/[0.03] p-8 leading-relaxed text-white/70 lg:p-12">
 
             {/* 1. Titolare del Trattamento */}
             <section className="space-y-4">
@@ -40,19 +44,19 @@ export default function Privacy() {
               <p>
                 Il Titolare del trattamento dei dati personali è <strong>AF Elektra 2 di Romano Monica</strong>, con sede legale e operativa in:
               </p>
-              <div className="bg-gray-light p-6 rounded-xl space-y-2 text-sm">
+              <div className="rounded-xl border border-white/[0.07] bg-white/[0.04] p-6 space-y-2 text-sm">
                 <p><strong>Ragione sociale:</strong> AF Elektra 2 di Romano Monica</p>
                 <p className="flex items-center gap-2">
-                  <MapPin size={16} className="text-gray-medium" />
+                  <MapPin size={16} className="text-neon/70" />
                   <strong>Sede:</strong> Via Artigiani 19, 25014 Castenedolo (BS), Italia
                 </p>
                 <p><strong>Codice Fiscale e Partita IVA:</strong> 03286600980</p>
                 <p className="flex items-center gap-2">
-                  <Phone size={16} className="text-gray-medium" />
+                  <Phone size={16} className="text-neon/70" />
                   <strong>Telefono:</strong> 030 2130630
                 </p>
                 <p className="flex items-center gap-2">
-                  <Mail size={16} className="text-gray-medium" />
+                  <Mail size={16} className="text-neon/70" />
                   <strong>Email:</strong> afelektra2@afelektra.com
                 </p>
               </div>
@@ -191,7 +195,7 @@ export default function Privacy() {
             </section>
 
             {/* 9. Aggiornamento dell'Informativa */}
-            <section className="pt-6 border-t border-black/10 text-xs text-gray-medium space-y-1">
+            <section className="space-y-1 border-t border-white/[0.08] pt-6 text-xs text-white/55">
               <p><strong>Ultimo aggiornamento:</strong> Novembre 2026</p>
             </section>
 

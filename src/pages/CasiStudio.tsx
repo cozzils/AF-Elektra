@@ -216,11 +216,11 @@ export default function CasiStudio() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.075, 0.82, 0.165, 1] }}
           >
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Progetti</p>
+            <p className="text-xs uppercase tracking-widest text-white/55 mb-4">Progetti</p>
             <h1 className="text-5xl lg:text-7xl font-semibold text-black tracking-tight">
               Progetti e realizzazioni
             </h1>
-            <p className="text-base text-gray-medium mt-4 max-w-2xl">
+            <p className="text-base text-white/55 mt-4 max-w-2xl">
               Le nostre creazioni sono pensate innanzitutto per un impiego facile: morsetti estraibili o a pressione, fusibili verticali e componentistica miniaturizzata per contenere le dimensioni, perché il cablaggio sia rapido e senza esitazioni durante il montaggio.
             </p>
           </motion.div>
@@ -232,12 +232,12 @@ export default function CasiStudio() {
         <div className="max-w-7xl mx-auto">
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4 mb-10">
             <div>
-              <p className="text-xs uppercase tracking-widest text-gray-medium mb-2">Ambiti</p>
+              <p className="text-xs uppercase tracking-widest text-white/55 mb-2">Ambiti</p>
               <h2 className="text-2xl lg:text-3xl font-semibold text-black tracking-tight">
                 Progettate e prodotte in casa
               </h2>
             </div>
-            <p className="text-sm text-gray-medium max-w-md">
+            <p className="text-sm text-white/55 max-w-md">
               Una selezione delle applicazioni sviluppate su richiesta, dal singolo circuito alla macchina completa.
             </p>
           </div>
@@ -255,11 +255,11 @@ export default function CasiStudio() {
                   className={`inline-flex items-center gap-2 text-sm px-4 py-2 rounded-full border transition-colors duration-300 ${
                     active
                       ? 'bg-elektra-accent border-elektra-accent text-white font-medium'
-                      : 'border-black/10 text-gray-medium hover:border-black/30 hover:text-black'
+                      : 'border-black/10 text-white/55 hover:border-black/30 hover:text-black'
                   }`}
                 >
                   {category === 'Tutti' ? 'Tutte le realizzazioni' : category}
-                  <span className={`text-xs tabular-nums ${active ? 'text-white/75' : 'text-gray-medium/70'}`}>
+                  <span className={`text-xs tabular-nums ${active ? 'text-white/75' : 'text-white/55'}`}>
                     {categoryCounts.get(category)}
                   </span>
                 </button>
@@ -267,7 +267,7 @@ export default function CasiStudio() {
             })}
           </div>
 
-          <p className="text-sm text-gray-medium mb-6" aria-live="polite">
+          <p className="text-sm text-white/55 mb-6" aria-live="polite">
             {filtered.length} {filtered.length === 1 ? 'realizzazione' : 'realizzazioni'}
           </p>
 
@@ -285,10 +285,10 @@ export default function CasiStudio() {
                   className="flex flex-col bg-white rounded-2xl border border-black/5 p-6 hover:border-elektra-accent/50 hover:shadow-panel transition-all duration-500"
                 >
                   <div className="flex items-center justify-between gap-3">
-                    <span className="text-[11px] uppercase tracking-widest text-gray-medium">
+                    <span className="text-[11px] uppercase tracking-widest text-white/55">
                       {item.category}
                     </span>
-                    <span className="text-xs font-mono text-black/20">
+                    <span className="text-xs font-mono text-white/50">
                       {String(index + 1).padStart(2, '0')}
                     </span>
                   </div>
@@ -296,18 +296,18 @@ export default function CasiStudio() {
                   <h3 className="text-lg font-semibold text-black mt-3 leading-snug">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-gray-medium mt-2 leading-relaxed flex-1">
+                  <p className="text-sm text-white/55 mt-2 leading-relaxed flex-1">
                     {item.description}
                   </p>
 
                   <div className="mt-5 pt-4 border-t border-black/5">
-                    <p className="text-[11px] uppercase tracking-widest text-gray-medium mb-2">
+                    <p className="text-[11px] uppercase tracking-widest text-white/55 mb-2">
                       Ambito
                     </p>
                     <ul className="space-y-1.5">
                       {item.scope.map((scope) => (
-                        <li key={scope} className="flex items-start gap-2 text-xs text-gray-dark">
-                          <Check size={12} className="mt-0.5 flex-shrink-0 text-elektra-accent" />
+                        <li key={scope} className="flex items-start gap-2 text-xs text-white/65">
+                          <Check size={12} className="mt-0.5 flex-shrink-0 text-neon" />
                           {scope}
                         </li>
                       ))}

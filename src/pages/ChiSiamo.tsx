@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { Link } from 'react-router';
 import {
   Award,
   MapPin,
@@ -10,116 +11,176 @@ import {
   FlaskConical,
   Factory,
   ArrowRight,
+  ArrowUpRight,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SmartImage from '@/components/SmartImage';
+import TiltCard from '@/components/ui/TiltCard';
 import { usePageMeta } from '@/hooks/usePageMeta';
+
+const stats = [
+  { value: '40+', label: 'Anni di esperienza dei fondatori' },
+  { value: '2019', label: 'Anno di fondazione' },
+  { value: 'Brescia', label: 'Sede a Castenedolo (BS)' },
+];
 
 const processSteps = [
   {
     icon: <Lightbulb size={28} />,
     phase: 'Fase 1',
     title: 'Consulenza & Idea',
-    desc: 'Analizziamo le tue esigenze e trasformiamo le tue idee in specifiche tecniche dettagliate. Il nostro team di ingegneri ti affianca fin dal primo concept.',
+    desc: 'Analizziamo le tue esigenze e trasformiamo le idee in specifiche tecniche dettagliate. Il team di ingegneri ti affianca fin dal primo concept.',
   },
   {
     icon: <FlaskConical size={28} />,
     phase: 'Fase 2',
     title: 'Prototipazione',
-    desc: 'Realizziamo prototipi funzionanti per validare ogni aspetto del progetto. Test approfonditi garantiscono che il prodotto soddisfi tutti i requisiti.',
+    desc: 'Realizziamo prototipi funzionanti per validare ogni aspetto del progetto. Test approfonditi verificano che il prodotto soddisfi i requisiti.',
   },
   {
     icon: <Factory size={28} />,
     phase: 'Fase 3',
     title: 'Produzione & Collaudo',
-    desc: 'Produzione in serie con controlli qualitativi ad ogni stadio. Collaudo finale rigoroso e consegna puntuale del prodotto finito.',
+    desc: 'Produzione in serie con controlli qualitativi in ogni fase, fino al collaudo finale e alla documentazione di accompagnamento.',
+  },
+];
+
+const specializations = [
+  {
+    icon: <Settings size={24} />,
+    title: 'Quadristica',
+    desc: 'Progettazione e realizzazione di quadri elettrici di comando e controllo per applicazioni industriali. Dallo schema elettrico al cablaggio finale.',
+  },
+  {
+    icon: <Cpu size={24} />,
+    title: 'Programmazione PLC',
+    desc: 'Sviluppo software per automazione industriale con piattaforme Siemens e Omron. Programmazione ladder, structured text e HMI.',
+  },
+  {
+    icon: <CircuitBoard size={24} />,
+    title: 'Progettazione PCB',
+    desc: 'Design di schede elettroniche multistrato con strumenti CAD professionali. Simulazione, sbrogliatura e ottimizzazione del layout.',
   },
 ];
 
 export default function ChiSiamo() {
   usePageMeta(
     'Chi Siamo | AF Elektra 2',
-    'AF Elektra 2 nasce nel 2019 a Castenedolo (BS) e porta avanti oltre 40 anni di know-how nell’elettronica industriale: progettazione, prototipazione, produzione e collaudo.',
+    'AF Elektra 2, fondata nel 2019 a Castenedolo (BS): oltre 40 anni di esperienza dei fondatori nella progettazione e produzione di elettronica industriale.',
     '/chi-siamo',
   );
 
   return (
     <Layout>
       {/* ─── HERO ─── */}
-      <section className="relative bg-gray-light pt-32 lg:pt-40 pb-16 px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto w-full">
+      <section className="relative overflow-hidden pb-14 pt-32 lg:pb-20 lg:pt-40">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-20 top-10 h-[420px] w-[420px] rounded-full bg-elektra-accent/15 blur-[120px]"
+        />
+        <div className="relative mx-auto max-w-[1440px] px-5 lg:px-10">
           <motion.div
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 28 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.075, 0.82, 0.165, 1] }}
+            transition={{ duration: 0.7, ease: [0.075, 0.82, 0.165, 1] }}
           >
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Chi Siamo</p>
-            <h1 className="text-5xl lg:text-7xl font-semibold text-black tracking-tight leading-none">
-              Ingegneria di precisione,<br />
-              <span className="text-gray-medium font-light">dal 2019.</span>
+            <div className="flex items-center gap-3">
+              <span className="h-px w-8 bg-neon/40" aria-hidden="true" />
+              <p className="tech-label text-white/45">Chi siamo</p>
+            </div>
+            <h1 className="mt-6 max-w-4xl font-display text-4xl font-medium leading-[0.98] tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
+              Ingegneria di precisione,
+              <br />
+              <span className="text-gradient">dal 2019.</span>
             </h1>
+            <p className="mt-7 max-w-2xl text-base leading-relaxed text-white/55 sm:text-lg">
+              Un’azienda tecnica, una sede produttiva a Castenedolo e oltre 40 anni
+              di esperienza dei fondatori nell’elettronica industriale.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 font-mono-tech text-[10px] uppercase tracking-[0.16em] text-white/55">
+              <span className="flex items-center gap-2">
+                <MapPin size={13} className="text-neon/70" aria-hidden="true" />
+                Castenedolo (BS)
+              </span>
+              <span className="flex items-center gap-2">
+                <Calendar size={13} className="text-neon/70" aria-hidden="true" />
+                Fondata nel 2019
+              </span>
+              <span className="flex items-center gap-2">
+                <Award size={13} className="text-neon/70" aria-hidden="true" />
+                P.IVA 03286600980
+              </span>
+            </div>
           </motion.div>
         </div>
       </section>
 
-      {/* ─── STATS BAR ─── */}
-      <section className="bg-black text-white py-12 px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto grid grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            { label: 'Esperienza dei fondatori', value: '40+' },
-            { label: 'Fondazione AF Elektra 2', value: '2019' },
-            { label: 'Sede', value: 'Brescia' },
-          ].map((stat, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 + i * 0.1, ease: [0.075, 0.82, 0.165, 1] }}
-              className="text-center lg:text-left"
+      {/* ─── NUMERI ─── */}
+      <section aria-label="AF Elektra 2 in sintesi" className="border-y border-white/[0.07] bg-[#080b09]/70">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 px-5 sm:grid-cols-3 lg:px-10">
+          {stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className={`py-8 lg:py-10 ${
+                index > 0 ? 'border-t border-white/[0.07] sm:border-l sm:border-t-0 sm:pl-8 lg:pl-12' : ''
+              }`}
             >
-              <p className="text-3xl lg:text-4xl font-light">{stat.value}</p>
-              <p className="text-xs uppercase tracking-widest text-white/50 mt-1">{stat.label}</p>
-            </motion.div>
+              <p className="font-display text-3xl font-medium tracking-tight text-white lg:text-4xl">
+                {stat.value}
+              </p>
+              <p className="tech-label mt-2 text-white/40">{stat.label}</p>
+            </div>
           ))}
         </div>
       </section>
 
-      {/* ─── ABOUT ─── */}
-      <section className="py-16 lg:py-24 px-6 lg:px-10 bg-white">
-        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-          <div className="lg:col-span-5 reveal">
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">La Nostra Storia</p>
-            <h2 className="text-3xl lg:text-4xl font-semibold text-black tracking-tight leading-tight">
-              Partner tecnologici, non semplici esecutori.
+      {/* ─── STORIA ─── */}
+      <section className="px-5 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="reveal lg:col-span-5">
+            <p className="tech-label text-white/45">La nostra storia</p>
+            <h2 className="mt-5 font-display text-3xl font-medium leading-[1.02] tracking-tight text-white sm:text-4xl">
+              Partner tecnologici,
+              <br />
+              <span className="text-white/45">non semplici esecutori.</span>
             </h2>
-            <div className="mt-8 space-y-4">
-              <p className="text-sm lg:text-base text-gray-medium leading-relaxed">
-                AF Elektra 2 nasce nel 2019, ereditando oltre 40 anni di know-how dei suoi fondatori nel settore dell&apos;elettronica industriale. Situata nel cuore produttivo del nord Italia, a Castenedolo in provincia di Brescia, l&apos;azienda rappresenta un punto di riferimento per la progettazione e produzione di sistemi elettronici ad alta precisione.
+            <div className="mt-7 space-y-4 text-sm leading-relaxed text-white/55 lg:text-base">
+              <p>
+                AF Elektra 2 nasce nel 2019, ereditando oltre 40 anni di know-how dei
+                suoi fondatori nel settore dell’elettronica industriale. Situata nel
+                cuore produttivo del nord Italia, a Castenedolo in provincia di
+                Brescia, l’azienda rappresenta un punto di riferimento per la
+                progettazione e produzione di sistemi elettronici ad alta precisione.
               </p>
-              <p className="text-sm lg:text-base text-gray-medium leading-relaxed">
-                Il nostro approccio si distingue per la capacità di affiancare il cliente in ogni fase del processo produttivo: dalla consulenza iniziale alla progettazione, dalla realizzazione del prototipo fino alla produzione di serie e al collaudo finale.
+              <p>
+                Il nostro approccio si distingue per la capacità di affiancare il
+                cliente in ogni fase del processo produttivo: dalla consulenza
+                iniziale alla progettazione, dalla realizzazione del prototipo fino
+                alla produzione di serie e al collaudo finale.
               </p>
             </div>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-8 space-y-4 border-t border-white/[0.07] pt-6">
               <div className="flex items-center gap-3">
-                <MapPin size={16} className="text-gray-medium" />
-                <span className="text-sm text-black">Via Artigiani, 19 — 25014 Castenedolo (BS)</span>
+                <MapPin size={16} className="text-neon/70" aria-hidden="true" />
+                <span className="text-sm text-white/70">
+                  Via Artigiani, 19 — 25014 Castenedolo (BS)
+                </span>
               </div>
               <div className="flex items-center gap-3">
-                <Calendar size={16} className="text-gray-medium" />
-                <span className="text-sm text-black">Fondata nel 2019</span>
+                <Calendar size={16} className="text-neon/70" aria-hidden="true" />
+                <span className="text-sm text-white/70">Fondata nel 2019</span>
               </div>
               <div className="flex items-center gap-3">
-                <Award size={16} className="text-gray-medium" />
-                <span className="text-sm text-black">P.IVA / C.F.: 03286600980</span>
+                <Award size={16} className="text-neon/70" aria-hidden="true" />
+                <span className="text-sm text-white/70">P.IVA / C.F.: 03286600980</span>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-7 reveal">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="rounded-2xl overflow-hidden">
+          <div className="reveal lg:col-span-7">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08]">
                 <SmartImage
                   src="/images/sede-ingresso.jpg"
                   alt="Ingresso della sede AF Elektra 2 a Castenedolo"
@@ -127,21 +188,21 @@ export default function ChiSiamo() {
                   height={277}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[300px] lg:h-full object-cover"
+                  className="h-[280px] w-full object-cover sm:h-full"
                 />
               </div>
-              <div className="rounded-2xl overflow-hidden">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08]">
                 <SmartImage
                   src="/images/pcb-closeup.jpg"
-                  alt="Circuito stampato"
+                  alt="Circuito stampato realizzato da AF Elektra 2"
                   width={1024}
                   height={1024}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[300px] object-cover"
+                  className="h-[280px] w-full object-cover"
                 />
               </div>
-              <div className="sm:col-span-2 rounded-2xl overflow-hidden">
+              <div className="overflow-hidden rounded-2xl border border-white/[0.08] sm:col-span-2">
                 <SmartImage
                   src="/images/capannone-sede.jpg"
                   alt="Capannone della sede AF Elektra 2 a Castenedolo"
@@ -149,7 +210,7 @@ export default function ChiSiamo() {
                   height={176}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[200px] object-cover"
+                  className="h-[190px] w-full object-cover"
                 />
               </div>
             </div>
@@ -158,42 +219,35 @@ export default function ChiSiamo() {
       </section>
 
       {/* ─── SPECIALIZZAZIONI ─── */}
-      <section id="competenze" className="py-16 lg:py-24 px-6 lg:px-10 bg-gray-light">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 lg:mb-16 reveal">
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-3">Competenze</p>
-            <h2 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
-              Le Nostre Specializzazioni
+      <section id="competenze" className="border-y border-white/[0.07] bg-[#080b09]/70 px-5 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="reveal max-w-2xl">
+            <p className="tech-label text-white/45">Competenze</p>
+            <h2 className="mt-5 font-display text-3xl font-medium leading-[1.02] tracking-tight text-white sm:text-4xl">
+              Le nostre specializzazioni.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
-            {[
-              {
-                icon: <Settings size={32} />,
-                title: 'Quadristica',
-                desc: 'Progettazione e realizzazione di quadri elettrici di comando e controllo per applicazioni industriali. Dallo schema elettrico al cablaggio finale.',
-              },
-              {
-                icon: <Cpu size={32} />,
-                title: 'Programmazione PLC',
-                desc: 'Sviluppo software per automazione industriale con piattaforme Siemens e Omron. Programmazione ladder, structured text e HMI.',
-              },
-              {
-                icon: <CircuitBoard size={32} />,
-                title: 'Progettazione PCB',
-                desc: 'Design di schede elettroniche multistrato con strumenti CAD professionali. Simulazione, sbrogliatura e ottimizzazione del layout.',
-              },
-            ].map((spec, i) => (
-              <div
-                key={i}
-                className="reveal bg-white rounded-2xl p-8 border border-black/5 hover:border-black/15 hover:shadow-panel transition-all duration-500 group"
-              >
-                <div className="w-16 h-16 rounded-xl bg-gray-light flex items-center justify-center text-gray-dark group-hover:bg-elektra-accent group-hover:text-white transition-colors duration-300">
-                  {spec.icon}
-                </div>
-                <h3 className="font-semibold text-xl text-black mt-6">{spec.title}</h3>
-                <p className="text-sm text-gray-medium mt-3 leading-relaxed">{spec.desc}</p>
+          <div className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-3">
+            {specializations.map((spec) => (
+              <div key={spec.title} className="reveal h-full">
+                <TiltCard className="group h-full rounded-3xl" intensity={5}>
+                  <div className="relative flex h-full flex-col overflow-hidden rounded-3xl border border-white/[0.08] bg-white/[0.03] p-7 transition-colors duration-500 group-hover:border-neon/25">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -right-14 -top-14 h-40 w-40 rounded-full bg-elektra-accent/25 opacity-0 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+                    />
+                    <span className="relative flex h-12 w-12 items-center justify-center rounded-2xl border border-neon/20 bg-neon/10 text-neon">
+                      {spec.icon}
+                    </span>
+                    <h3 className="relative mt-6 font-display text-xl font-medium tracking-tight text-white">
+                      {spec.title}
+                    </h3>
+                    <p className="relative mt-3 text-sm leading-relaxed text-white/50">
+                      {spec.desc}
+                    </p>
+                  </div>
+                </TiltCard>
               </div>
             ))}
           </div>
@@ -201,43 +255,82 @@ export default function ChiSiamo() {
       </section>
 
       {/* ─── PROCESSO 3 FASI ─── */}
-      <section className="py-16 lg:py-24 px-6 lg:px-10 bg-white">
-        <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-12 lg:mb-16 reveal">
-            <p className="text-xs uppercase tracking-widest text-gray-medium mb-3">Come Lavoriamo</p>
-            <h2 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
-              Il Nostro Processo
+      <section className="px-5 py-20 lg:px-10 lg:py-28">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="reveal max-w-2xl">
+            <p className="tech-label text-white/45">Come lavoriamo</p>
+            <h2 className="mt-5 font-display text-3xl font-medium leading-[1.02] tracking-tight text-white sm:text-4xl">
+              Il nostro processo.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
             {processSteps.map((step, i) => (
               <motion.div
-                key={i}
+                key={step.title}
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
-                transition={{ duration: 0.7, delay: i * 0.15, ease: [0.075, 0.82, 0.165, 1] }}
+                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.075, 0.82, 0.165, 1] }}
                 className="relative"
               >
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-14 h-14 rounded-xl bg-elektra-accent flex items-center justify-center text-white">
+                <div className="flex items-center gap-4">
+                  <span className="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl border border-neon/20 bg-neon/10 text-neon">
                     {step.icon}
-                  </div>
+                  </span>
                   <div>
-                    <p className="text-xs uppercase tracking-widest text-gray-medium">{step.phase}</p>
-                    <h3 className="font-semibold text-lg text-black">{step.title}</h3>
+                    <p className="font-mono-tech text-[10px] uppercase tracking-[0.18em] text-neon/70">
+                      {step.phase}
+                    </p>
+                    <h3 className="mt-1 font-display text-lg font-medium text-white">
+                      {step.title}
+                    </h3>
                   </div>
                 </div>
-                <p className="text-sm text-gray-medium leading-relaxed">{step.desc}</p>
+                <p className="mt-5 text-sm leading-relaxed text-white/50">{step.desc}</p>
 
                 {i < processSteps.length - 1 && (
-                  <div className="hidden md:block absolute top-7 right-0 translate-x-1/2">
-                    <ArrowRight size={20} className="text-gray-medium/30" />
+                  <div className="absolute right-0 top-6 hidden translate-x-1/2 md:block" aria-hidden="true">
+                    <ArrowRight size={18} className="text-neon/30" />
                   </div>
                 )}
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── CTA ─── */}
+      <section className="px-5 pb-20 lg:px-10 lg:pb-28">
+        <div className="mx-auto max-w-[1440px]">
+          <div className="relative overflow-hidden rounded-[28px] border border-neon/15 bg-gradient-to-br from-[#0c130e] via-[#080b09] to-[#0b150f] px-6 py-12 lg:px-14 lg:py-16">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute -left-20 -top-24 h-80 w-80 rounded-full bg-elektra-accent/25 blur-[110px]"
+            />
+            <div className="relative grid grid-cols-1 items-center gap-8 lg:grid-cols-12">
+              <div className="lg:col-span-8">
+                <h2 className="max-w-2xl font-display text-3xl font-medium leading-[1.02] tracking-tight text-white sm:text-4xl">
+                  Vuoi conoscere meglio come lavoriamo?
+                </h2>
+                <p className="mt-4 max-w-xl text-sm leading-relaxed text-white/55">
+                  Raccontaci il tuo progetto: ti spieghiamo come possiamo intervenire,
+                  dalla progettazione alla produzione.
+                </p>
+              </div>
+              <div className="lg:col-span-4 lg:text-right">
+                <Link
+                  to="/contatti"
+                  className="group inline-flex items-center gap-2.5 rounded-full bg-elektra-accent px-7 py-4 text-sm font-semibold text-white shadow-[0_0_40px_-10px_rgba(21,128,61,0.95)] transition-all duration-300 hover:bg-[#1a9c4c] hover:shadow-[0_0_50px_-6px_rgba(110,245,155,0.5)]"
+                >
+                  Parla con noi
+                  <ArrowUpRight
+                    size={17}
+                    className="transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                  />
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </section>
