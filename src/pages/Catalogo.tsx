@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   Filter,
@@ -11,6 +11,7 @@ import {
   ToggleRight,
   CircuitBoard,
   Puzzle,
+  Waves,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SmartImage from '@/components/SmartImage';
@@ -24,113 +25,175 @@ interface Product {
   category: string;
   voltage: string;
   mounting: string;
-  available: boolean;
-  delivery?: string;
-  image: string | null;
+  image: string;
+  tagline: string;
   specs: string[];
 }
 
-/* ─── Demo Data ─── */
+/* ─── Catalogo reale ─── */
 const products: Product[] = [
   {
-    id: '1',
-    name: 'Alimentatore Switching Din',
-    code: 'PWR-SW-24V-5A',
-    category: 'Alimentatori',
-    voltage: '85-264 VAC',
-    mounting: 'DIN Rail',
-    available: true,
-    image: '/images/alimentatore.jpg',
-    specs: ['85-264 VAC in', '24VDC 5A out', 'DIN 35mm'],
+    id: 'rp-1035-d',
+    name: 'RP 1035 D',
+    code: 'RP1035D-24F',
+    category: 'Alimentatori switching',
+    voltage: '100–240 V AC',
+    mounting: 'Contenitore metallico',
+    image: '/images/prodotti/rp-1035-d.jpg',
+    tagline: 'Alimentatore switching 24 V DC da 1,5 A, 35 W, in contenitore metallico.',
+    specs: ['IN 100–240 V AC', 'OUT 24 V DC · 1,5 A', 'LED DC ON', 'Trimmer V adj'],
   },
   {
-    id: '2',
-    name: 'Relè Statico Monofase',
-    code: 'RLY-ST-AC-40A',
-    category: 'Relè Statici',
-    voltage: '4-32 VDC',
+    id: 'asg-05-10',
+    name: 'ASG 05 / ASG 10',
+    code: 'ASG05 · ASG10',
+    category: 'Alimentatori switching',
+    voltage: '24 V AC ±15%',
     mounting: 'DIN Rail',
-    available: true,
-    image: '/images/rele.jpg',
-    specs: ['4-32 VDC ctrl', '24-480 VAC', '40A max'],
+    image: '/images/prodotti/asg-05-asg-10.jpg',
+    tagline: 'Alimentatori switching da 5 A e 10 A con ingresso 24 V AC.',
+    specs: ['IN 24 V AC ±15%', 'OUT 24 V DC · 5/10 A', 'DIN Rail', 'Case metallico'],
   },
   {
-    id: '3',
-    name: 'Scheda Interfaccia 8 Relè',
-    code: 'INT-BRD-8R-24V',
-    category: 'Schede Interfaccia',
-    voltage: '24 VDC',
+    id: 'al-02',
+    name: 'AL 02',
+    code: 'AL02',
+    category: 'Alimentatori switching',
+    voltage: '26–32 V AC',
     mounting: 'DIN Rail',
-    available: false,
-    delivery: '2 settimane',
-    image: '/images/scheda-interfaccia.jpg',
-    specs: ['8 canali SPDT', '24VDC', '10A@250VAC'],
+    image: '/images/prodotti/al-02.jpg',
+    tagline: 'Alimentatore switching 4 A con protezione da sovratensione, sovraccarico e cortocircuito.',
+    specs: ['IN 26–32 V AC', 'OUT 5,1–26 V DC · 4 A', 'LED ingresso/uscita', 'Trimmer di regolazione'],
   },
   {
-    id: '4',
-    name: 'Alimentatore Lineare Aperto',
-    code: 'PWR-LIN-12V-1A',
-    category: 'Alimentatori',
-    voltage: '230 VAC',
-    mounting: 'Aperto',
-    available: true,
-    image: '/images/alimentatore-lineare.jpg',
-    specs: ['230 VAC in', '12VDC 1A', '<2mV ripple'],
+    id: 'al-1a',
+    name: 'AL 1A',
+    code: 'AL1A',
+    category: 'Alimentatori lineari',
+    voltage: '24 V AC',
+    mounting: 'DIN Rail',
+    image: '/images/prodotti/al-1a.jpg',
+    tagline: 'Alimentatore lineare 24 V DC da 0,5 A, con ripple contenuto.',
+    specs: ['IN 24 V AC', 'OUT 24 V DC · 0,5 A', 'Ripple 5 mVpp', 'LED ingresso/uscita'],
   },
   {
-    id: '5',
-    name: 'Relè Statico Trifase',
-    code: 'RLY-ST-3PH-25A',
-    category: 'Relè Statici',
-    voltage: '4-32 VDC',
+    id: 'al-00',
+    name: 'AL 00',
+    code: 'AL00',
+    category: 'Alimentatori lineari',
+    voltage: '24 V AC',
     mounting: 'DIN Rail',
-    available: true,
-    image: null,
-    specs: ['4-32 VDC ctrl', '24-600 VAC', '25A max'],
-  },  {
-    id: '6',
-    name: 'Scheda I/O Analogica 4ch',
-    code: 'INT-BRD-4A-10V',
-    category: 'Schede Interfaccia',
-    voltage: '24 VDC',
-    mounting: 'DIN Rail',
-    available: true,
-    image: null,
-    specs: ['4 canali', '0-10V / 4-20mA', 'Isolata'],
+    image: '/images/prodotti/al-00.jpg',
+    tagline: 'Alimentatore lineare 24 V DC da 1,5 A, con regolazione della limitazione di corrente.',
+    specs: ['IN 24 V AC', 'OUT 24 V DC · 1,5 A', 'Ripple 5 mVpp', 'Limite corrente'],
   },
   {
-    id: '7',
-    name: 'Alimentatore UPS 24V 10A',
-    code: 'PWR-UPS-24V-10A',
-    category: 'Alimentatori',
-    voltage: '85-264 VAC',
-    mounting: 'DIN Rail',
-    available: false,
-    delivery: '3 settimane',
-    image: null,
-    specs: ['85-264 VAC in', '24VDC 10A', 'Backup batteria'],
+    id: 'ge-34',
+    name: 'GE 34',
+    code: 'GE34',
+    category: 'Schede interfaccia',
+    voltage: '24 V DC',
+    mounting: 'Open frame',
+    image: '/images/prodotti/ge-34.jpg',
+    tagline: 'Scheda interfaccia a relè, 24 V DC, in versione open frame.',
+    specs: ['Ingresso 24 V DC', 'Open frame', 'Uscita a relè', 'LED di stato'],
   },
   {
-    id: '8',
-    name: 'Relè Statico DC-DC 100A',
-    code: 'RLY-ST-DC-100A',
-    category: 'Relè Statici',
-    voltage: '3-32 VDC',
-    mounting: 'Panel',
-    available: true,
-    image: null,
-    specs: ['3-32 VDC ctrl', '12-120 VDC', '100A max'],
+    id: 'af-4-6-8-rele',
+    name: 'AF 4 / 6 / 8 RELÈ',
+    code: 'AF 4 · AF 6 · AF 8',
+    category: 'Schede interfaccia',
+    voltage: '24 V DC',
+    mounting: 'DIN Rail',
+    image: '/images/prodotti/af-4-6-8-rele.jpg',
+    tagline: 'Schede interfaccia a 4, 6 o 8 relè in contenitore per barra DIN.',
+    specs: ['4 / 6 / 8 canali', '24 V DC', 'Contatti in scambio o NO', 'Connettori estraibili'],
+  },
+  {
+    id: 'el2',
+    name: 'EL2',
+    code: 'EL2',
+    category: 'Schede interfaccia',
+    voltage: '24 V DC',
+    mounting: 'DIN Rail',
+    image: '/images/prodotti/el2.jpg',
+    tagline: 'Scheda interfaccia a 4 transistor, con LED di segnalazione per ogni canale.',
+    specs: ['4 canali', 'IN 24 V DC · 10 mA', 'OUT 60 V · 2 A', 'LED per canale'],
+  },
+  {
+    id: 'ge-34-t',
+    name: 'GE 34/T',
+    code: 'GE34/T',
+    category: 'Schede tastatori',
+    voltage: '24 V DC',
+    mounting: 'Open frame',
+    image: '/images/prodotti/ge-34-t.jpg',
+    tagline: 'Scheda tastatore a 2 relè per sonda a bagno con principio resistivo.',
+    specs: ['2 relè', '24 V DC', 'Sonda resistiva', 'Open frame'],
+  },
+  {
+    id: 'af-t02-of',
+    name: 'AF-T02/OF',
+    code: 'AF-T02/OF',
+    category: 'Schede tastatori',
+    voltage: '230 V AC',
+    mounting: 'Open frame',
+    image: '/images/prodotti/af-t02-of.jpg',
+    tagline: 'Tastatore elettronico open frame per 2 sonde, STOP e SAFETY.',
+    specs: ['2 sonde', 'STOP + SAFETY', '230 V AC · 50 Hz', 'LED di stato'],
+  },
+  {
+    id: 'af-t02-cs',
+    name: 'AF-T02/CS',
+    code: 'AF-T02/CS',
+    category: 'Schede tastatori',
+    voltage: '230 V AC',
+    mounting: 'DIN Rail',
+    image: '/images/prodotti/af-t02-cs.jpg',
+    tagline: 'Tastatore elettronico in contenitore chiuso per barra DIN, per 2 sonde.',
+    specs: ['2 sonde', 'STOP + SAFETY', '230 V AC · 50 Hz', 'Contenitore DIN'],
+  },
+  {
+    id: 'rele-statico-dc',
+    name: 'Relè statici DC AF-60V',
+    code: 'AF-60VDC-2A · -4A',
+    category: 'Relè statici',
+    voltage: '10–30 V DC',
+    mounting: 'Circuito stampato',
+    image: '/images/prodotti/rele-statico-dc-af-60v.jpg',
+    tagline: 'Relè a stato solido DC da 2 A o 4 A, pin-to-pin con relè elettromeccanici.',
+    specs: ['60 V DC', '2 A / 4 A', 'Controllo 10–30 V DC', 'Commutazione istantanea'],
+  },
+  {
+    id: 'rele-statico-ac',
+    name: 'Relè statici AC AF-230V',
+    code: 'AF-230V/A2 · A2-5 · A2-3.5',
+    category: 'Relè statici',
+    voltage: '10–30 V DC',
+    mounting: 'Circuito stampato',
+    image: '/images/prodotti/rele-statico-ac-af-230v.jpg',
+    tagline: 'Relè a stato solido AC con commutazione a zero crossing, corrente nominale 2 A.',
+    specs: ['240 V AC', '2 A', 'Controllo 10–30 V DC', 'Zero crossing'],
   },
 ];
 
-const categories = ['Tutti', 'Alimentatori', 'Schede Interfaccia', 'Relè Statici'];
-const voltages = ['Tutti', '85-264 VAC', '230 VAC', '4-32 VDC', '24 VDC', '3-32 VDC'];
-const mountings = ['Tutti', 'DIN Rail', 'Aperto', 'Panel'];
+const categories = [
+  'Tutti',
+  'Alimentatori switching',
+  'Alimentatori lineari',
+  'Schede interfaccia',
+  'Schede tastatori',
+  'Relè statici',
+];
+const voltages = ['Tutti', ...Array.from(new Set(products.map((p) => p.voltage)))];
+const mountings = ['Tutti', ...Array.from(new Set(products.map((p) => p.mounting)))];
 
 const categoryIcons: Record<string, React.ReactNode> = {
-  'Alimentatori': <Zap size={16} />,
-  'Relè Statici': <ToggleRight size={16} />,
-  'Schede Interfaccia': <CircuitBoard size={16} />,
+  'Alimentatori switching': <Zap size={16} />,
+  'Alimentatori lineari': <Zap size={16} />,
+  'Schede interfaccia': <CircuitBoard size={16} />,
+  'Schede tastatori': <Waves size={16} />,
+  'Relè statici': <ToggleRight size={16} />,
 };
 
 /* ─── Product Card ─── */
@@ -160,15 +223,9 @@ function ProductCard({ product }: { product: Product }) {
         )}
         {/* Badge */}
         <div className="absolute top-3 left-3">
-          {product.available ? (
-            <span className="inline-flex items-center gap-1 bg-elektra-accent text-white text-xs font-medium px-2.5 py-1 rounded-full">
-              Disponibile
-            </span>
-          ) : (
-            <span className="inline-flex items-center gap-1 bg-orange-100 text-orange-700 text-xs font-medium px-2.5 py-1 rounded-full">
-              Consegna {product.delivery}
-            </span>
-          )}
+          <span className="inline-flex items-center gap-1 bg-elektra-accent text-white text-xs font-medium px-2.5 py-1 rounded-full">
+            A magazzino
+          </span>
         </div>
         {/* Category icon */}
         <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-dark">
@@ -187,6 +244,8 @@ function ProductCard({ product }: { product: Product }) {
           </div>
         </div>
 
+        <p className="text-sm text-gray-medium mt-2 leading-relaxed">{product.tagline}</p>
+
         {/* Specs */}
         <div className="flex flex-wrap gap-1.5 mt-3">
           {product.specs.map((spec, i) => (
@@ -199,7 +258,7 @@ function ProductCard({ product }: { product: Product }) {
         {/* Actions */}
         <div className="flex gap-2 mt-4">
           <a
-            href={`mailto:afelektra2@afelektra.com?subject=${encodeURIComponent(`Richiesta scheda tecnica ${product.code}`)}`}
+            href={`mailto:uff.tecnico@afelektra.com?subject=${encodeURIComponent(`Richiesta scheda tecnica ${product.code}`)}`}
             className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-gray-dark px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300"
           >
             <FileText size={14} />
@@ -226,8 +285,6 @@ interface FilterPanelProps {
   onVoltageChange: (voltage: string) => void;
   selectedMounting: string;
   onMountingChange: (mounting: string) => void;
-  onlyAvailable: boolean;
-  onOnlyAvailableChange: (value: boolean) => void;
 }
 
 function FilterPanel({
@@ -237,8 +294,6 @@ function FilterPanel({
   onVoltageChange,
   selectedMounting,
   onMountingChange,
-  onlyAvailable,
-  onOnlyAvailableChange,
 }: FilterPanelProps) {
   return (
     <div className="space-y-8">
@@ -308,32 +363,9 @@ function FilterPanel({
         </div>
       </div>
 
-      {/* Availability */}
-      <div>
-        <button
-          type="button"
-          role="switch"
-          aria-checked={onlyAvailable}
-          onClick={() => onOnlyAvailableChange(!onlyAvailable)}
-          className="flex items-center gap-3 cursor-pointer group w-full text-left"
-        >
-          <span
-            aria-hidden="true"
-            className={`w-10 h-6 rounded-full transition-colors duration-300 flex items-center flex-shrink-0 ${
-              onlyAvailable ? 'bg-elektra-accent' : 'bg-gray-medium/30'
-            }`}
-          >
-            <span
-              className={`w-5 h-5 rounded-full bg-white shadow-sm transition-transform duration-300 ${
-                onlyAvailable ? 'translate-x-5' : 'translate-x-0.5'
-              }`}
-            />
-          </span>
-          <span className="text-sm text-gray-medium group-hover:text-black transition-colors duration-300">
-            Solo disponibili
-          </span>
-        </button>
-      </div>
+      <p className="text-xs text-gray-medium leading-relaxed border-t border-black/10 pt-6">
+        Tutti i prodotti sono normalmente disponibili a magazzino. Tensioni, contatti e configurazioni possono essere personalizzati su richiesta.
+      </p>
     </div>
   );
 }
@@ -343,34 +375,39 @@ function FilterPanel({
 export default function Catalogo() {
   usePageMeta(
     'Catalogo Prodotti | AF Elektra 2',
-    'Alimentatori, schede interfaccia e relè statici per l’elettronica industriale. Scopri il catalogo AF Elektra 2 e richiedi un preventivo.',
+    'Alimentatori switching e lineari, schede interfaccia e tastatori, relè statici: il catalogo AF Elektra 2 per l’elettronica industriale.',
     '/catalogo',
   );
 
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('Tutti');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const categoryParam = searchParams.get('categoria');
+  const selectedCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : 'Tutti';
   const [selectedVoltage, setSelectedVoltage] = useState('Tutti');
   const [selectedMounting, setSelectedMounting] = useState('Tutti');
-  const [onlyAvailable, setOnlyAvailable] = useState(false);
+
+  const setSelectedCategory = (category: string) => {
+    const next = new URLSearchParams(searchParams);
+    if (category === 'Tutti') next.delete('categoria');
+    else next.set('categoria', category);
+    setSearchParams(next, { replace: true });
+  };
 
   const filteredProducts = products.filter((p) => {
     if (selectedCategory !== 'Tutti' && p.category !== selectedCategory) return false;
     if (selectedVoltage !== 'Tutti' && p.voltage !== selectedVoltage) return false;
     if (selectedMounting !== 'Tutti' && p.mounting !== selectedMounting) return false;
-    if (onlyAvailable && !p.available) return false;
     return true;
   });
 
   const filtersActive = selectedCategory !== 'Tutti'
     || selectedVoltage !== 'Tutti'
-    || selectedMounting !== 'Tutti'
-    || onlyAvailable;
+    || selectedMounting !== 'Tutti';
 
   const resetFilters = () => {
     setSelectedCategory('Tutti');
     setSelectedVoltage('Tutti');
     setSelectedMounting('Tutti');
-    setOnlyAvailable(false);
   };
 
   return (
@@ -388,7 +425,7 @@ export default function Catalogo() {
               Catalogo Prodotti
             </h1>
             <p className="text-base text-gray-medium mt-4 max-w-xl">
-              Selezione di prodotti per l&apos;elettronica industriale. Alimentatori, schede interfaccia e relè statici.
+              Alimentatori switching e lineari, schede interfaccia e tastatori, relè statici. Prodotti normalmente disponibili a magazzino, personalizzabili su richiesta.
             </p>
           </motion.div>
         </div>
@@ -409,8 +446,6 @@ export default function Catalogo() {
                   onVoltageChange={setSelectedVoltage}
                   selectedMounting={selectedMounting}
                   onMountingChange={setSelectedMounting}
-                  onlyAvailable={onlyAvailable}
-                  onOnlyAvailableChange={setOnlyAvailable}
                 />
               </div>
             </aside>
@@ -444,8 +479,6 @@ export default function Catalogo() {
                     onVoltageChange={setSelectedVoltage}
                     selectedMounting={selectedMounting}
                     onMountingChange={setSelectedMounting}
-                    onlyAvailable={onlyAvailable}
-                    onOnlyAvailableChange={setOnlyAvailable}
                   />
                 </div>
               )}
@@ -479,14 +512,6 @@ export default function Catalogo() {
                     <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
                       {selectedMounting}
                       <button type="button" onClick={() => setSelectedMounting('Tutti')} aria-label={`Rimuovi il filtro ${selectedMounting}`}>
-                        <X size={12} />
-                      </button>
-                    </span>
-                  )}
-                  {onlyAvailable && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
-                      Solo disponibili
-                      <button type="button" onClick={() => setOnlyAvailable(false)} aria-label="Rimuovi il filtro Solo disponibili">
                         <X size={12} />
                       </button>
                     </span>
@@ -530,7 +555,7 @@ export default function Catalogo() {
               )}
 
               <p className="text-xs text-gray-medium mt-10 max-w-2xl">
-                Le immagini sono indicative e alcune sono in aggiornamento. Per schede tecniche, disponibilità aggiornata e codici alternativi contattaci: ti rispondiamo con la documentazione del prodotto.
+                Immagini dei prodotti reali. Caratteristiche, tensioni e configurazioni possono essere personalizzate su richiesta. Per schede tecniche, disponibilità aggiornata e codici alternativi scrivici: ti rispondiamo con la documentazione del prodotto.
               </p>
             </div>
           </div>

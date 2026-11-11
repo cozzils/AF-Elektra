@@ -11,16 +11,17 @@ import {
   ToggleRight,
   Wrench,
   Layers,
+  Waves,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SmartImage from '@/components/SmartImage';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
 /* ─── Product Category Card ─── */
-function CategoryCard({ title, image, icon }: { title: string; image: string; icon: React.ReactNode }) {
+function CategoryCard({ title, image, icon, category }: { title: string; image: string; icon: React.ReactNode; category: string }) {
   return (
     <Link
-      to="/catalogo"
+      to={`/catalogo?categoria=${encodeURIComponent(category)}`}
       className="group relative block overflow-hidden rounded-2xl bg-white border border-black/5 hover:border-black/20 transition-all duration-500"
     >
       <div className="aspect-square overflow-hidden">
@@ -261,7 +262,7 @@ export default function Home() {
             <div>
               <p className="text-xs uppercase tracking-widest text-gray-medium mb-3">Catalogo</p>
               <h2 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
-                Prodotti in evidenza
+                Le famiglie di prodotto
               </h2>
             </div>
             <Link
@@ -272,20 +273,35 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 stagger-children">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 stagger-children">
             <CategoryCard
-              title="Alimentatori"
-              image="/images/alimentatore.jpg"
+              title="Alimentatori switching"
+              category="Alimentatori switching"
+              image="/images/prodotti/asg-05-asg-10.jpg"
               icon={<Zap size={18} />}
             />
             <CategoryCard
-              title="Schede Interfaccia"
-              image="/images/scheda-interfaccia.jpg"
+              title="Alimentatori lineari"
+              category="Alimentatori lineari"
+              image="/images/prodotti/al-00.jpg"
+              icon={<Zap size={18} />}
+            />
+            <CategoryCard
+              title="Schede interfaccia"
+              category="Schede interfaccia"
+              image="/images/prodotti/ge-34.jpg"
               icon={<CircuitBoard size={18} />}
             />
             <CategoryCard
-              title="Relè Statici"
-              image="/images/rele.jpg"
+              title="Schede tastatori"
+              category="Schede tastatori"
+              image="/images/prodotti/af-t02-cs.jpg"
+              icon={<Waves size={18} />}
+            />
+            <CategoryCard
+              title="Relè statici"
+              category="Relè statici"
+              image="/images/prodotti/rele-statico-dc-af-60v.jpg"
               icon={<ToggleRight size={18} />}
             />
           </div>

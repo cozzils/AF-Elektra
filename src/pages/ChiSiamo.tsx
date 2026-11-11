@@ -121,10 +121,10 @@ export default function ChiSiamo() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="rounded-2xl overflow-hidden">
                 <SmartImage
-                  src="/images/cablaggio.jpg"
-                  alt="Cablaggio quadri elettrici"
-                  width={1184}
-                  height={864}
+                  src="/images/sede-ingresso.jpg"
+                  alt="Ingresso della sede AF Elektra 2 a Castenedolo"
+                  width={265}
+                  height={277}
                   loading="lazy"
                   decoding="async"
                   className="w-full h-[300px] lg:h-full object-cover"
@@ -143,13 +143,13 @@ export default function ChiSiamo() {
               </div>
               <div className="sm:col-span-2 rounded-2xl overflow-hidden">
                 <SmartImage
-                  src="/images/caso-quadristica.jpg"
-                  alt="Quadro elettrico di comando e controllo"
-                  width={1344}
-                  height={768}
+                  src="/images/capannone-sede.jpg"
+                  alt="Capannone della sede AF Elektra 2 a Castenedolo"
+                  width={710}
+                  height={176}
                   loading="lazy"
                   decoding="async"
-                  className="w-full h-[250px] object-cover"
+                  className="w-full h-[200px] object-cover"
                 />
               </div>
             </div>
