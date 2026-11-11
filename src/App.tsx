@@ -14,7 +14,7 @@ const NotFound = lazy(() => import('./pages/NotFound'))
 function PageLoader() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-white" role="status" aria-live="polite">
-      <span className="text-sm text-white/55">Caricamento…</span>
+      <span className="text-sm text-gray-medium">Caricamento…</span>
     </div>
   )
 }

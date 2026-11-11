@@ -63,11 +63,11 @@ export default function Prodotto() {
       <Layout>
         <section className="pt-40 pb-24 px-6 lg:px-10 bg-white">
           <div className="max-w-3xl mx-auto text-center">
-            <p className="text-xs uppercase tracking-widest text-white/55 mb-4">Catalogo</p>
+            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Catalogo</p>
             <h1 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight">
               Prodotto non trovato
             </h1>
-            <p className="text-base text-white/55 mt-4">
+            <p className="text-base text-gray-medium mt-4">
               Il prodotto che stai cercando non è più disponibile o il link non è corretto.
             </p>
             <Link
@@ -91,7 +91,7 @@ export default function Prodotto() {
       <section className="bg-gray-light pt-28 pb-8 px-6 lg:px-10">
         <div className="max-w-7xl mx-auto">
           <nav aria-label="Percorso di navigazione">
-            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-white/55">
+            <ol className="flex flex-wrap items-center gap-1.5 text-xs text-gray-medium">
               <li>
                 <Link to="/" className="hover:text-black transition-colors">Home</Link>
               </li>
@@ -147,22 +147,22 @@ export default function Prodotto() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1, ease: [0.075, 0.82, 0.165, 1] }}
             >
-              <p className="text-xs uppercase tracking-widest text-white/55">{product.category}</p>
-              <p className="text-xs font-mono text-white/55 mt-3">{product.code}</p>
+              <p className="text-xs uppercase tracking-widest text-gray-medium">{product.category}</p>
+              <p className="text-xs font-mono text-gray-medium mt-3">{product.code}</p>
               <h1 className="text-4xl lg:text-5xl font-semibold text-black tracking-tight mt-1">
                 {product.name}
               </h1>
-              <p className="text-lg text-white/55 mt-4 leading-relaxed">{product.tagline}</p>
+              <p className="text-lg text-gray-medium mt-4 leading-relaxed">{product.tagline}</p>
 
               <div className="flex flex-wrap gap-2 mt-6">
                 {product.specs.map((spec) => (
-                  <span key={spec} className="text-xs text-white/70 bg-gray-light px-2.5 py-1 rounded-md">
+                  <span key={spec} className="text-xs text-gray-dark bg-gray-light px-2.5 py-1 rounded-md">
                     {spec}
                   </span>
                 ))}
               </div>
 
-              <p className="text-sm text-white/55 mt-6 leading-relaxed">{product.description}</p>
+              <p className="text-sm text-gray-medium mt-6 leading-relaxed">{product.description}</p>
 
               <div className="flex flex-col sm:flex-row gap-3 mt-8">
                 <a
@@ -183,7 +183,7 @@ export default function Prodotto() {
                 </Link>
               </div>
 
-              <p className="text-xs text-white/55 mt-4">
+              <p className="text-xs text-gray-medium mt-4">
                 Prezzi e disponibilità aggiornata su richiesta. Tensioni, contatti e configurazioni possono essere personalizzati.
               </p>
             </motion.div>
@@ -204,7 +204,7 @@ export default function Prodotto() {
                   key={detail.label}
                   className="flex items-baseline justify-between gap-6 py-3 border-b border-black/10"
                 >
-                  <dt className="text-sm text-white/55">{detail.label}</dt>
+                  <dt className="text-sm text-gray-medium">{detail.label}</dt>
                   <dd className="text-sm font-medium text-black text-right">{detail.value}</dd>
                 </div>
               ))}
@@ -219,11 +219,11 @@ export default function Prodotto() {
                   <table className="w-full text-sm text-left">
                     <thead>
                       <tr className="border-b border-black/10">
-                        <th scope="col" className="px-4 py-3 font-medium text-white/55">Modello</th>
+                        <th scope="col" className="px-4 py-3 font-medium text-gray-medium">Modello</th>
                         {Array.from(
                           new Set(product.variants.flatMap((variant) => variant.items.map((item) => item.label))),
                         ).map((label) => (
-                          <th key={label} scope="col" className="px-4 py-3 font-medium text-white/55">
+                          <th key={label} scope="col" className="px-4 py-3 font-medium text-gray-medium">
                             {label}
                           </th>
                         ))}
@@ -238,7 +238,7 @@ export default function Prodotto() {
                           {Array.from(
                             new Set(product.variants!.flatMap((v) => v.items.map((item) => item.label))),
                           ).map((label) => (
-                            <td key={label} className="px-4 py-3 text-white/55 whitespace-nowrap">
+                            <td key={label} className="px-4 py-3 text-gray-medium whitespace-nowrap">
                               {variant.items.find((item) => item.label === label)?.value ?? '—'}
                             </td>
                           ))}
@@ -254,7 +254,7 @@ export default function Prodotto() {
           <aside className="lg:col-span-4">
             <div className="bg-white rounded-2xl border border-black/5 p-6 lg:p-7">
               <h3 className="font-semibold text-base text-black">Hai bisogno di una variante?</h3>
-              <p className="text-sm text-white/55 mt-2 leading-relaxed">
+              <p className="text-sm text-gray-medium mt-2 leading-relaxed">
                 Molti dei nostri prodotti possono essere adattati per tensione, corrente, contatti e formato. Raccontaci l’applicazione e ti proponiamo la configurazione corretta.
               </p>
               <Link
@@ -266,7 +266,7 @@ export default function Prodotto() {
             </div>
             <div className="mt-4 bg-white rounded-2xl border border-black/5 p-6 lg:p-7">
               <h3 className="font-semibold text-base text-black">Consegna</h3>
-              <p className="text-sm text-white/55 mt-2 leading-relaxed">
+              <p className="text-sm text-gray-medium mt-2 leading-relaxed">
                 Prodotto normalmente disponibile a magazzino. Per quantità, tempi e condizioni di fornitura richiedi un preventivo.
               </p>
             </div>
@@ -284,7 +284,7 @@ export default function Prodotto() {
               </h2>
               <Link
                 to={`/catalogo?categoria=${encodeURIComponent(product.category)}`}
-                className="text-sm font-medium text-white/55 hover:text-black transition-colors"
+                className="text-sm font-medium text-gray-medium hover:text-black transition-colors"
               >
                 Vedi la categoria
               </Link>
@@ -307,9 +307,9 @@ export default function Prodotto() {
                     />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-[11px] font-mono text-white/55 truncate">{item.code}</p>
+                    <p className="text-[11px] font-mono text-gray-medium truncate">{item.code}</p>
                     <p className="font-semibold text-sm text-black mt-0.5">{item.name}</p>
-                    <p className="text-xs text-white/55 mt-1 line-clamp-2">{item.tagline}</p>
+                    <p className="text-xs text-gray-medium mt-1 line-clamp-2">{item.tagline}</p>
                   </div>
                 </Link>
               ))}

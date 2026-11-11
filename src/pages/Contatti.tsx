@@ -122,11 +122,11 @@ export default function Contatti() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: [0.075, 0.82, 0.165, 1] }}
           >
-            <p className="text-xs uppercase tracking-widest text-white/55 mb-4">Contatti</p>
+            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Contatti</p>
             <h1 className="text-5xl lg:text-7xl font-semibold text-black tracking-tight">
               Contattaci
             </h1>
-            <p className="text-base text-white/55 mt-4 max-w-xl">
+            <p className="text-base text-gray-medium mt-4 max-w-xl">
               Siamo a disposizione per ogni richiesta. Compila il modulo o utilizza i recapiti qui sotto.
             </p>
           </motion.div>
@@ -158,7 +158,7 @@ export default function Contatti() {
                       <CheckCircle2 size={32} />
                     </div>
                     <h3 className="text-lg font-semibold text-black">Richiesta Inviata!</h3>
-                    <p className="text-sm text-white/55 mt-2">Ti risponderemo al più presto all&apos;indirizzo indicato.</p>
+                    <p className="text-sm text-gray-medium mt-2">Ti risponderemo al più presto all&apos;indirizzo indicato.</p>
                     <button
                       type="button"
                       onClick={handleNewRequest}
@@ -186,7 +186,7 @@ export default function Contatti() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="nome" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                          <User size={14} className="text-white/55" />
+                          <User size={14} className="text-gray-medium" />
                           Nome / Azienda *
                         </label>
                         <input
@@ -198,13 +198,13 @@ export default function Contatti() {
                           autoComplete="name"
                           value={formData.nome}
                           onChange={handleChange}
-                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-white/55 focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
+                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
                           placeholder="Mario Rossi Srl"
                         />
                       </div>
                       <div>
                         <label htmlFor="email" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                          <Mail size={14} className="text-white/55" />
+                          <Mail size={14} className="text-gray-medium" />
                           Email *
                         </label>
                         <input
@@ -216,7 +216,7 @@ export default function Contatti() {
                           autoComplete="email"
                           value={formData.email}
                           onChange={handleChange}
-                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-white/55 focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
+                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
                           placeholder="email@azienda.it"
                         />
                       </div>
@@ -225,7 +225,7 @@ export default function Contatti() {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                       <div>
                         <label htmlFor="telefono" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                          <Phone size={14} className="text-white/55" />
+                          <Phone size={14} className="text-gray-medium" />
                           Telefono
                         </label>
                         <input
@@ -236,13 +236,13 @@ export default function Contatti() {
                           autoComplete="tel"
                           value={formData.telefono}
                           onChange={handleChange}
-                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-white/55 focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
+                          className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300"
                           placeholder="+39 030 1234567"
                         />
                       </div>
                       <div>
                         <label htmlFor="area" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                          <FileText size={14} className="text-white/55" />
+                          <FileText size={14} className="text-gray-medium" />
                           Area di Interesse
                         </label>
                         <select
@@ -267,7 +267,7 @@ export default function Contatti() {
 
                     <div>
                       <label htmlFor="messaggio" className="flex items-center gap-1.5 text-sm font-medium text-black mb-2">
-                        <MessageSquare size={14} className="text-white/55" />
+                        <MessageSquare size={14} className="text-gray-medium" />
                         Messaggio *
                       </label>
                       <textarea
@@ -279,7 +279,7 @@ export default function Contatti() {
                         rows={5}
                         value={formData.messaggio}
                         onChange={handleChange}
-                        className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-white/55 focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300 resize-none"
+                        className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black placeholder:text-gray-medium focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300 resize-none"
                         placeholder="Descrivi la tua richiesta..."
                       />
                     </div>
@@ -303,12 +303,12 @@ export default function Contatti() {
                         className={`w-5 h-5 rounded border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-colors duration-300 peer-focus-visible:ring-2 peer-focus-visible:ring-black/40 peer-focus-visible:ring-offset-2 ${
                           formData.privacy
                             ? 'bg-elektra-accent border-elektra-accent'
-                            : 'border-white/20 group-hover:border-white/40'
+                            : 'border-gray-medium/30 group-hover:border-gray-medium'
                         }`}
                       >
                         {formData.privacy && <CheckCircle2 size={14} className="text-white" />}
                       </span>
-                      <span className="text-xs text-white/55 leading-relaxed">
+                      <span className="text-xs text-gray-medium leading-relaxed">
                         Dichiaro di aver letto e compreso la{' '}
                         <Link to="/privacy" className="text-black underline font-medium hover:text-elektra-accent">
                           Privacy Policy
@@ -318,13 +318,13 @@ export default function Contatti() {
                     </label>
 
                     {privacyError && (
-                      <p id="privacy-error" role="alert" className="text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3">
+                      <p id="privacy-error" role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
                         {privacyError}
                       </p>
                     )}
 
                     {sendError && (
-                      <p role="alert" className="text-sm text-red-300 bg-red-500/10 border border-red-500/30 rounded-lg px-4 py-3">
+                      <p role="alert" className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-3">
                         {sendError}
                       </p>
                     )}
@@ -334,7 +334,7 @@ export default function Contatti() {
                       disabled={sending}
                       className={`w-full flex items-center justify-center gap-2 text-sm font-medium px-6 py-3.5 rounded-lg transition-all duration-300 ${
                         sending
-                          ? 'bg-gray-light text-white/55 cursor-wait'
+                          ? 'bg-gray-light text-gray-medium cursor-wait'
                           : 'bg-elektra-accent text-white hover:bg-elektra-accent/90'
                       }`}
                     >
@@ -343,7 +343,7 @@ export default function Contatti() {
                     </button>
 
                     {/* Testo informativo art. 13 */}
-                    <p className="text-[11px] text-white/55 leading-relaxed pt-2">
+                    <p className="text-[11px] text-gray-medium leading-relaxed pt-2">
                       Inviando questo modulo accetti di essere ricontattato via email o telefono per la gestione delle informazioni richieste. I dati non saranno ceduti a terzi né utilizzati per scopi promozionali. Leggi l&apos;informativa completa sulla nostra{' '}
                       <Link to="/privacy" className="text-black underline hover:text-elektra-accent font-medium">
                         Privacy Policy
@@ -368,7 +368,7 @@ export default function Contatti() {
                     <MapPin size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Indirizzo</h3>
-                  <p className="text-sm text-white/55 leading-relaxed">
+                  <p className="text-sm text-gray-medium leading-relaxed">
                     Via Artigiani, 19<br />
                     25014 Castenedolo (BS)<br />
                     Italia
@@ -380,7 +380,7 @@ export default function Contatti() {
                     <Phone size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Telefono</h3>
-                  <a href="tel:+390302130630" className="text-sm text-white/55 hover:text-black transition-colors duration-300">030 2130630</a>
+                  <a href="tel:+390302130630" className="text-sm text-gray-medium hover:text-black transition-colors duration-300">030 2130630</a>
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
@@ -388,7 +388,7 @@ export default function Contatti() {
                     <Mail size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Email Commerciale</h3>
-                  <a href="mailto:afelektra2@afelektra.com" className="text-sm text-white/55 hover:text-black transition-colors duration-300 break-all">afelektra2@afelektra.com</a>
+                  <a href="mailto:afelektra2@afelektra.com" className="text-sm text-gray-medium hover:text-black transition-colors duration-300 break-all">afelektra2@afelektra.com</a>
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
@@ -396,7 +396,7 @@ export default function Contatti() {
                     <Building2 size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">P.IVA / C.F.</h3>
-                  <p className="text-sm text-white/55">03286600980</p>
+                  <p className="text-sm text-gray-medium">03286600980</p>
                 </div>
 
                 <div className="bg-white border border-black/5 rounded-2xl p-6 hover:border-black/15 hover:shadow-panel transition-all duration-500">
@@ -404,7 +404,7 @@ export default function Contatti() {
                     <Clock size={18} />
                   </div>
                   <h3 className="font-semibold text-sm text-black mb-1">Orari</h3>
-                  <p className="text-sm text-white/55 leading-relaxed">
+                  <p className="text-sm text-gray-medium leading-relaxed">
                     Lun–Ven, su appuntamento<br />
                     <span className="text-xs">Chiamaci per fissare un incontro.</span>
                   </p>
@@ -430,7 +430,7 @@ export default function Contatti() {
                     <p className="font-semibold text-sm text-black mb-1">
                       Mappa di Castenedolo (BS) - Via Artigiani 19
                     </p>
-                    <p className="text-xs text-white/55 max-w-sm mb-4">
+                    <p className="text-xs text-gray-medium max-w-sm mb-4">
                       Per visualizzare la mappa interattiva della nostra sede, clicca sul pulsante qui sotto.
                     </p>
                     <button
@@ -440,7 +440,7 @@ export default function Contatti() {
                     >
                       Carica mappa interattiva
                     </button>
-                    <p className="text-[11px] text-white/55 mt-3">
+                    <p className="text-[11px] text-gray-medium/80 mt-3">
                       Caricando la mappa contatti OpenStreetMap (terza parte - OSM Foundation).
                     </p>
                   </div>
