@@ -7,7 +7,7 @@ const navLinks = [
   { label: 'Home', path: '/' },
   { label: 'Chi Siamo', path: '/chi-siamo' },
   { label: 'Catalogo', path: '/catalogo' },
-  { label: 'Casi di Studio', path: '/casi-studio' },
+  { label: 'Progetti', path: '/casi-studio' },
   { label: 'Contatti', path: '/contatti' },
 ];
 

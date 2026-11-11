@@ -34,7 +34,7 @@ export default function Footer() {
                 { label: 'Home', path: '/' },
                 { label: 'Chi Siamo', path: '/chi-siamo' },
                 { label: 'Catalogo Prodotti', path: '/catalogo' },
-                { label: 'Casi di Studio', path: '/casi-studio' },
+                { label: 'Progetti', path: '/casi-studio' },
                 { label: 'Contatti', path: '/contatti' },
               ].map((link) => (
                 <Link

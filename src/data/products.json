@@ -1,0 +1,355 @@
+[
+  {
+    "id": "rp-1035-d",
+    "slug": "rp-1035-d",
+    "name": "RP 1035 D",
+    "code": "RP1035D-24F",
+    "category": "Alimentatori switching",
+    "voltage": "100–240 V AC",
+    "mounting": "Contenitore metallico",
+    "image": "/images/prodotti/rp-1035-d.jpg",
+    "tagline": "Alimentatore switching 24 V DC da 1,5 A, 35 W, in contenitore metallico.",
+    "description": "Alimentatore switching da 1,5 A in contenitore metallico, progettato per l’installazione su quadro. L’uscita da 24 V DC è regolabile tramite trimmer frontale e un LED verde segnala la presenza di tensione. Ogni singolo alimentatore può essere adattato alle esigenze dell’impiego.",
+    "specs": ["IN 100–240 V AC", "OUT 24 V DC · 1,5 A", "LED DC ON", "Trimmer V adj"],
+    "details": [
+      { "label": "Tensione d’ingresso", "value": "100–240 V AC" },
+      { "label": "Frequenza", "value": "50–60 Hz" },
+      { "label": "Corrente d’ingresso", "value": "1 A max" },
+      { "label": "Tensione d’uscita", "value": "24 V DC" },
+      { "label": "Corrente d’uscita", "value": "1,5 A" },
+      { "label": "Potenza", "value": "35 W" },
+      { "label": "Segnalazione", "value": "LED verde tensione in uscita" },
+      { "label": "Regolazione", "value": "Trimmer frontale" },
+      { "label": "Montaggio", "value": "Contenitore metallico" }
+    ]
+  },
+  {
+    "id": "asg-05-10",
+    "slug": "asg-05-asg-10",
+    "name": "ASG 05 / ASG 10",
+    "code": "ASG05 · ASG10",
+    "category": "Alimentatori switching",
+    "voltage": "24 V AC ±15%",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/asg-05-asg-10.jpg",
+    "tagline": "Alimentatori switching da 5 A e 10 A con ingresso 24 V AC.",
+    "description": "Alimentatori switching con ingresso 24 V AC ±15% e uscita 24 V DC stabilizzata, disponibili nelle versioni da 5 A e 10 A. Il contenitore metallico con aggancio per barra DIN li rende adatti all’installazione nei quadri elettrici.",
+    "specs": ["IN 24 V AC ±15%", "OUT 24 V DC · 5/10 A", "DIN Rail", "Case metallico"],
+    "details": [
+      { "label": "Tensione d’ingresso", "value": "24 V AC ±15%" },
+      { "label": "Tensione d’uscita", "value": "24 V DC" },
+      { "label": "Corrente d’uscita", "value": "5 A (ASG 05) / 10 A (ASG 10)" },
+      { "label": "Montaggio", "value": "Barra DIN" },
+      { "label": "Contenitore", "value": "Metallico" }
+    ],
+    "variants": [
+      {
+        "name": "ASG 05",
+        "items": [
+          { "label": "Corrente d’uscita", "value": "5 A" },
+          { "label": "Tensione d’ingresso", "value": "24 V AC ±15%" }
+        ]
+      },
+      {
+        "name": "ASG 10",
+        "items": [
+          { "label": "Corrente d’uscita", "value": "10 A" },
+          { "label": "Tensione d’ingresso", "value": "24 V AC ±15%" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "al-02",
+    "slug": "al-02",
+    "name": "AL 02",
+    "code": "AL02",
+    "category": "Alimentatori switching",
+    "voltage": "26–32 V AC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/al-02.jpg",
+    "tagline": "Alimentatore switching 4 A con protezione da sovratensione, sovraccarico e cortocircuito.",
+    "description": "Alimentatore switching da 4 A con ingresso 26–32 V AC e uscita regolabile da 5,1 a 26 V DC. È protetto da sovratensione, sovraccarico e cortocircuito; LED verdi e rossi segnalano rispettivamente tensione in ingresso e in uscita.",
+    "specs": ["IN 26–32 V AC", "OUT 5,1–26 V DC · 4 A", "LED ingresso/uscita", "Trimmer di regolazione"],
+    "details": [
+      { "label": "Tensione d’ingresso", "value": "26–32 V AC" },
+      { "label": "Frequenza", "value": "50–60 Hz" },
+      { "label": "Corrente d’ingresso", "value": "4,5 A max" },
+      { "label": "Tensione d’uscita", "value": "5,1–26 V DC (regolabile)" },
+      { "label": "Corrente d’uscita", "value": "4 A" },
+      { "label": "Segnalazioni", "value": "LED verde ingresso, LED rosso uscita" },
+      { "label": "Regolazione", "value": "Trimmer tensione di uscita" },
+      { "label": "Protezioni", "value": "Sovratensione, sovraccarico, cortocircuito" },
+      { "label": "Montaggio", "value": "Barra DIN" }
+    ]
+  },
+  {
+    "id": "al-1a",
+    "slug": "al-1a",
+    "name": "AL 1A",
+    "code": "AL1A",
+    "category": "Alimentatori lineari",
+    "voltage": "24 V AC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/al-1a.jpg",
+    "tagline": "Alimentatore lineare 24 V DC da 0,5 A, con ripple contenuto.",
+    "description": "Alimentatore lineare con ingresso 24 V AC e uscita 24 V DC da 0,5 A massimi. L’uscita è protetta da sovratensione e cortocircuito; il ripple contenuto lo rende adatto ad alimentare schede di controllo e segnale.",
+    "specs": ["IN 24 V AC", "OUT 24 V DC · 0,5 A", "Ripple 5 mVpp", "LED ingresso/uscita"],
+    "details": [
+      { "label": "Tensione d’ingresso", "value": "24 V AC (protezione da sovratensione)" },
+      { "label": "Tensione d’uscita", "value": "24 V DC" },
+      { "label": "Corrente d’uscita", "value": "0,5 A max" },
+      { "label": "Ripple", "value": "5 mVpp" },
+      { "label": "Protezioni", "value": "Sovratensione, cortocircuito" },
+      { "label": "Segnalazioni", "value": "LED verde ingresso, LED rosso uscita" },
+      { "label": "Montaggio", "value": "Barra DIN" }
+    ]
+  },
+  {
+    "id": "al-00",
+    "slug": "al-00",
+    "name": "AL 00",
+    "code": "AL00",
+    "category": "Alimentatori lineari",
+    "voltage": "24 V AC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/al-00.jpg",
+    "tagline": "Alimentatore lineare 24 V DC da 1,5 A, con regolazione della limitazione di corrente.",
+    "description": "Alimentatore lineare con ingresso 24 V AC e uscita 24 V DC da 1,5 A massimi. Oltre alla protezione da sovratensione e cortocircuito, consente di regolare la limitazione di corrente; il ripple è contenuto in 5 mVpp.",
+    "specs": ["IN 24 V AC", "OUT 24 V DC · 1,5 A", "Ripple 5 mVpp", "Limite corrente"],
+    "details": [
+      { "label": "Tensione d’ingresso", "value": "24 V AC (protezione da sovratensione)" },
+      { "label": "Tensione d’uscita", "value": "24 V DC" },
+      { "label": "Corrente d’uscita", "value": "1,5 A max" },
+      { "label": "Ripple", "value": "5 mVpp" },
+      { "label": "Protezioni", "value": "Sovratensione, cortocircuito, limitazione di corrente regolabile" },
+      { "label": "Segnalazioni", "value": "LED verde ingresso, LED rosso uscita" },
+      { "label": "Montaggio", "value": "Barra DIN" }
+    ]
+  },
+  {
+    "id": "ge-34",
+    "slug": "ge-34",
+    "name": "GE 34",
+    "code": "GE34",
+    "category": "Schede interfaccia",
+    "voltage": "24 V DC",
+    "mounting": "Open frame",
+    "image": "/images/prodotti/ge-34.jpg",
+    "tagline": "Scheda interfaccia a relè, 24 V DC, in versione open frame.",
+    "description": "Scheda interfaccia a relè alimentata a 24 V DC, in formato open frame per l’integrazione in quadri e apparecchiature. Le caratteristiche di tensione e corrente dei relè possono essere personalizzate su richiesta.",
+    "specs": ["Ingresso 24 V DC", "Open frame", "Uscita a relè", "Personalizzabile"],
+    "details": [
+      { "label": "Alimentazione", "value": "24 V DC" },
+      { "label": "Uscita", "value": "A relè" },
+      { "label": "Formato", "value": "Open frame" },
+      { "label": "Personalizzazioni", "value": "Tensione e corrente dei relè su richiesta" }
+    ]
+  },
+  {
+    "id": "af-4-6-8-rele",
+    "slug": "af-4-6-8-rele",
+    "name": "AF 4 / 6 / 8 RELÈ",
+    "code": "AF 4 · AF 6 · AF 8",
+    "category": "Schede interfaccia",
+    "voltage": "24 V DC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/af-4-6-8-rele.jpg",
+    "tagline": "Schede interfaccia a 4, 6 o 8 relè in contenitore per barra DIN.",
+    "description": "Schede interfaccia a 4, 6 o 8 relè alimentate a 24 V DC, in contenitore con aggancio per barra DIN. Le uscite possono essere in scambio o normalmente aperte; i connettori estraibili, disponibili su richiesta, facilitano la sostituzione.",
+    "specs": ["4 / 6 / 8 canali", "24 V DC", "Contatti in scambio o NO", "Connettori estraibili"],
+    "details": [
+      { "label": "Alimentazione", "value": "24 V DC" },
+      { "label": "Numero di canali", "value": "4 / 6 / 8" },
+      { "label": "Uscite AF 4", "value": "4 contatti in scambio" },
+      { "label": "Uscite AF 6", "value": "6 contatti NO" },
+      { "label": "Uscite AF 8", "value": "8 contatti NO + comune" },
+      { "label": "Contenitore", "value": "Aggancio per barra DIN" },
+      { "label": "Connettori", "value": "Estraibili, su richiesta" },
+      { "label": "Personalizzazioni", "value": "Tensione e corrente dei relè su richiesta" }
+    ],
+    "variants": [
+      {
+        "name": "AF 4 RELÈ",
+        "items": [
+          { "label": "Canali", "value": "4" },
+          { "label": "Uscite", "value": "4 contatti in scambio" }
+        ]
+      },
+      {
+        "name": "AF 6 RELÈ",
+        "items": [
+          { "label": "Canali", "value": "6" },
+          { "label": "Uscite", "value": "6 contatti NO" }
+        ]
+      },
+      {
+        "name": "AF 8 RELÈ",
+        "items": [
+          { "label": "Canali", "value": "8" },
+          { "label": "Uscite", "value": "8 contatti NO + comune" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "el2",
+    "slug": "el2",
+    "name": "EL2",
+    "code": "EL2",
+    "category": "Schede interfaccia",
+    "voltage": "24 V DC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/el2.jpg",
+    "tagline": "Scheda interfaccia a 4 transistor, con LED di segnalazione per ogni canale.",
+    "description": "Scheda interfaccia a 4 transistor con ingresso 24 V DC a bassa corrente e uscita fino a 60 V / 2 A. Ogni canale dispone di LED verde per l’ingresso e rosso per l’uscita; un fusibile protegge da cortocircuito.",
+    "specs": ["4 canali", "IN 24 V DC · 10 mA", "OUT 60 V · 2 A", "LED per canale"],
+    "details": [
+      { "label": "Numero di canali", "value": "4" },
+      { "label": "Tensione d’ingresso", "value": "24 V DC" },
+      { "label": "Corrente d’ingresso", "value": "10 mA" },
+      { "label": "Tensione d’uscita", "value": "60 V" },
+      { "label": "Corrente d’uscita", "value": "2 A" },
+      { "label": "Protezioni", "value": "Fusibile contro cortocircuito" },
+      { "label": "Segnalazioni", "value": "LED verde ingresso e LED rosso uscita per canale" },
+      { "label": "Montaggio", "value": "Barra DIN" }
+    ]
+  },
+  {
+    "id": "ge-34-t",
+    "slug": "ge-34-t",
+    "name": "GE 34/T",
+    "code": "GE34/T",
+    "category": "Schede tastatori",
+    "voltage": "24 V DC",
+    "mounting": "Open frame",
+    "image": "/images/prodotti/ge-34-t.jpg",
+    "tagline": "Scheda tastatore a 2 relè per sonda a bagno con principio resistivo.",
+    "description": "Scheda tastatore a 2 relè alimentata a 24 V DC, in formato open frame. È progettata per il collegamento a una sonda a bagno con principio resistivo, per il controllo di livello nei processi industriali.",
+    "specs": ["2 relè", "24 V DC", "Sonda resistiva", "Open frame"],
+    "details": [
+      { "label": "Alimentazione", "value": "24 V DC" },
+      { "label": "Uscita", "value": "2 relè" },
+      { "label": "Tipo di sonda", "value": "Sonda a bagno, principio resistivo" },
+      { "label": "Formato", "value": "Open frame" }
+    ]
+  },
+  {
+    "id": "af-t02-of",
+    "slug": "af-t02-of",
+    "name": "AF-T02/OF",
+    "code": "AF-T02/OF",
+    "category": "Schede tastatori",
+    "voltage": "230 V AC",
+    "mounting": "Open frame",
+    "image": "/images/prodotti/af-t02-of.jpg",
+    "tagline": "Tastatore elettronico open frame per 2 sonde, STOP e SAFETY.",
+    "description": "Tastatore elettronico in formato open frame per il collegamento a due sonde, una definita di STOP e una di SAFETY. L’alimentazione è 230 V AC 50 Hz; LED dedicati ne visualizzano lo stato.",
+    "specs": ["2 sonde", "STOP + SAFETY", "230 V AC · 50 Hz", "LED di stato"],
+    "details": [
+      { "label": "Alimentazione", "value": "230 V AC, 50 Hz" },
+      { "label": "Ingressi", "value": "2 sonde: STOP e SAFETY" },
+      { "label": "Segnalazioni", "value": "LED di visualizzazione" },
+      { "label": "Formato", "value": "Open frame" }
+    ]
+  },
+  {
+    "id": "af-t02-cs",
+    "slug": "af-t02-cs",
+    "name": "AF-T02/CS",
+    "code": "AF-T02/CS",
+    "category": "Schede tastatori",
+    "voltage": "230 V AC",
+    "mounting": "DIN Rail",
+    "image": "/images/prodotti/af-t02-cs.jpg",
+    "tagline": "Tastatore elettronico in contenitore chiuso per barra DIN, per 2 sonde.",
+    "description": "Tastatore elettronico in contenitore chiuso con aggancio per barra DIN, per il collegamento a due sonde: una di STOP e una di SAFETY. L’alimentazione è 230 V AC 50 Hz; LED dedicati ne visualizzano lo stato.",
+    "specs": ["2 sonde", "STOP + SAFETY", "230 V AC · 50 Hz", "Contenitore DIN"],
+    "details": [
+      { "label": "Alimentazione", "value": "230 V AC, 50 Hz" },
+      { "label": "Ingressi", "value": "2 sonde: STOP e SAFETY" },
+      { "label": "Segnalazioni", "value": "LED di visualizzazione" },
+      { "label": "Montaggio", "value": "Contenitore chiuso per barra DIN" }
+    ]
+  },
+  {
+    "id": "rele-statico-dc",
+    "slug": "rele-statici-dc-af-60v",
+    "name": "Relè statici DC AF-60V",
+    "code": "AF-60VDC-2A · AF-60VDC-4A",
+    "category": "Relè statici",
+    "voltage": "10–30 V DC",
+    "mounting": "Circuito stampato",
+    "image": "/images/prodotti/rele-statico-dc-af-60v.jpg",
+    "tagline": "Relè a stato solido DC da 2 A o 4 A, pin-to-pin con relè elettromeccanici.",
+    "description": "Relè a stato solido per corrente continua, pin-to-pin con i relè elettromeccanici da circuito stampato. Il comando d’ingresso non è polarizzato, la corrente di comando è bassa e l’isolamento ingresso-uscita è elevato. La commutazione è istantanea, senza parti in movimento.",
+    "specs": ["60 V DC", "2 A / 4 A", "Controllo 10–30 V DC", "Commutazione istantanea"],
+    "details": [
+      { "label": "Tipo di commutazione", "value": "Istantanea" },
+      { "label": "Tensione di carico nominale", "value": "60 V DC" },
+      { "label": "Tensione di controllo", "value": "10–30 V DC (5–10 V DC su richiesta)" },
+      { "label": "Tensione d’ingresso min.–max.", "value": "8–32 V" },
+      { "label": "Corrente di controllo", "value": "5 mA" },
+      { "label": "Passo terminali", "value": "5 mm" },
+      { "label": "Comando", "value": "Non polarizzato" },
+      { "label": "Segnalazione", "value": "LED tensione d’ingresso" },
+      { "label": "Montaggio", "value": "Circuito stampato, pin-to-pin" }
+    ],
+    "variants": [
+      {
+        "name": "AF-60VDC-2A",
+        "items": [
+          { "label": "Corrente di carico nominale", "value": "2 A" },
+          { "label": "Imax duty cycle 50%, T = 1 s", "value": "4 A" }
+        ]
+      },
+      {
+        "name": "AF-60VDC-4A",
+        "items": [
+          { "label": "Corrente di carico nominale", "value": "4 A" },
+          { "label": "Imax duty cycle 50%, T = 1 s", "value": "8 A" }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "rele-statico-ac",
+    "slug": "rele-statici-ac-af-230v",
+    "name": "Relè statici AC AF-230V",
+    "code": "AF-230V/A2-5 · AF-230V/A2-3.5",
+    "category": "Relè statici",
+    "voltage": "10–30 V DC",
+    "mounting": "Circuito stampato",
+    "image": "/images/prodotti/rele-statico-ac-af-230v.jpg",
+    "tagline": "Relè a stato solido AC con commutazione a zero crossing, corrente nominale 2 A.",
+    "description": "Relè a stato solido per corrente alternata con commutazione a zero crossing, pin-to-pin con i relè elettromeccanici da circuito stampato. Il comando d’ingresso non è polarizzato e la corrente di comando è bassa. Adatto al controllo di riscaldamento, illuminazione e movimentazione.",
+    "specs": ["240 V AC", "2 A", "Controllo 10–30 V DC", "Zero crossing"],
+    "details": [
+      { "label": "Tipo di commutazione", "value": "Zero crossing" },
+      { "label": "Tensione di carico nominale", "value": "240 V AC" },
+      { "label": "Tensione di controllo", "value": "10–30 V DC (5–10 V DC su richiesta)" },
+      { "label": "Tensione d’ingresso min.–max.", "value": "8–32 V" },
+      { "label": "Corrente di controllo", "value": "5 mA" },
+      { "label": "Corrente di carico nominale", "value": "2 A" },
+      { "label": "Comando", "value": "Non polarizzato" },
+      { "label": "Segnalazione", "value": "LED tensione d’ingresso" },
+      { "label": "Montaggio", "value": "Circuito stampato, pin-to-pin" }
+    ],
+    "variants": [
+      {
+        "name": "AF-230V/A2-5",
+        "items": [
+          { "label": "Passo terminali", "value": "5 mm" },
+          { "label": "Imax duty cycle 50%, T = 1 s", "value": "4 A" }
+        ]
+      },
+      {
+        "name": "AF-230V/A2-3.5",
+        "items": [
+          { "label": "Passo terminali", "value": "3,5 mm" },
+          { "label": "Imax duty cycle 50%, T = 1 s", "value": "4 A" }
+        ]
+      }
+    ]
+  }
+]

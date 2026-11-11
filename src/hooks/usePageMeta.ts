@@ -30,9 +30,10 @@ export function usePageMeta(
   title: string,
   description: string,
   path: string,
-  options: { noindex?: boolean } = {},
+  options: { noindex?: boolean; jsonLd?: Record<string, unknown> | Record<string, unknown>[] } = {},
 ) {
   const noindex = options.noindex === true;
+  const jsonLdString = options.jsonLd ? JSON.stringify(options.jsonLd) : '';
 
   useEffect(() => {
     document.title = title;
@@ -45,4 +46,21 @@ export function usePageMeta(
     upsertMeta('name', 'twitter:description', description);
     upsertCanonical(`${SITE_URL}${path}`);
   }, [title, description, path, noindex]);
+
+  // Dati strutturati specifici della pagina (Product, BreadcrumbList, …).
+  useEffect(() => {
+    const id = 'page-jsonld';
+    document.getElementById(id)?.remove();
+    if (!jsonLdString) return;
+
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = id;
+    script.textContent = jsonLdString;
+    document.head.appendChild(script);
+
+    return () => {
+      document.getElementById(id)?.remove();
+    };
+  }, [jsonLdString]);
 }

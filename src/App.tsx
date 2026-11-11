@@ -4,6 +4,7 @@ import { Routes, Route } from 'react-router'
 const Home = lazy(() => import('./pages/Home'))
 const ChiSiamo = lazy(() => import('./pages/ChiSiamo'))
 const Catalogo = lazy(() => import('./pages/Catalogo'))
+const Prodotto = lazy(() => import('./pages/Prodotto'))
 const CasiStudio = lazy(() => import('./pages/CasiStudio'))
 const Contatti = lazy(() => import('./pages/Contatti'))
 const Privacy = lazy(() => import('./pages/Privacy'))
@@ -25,6 +26,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/chi-siamo" element={<ChiSiamo />} />
         <Route path="/catalogo" element={<Catalogo />} />
+        <Route path="/catalogo/:slug" element={<Prodotto />} />
         <Route path="/casi-studio" element={<CasiStudio />} />
         <Route path="/contatti" element={<Contatti />} />
         <Route path="/privacy" element={<Privacy />} />

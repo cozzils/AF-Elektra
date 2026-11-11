@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useSearchParams } from 'react-router';
 import { motion } from 'framer-motion';
 import {
-  Filter,
+  Search,
   X,
   ChevronDown,
   FileText,
@@ -12,181 +12,14 @@ import {
   CircuitBoard,
   Puzzle,
   Waves,
+  ArrowRight,
+  Package,
 } from 'lucide-react';
 import Layout from '@/components/Layout';
 import SmartImage from '@/components/SmartImage';
 import { usePageMeta } from '@/hooks/usePageMeta';
 
-/* ─── Types ─── */
-interface Product {
-  id: string;
-  name: string;
-  code: string;
-  category: string;
-  voltage: string;
-  mounting: string;
-  image: string;
-  tagline: string;
-  specs: string[];
-}
-
-/* ─── Catalogo reale ─── */
-const products: Product[] = [
-  {
-    id: 'rp-1035-d',
-    name: 'RP 1035 D',
-    code: 'RP1035D-24F',
-    category: 'Alimentatori switching',
-    voltage: '100–240 V AC',
-    mounting: 'Contenitore metallico',
-    image: '/images/prodotti/rp-1035-d.jpg',
-    tagline: 'Alimentatore switching 24 V DC da 1,5 A, 35 W, in contenitore metallico.',
-    specs: ['IN 100–240 V AC', 'OUT 24 V DC · 1,5 A', 'LED DC ON', 'Trimmer V adj'],
-  },
-  {
-    id: 'asg-05-10',
-    name: 'ASG 05 / ASG 10',
-    code: 'ASG05 · ASG10',
-    category: 'Alimentatori switching',
-    voltage: '24 V AC ±15%',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/asg-05-asg-10.jpg',
-    tagline: 'Alimentatori switching da 5 A e 10 A con ingresso 24 V AC.',
-    specs: ['IN 24 V AC ±15%', 'OUT 24 V DC · 5/10 A', 'DIN Rail', 'Case metallico'],
-  },
-  {
-    id: 'al-02',
-    name: 'AL 02',
-    code: 'AL02',
-    category: 'Alimentatori switching',
-    voltage: '26–32 V AC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/al-02.jpg',
-    tagline: 'Alimentatore switching 4 A con protezione da sovratensione, sovraccarico e cortocircuito.',
-    specs: ['IN 26–32 V AC', 'OUT 5,1–26 V DC · 4 A', 'LED ingresso/uscita', 'Trimmer di regolazione'],
-  },
-  {
-    id: 'al-1a',
-    name: 'AL 1A',
-    code: 'AL1A',
-    category: 'Alimentatori lineari',
-    voltage: '24 V AC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/al-1a.jpg',
-    tagline: 'Alimentatore lineare 24 V DC da 0,5 A, con ripple contenuto.',
-    specs: ['IN 24 V AC', 'OUT 24 V DC · 0,5 A', 'Ripple 5 mVpp', 'LED ingresso/uscita'],
-  },
-  {
-    id: 'al-00',
-    name: 'AL 00',
-    code: 'AL00',
-    category: 'Alimentatori lineari',
-    voltage: '24 V AC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/al-00.jpg',
-    tagline: 'Alimentatore lineare 24 V DC da 1,5 A, con regolazione della limitazione di corrente.',
-    specs: ['IN 24 V AC', 'OUT 24 V DC · 1,5 A', 'Ripple 5 mVpp', 'Limite corrente'],
-  },
-  {
-    id: 'ge-34',
-    name: 'GE 34',
-    code: 'GE34',
-    category: 'Schede interfaccia',
-    voltage: '24 V DC',
-    mounting: 'Open frame',
-    image: '/images/prodotti/ge-34.jpg',
-    tagline: 'Scheda interfaccia a relè, 24 V DC, in versione open frame.',
-    specs: ['Ingresso 24 V DC', 'Open frame', 'Uscita a relè', 'LED di stato'],
-  },
-  {
-    id: 'af-4-6-8-rele',
-    name: 'AF 4 / 6 / 8 RELÈ',
-    code: 'AF 4 · AF 6 · AF 8',
-    category: 'Schede interfaccia',
-    voltage: '24 V DC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/af-4-6-8-rele.jpg',
-    tagline: 'Schede interfaccia a 4, 6 o 8 relè in contenitore per barra DIN.',
-    specs: ['4 / 6 / 8 canali', '24 V DC', 'Contatti in scambio o NO', 'Connettori estraibili'],
-  },
-  {
-    id: 'el2',
-    name: 'EL2',
-    code: 'EL2',
-    category: 'Schede interfaccia',
-    voltage: '24 V DC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/el2.jpg',
-    tagline: 'Scheda interfaccia a 4 transistor, con LED di segnalazione per ogni canale.',
-    specs: ['4 canali', 'IN 24 V DC · 10 mA', 'OUT 60 V · 2 A', 'LED per canale'],
-  },
-  {
-    id: 'ge-34-t',
-    name: 'GE 34/T',
-    code: 'GE34/T',
-    category: 'Schede tastatori',
-    voltage: '24 V DC',
-    mounting: 'Open frame',
-    image: '/images/prodotti/ge-34-t.jpg',
-    tagline: 'Scheda tastatore a 2 relè per sonda a bagno con principio resistivo.',
-    specs: ['2 relè', '24 V DC', 'Sonda resistiva', 'Open frame'],
-  },
-  {
-    id: 'af-t02-of',
-    name: 'AF-T02/OF',
-    code: 'AF-T02/OF',
-    category: 'Schede tastatori',
-    voltage: '230 V AC',
-    mounting: 'Open frame',
-    image: '/images/prodotti/af-t02-of.jpg',
-    tagline: 'Tastatore elettronico open frame per 2 sonde, STOP e SAFETY.',
-    specs: ['2 sonde', 'STOP + SAFETY', '230 V AC · 50 Hz', 'LED di stato'],
-  },
-  {
-    id: 'af-t02-cs',
-    name: 'AF-T02/CS',
-    code: 'AF-T02/CS',
-    category: 'Schede tastatori',
-    voltage: '230 V AC',
-    mounting: 'DIN Rail',
-    image: '/images/prodotti/af-t02-cs.jpg',
-    tagline: 'Tastatore elettronico in contenitore chiuso per barra DIN, per 2 sonde.',
-    specs: ['2 sonde', 'STOP + SAFETY', '230 V AC · 50 Hz', 'Contenitore DIN'],
-  },
-  {
-    id: 'rele-statico-dc',
-    name: 'Relè statici DC AF-60V',
-    code: 'AF-60VDC-2A · -4A',
-    category: 'Relè statici',
-    voltage: '10–30 V DC',
-    mounting: 'Circuito stampato',
-    image: '/images/prodotti/rele-statico-dc-af-60v.jpg',
-    tagline: 'Relè a stato solido DC da 2 A o 4 A, pin-to-pin con relè elettromeccanici.',
-    specs: ['60 V DC', '2 A / 4 A', 'Controllo 10–30 V DC', 'Commutazione istantanea'],
-  },
-  {
-    id: 'rele-statico-ac',
-    name: 'Relè statici AC AF-230V',
-    code: 'AF-230V/A2 · A2-5 · A2-3.5',
-    category: 'Relè statici',
-    voltage: '10–30 V DC',
-    mounting: 'Circuito stampato',
-    image: '/images/prodotti/rele-statico-ac-af-230v.jpg',
-    tagline: 'Relè a stato solido AC con commutazione a zero crossing, corrente nominale 2 A.',
-    specs: ['240 V AC', '2 A', 'Controllo 10–30 V DC', 'Zero crossing'],
-  },
-];
-
-const categories = [
-  'Tutti',
-  'Alimentatori switching',
-  'Alimentatori lineari',
-  'Schede interfaccia',
-  'Schede tastatori',
-  'Relè statici',
-];
-const voltages = ['Tutti', ...Array.from(new Set(products.map((p) => p.voltage)))];
-const mountings = ['Tutti', ...Array.from(new Set(products.map((p) => p.mounting)))];
+import { products, categories, categoryCounts, datasheetUrl, type Product } from '@/data/products';
 
 const categoryIcons: Record<string, React.ReactNode> = {
   'Alimentatori switching': <Zap size={16} />,
@@ -199,9 +32,13 @@ const categoryIcons: Record<string, React.ReactNode> = {
 /* ─── Product Card ─── */
 function ProductCard({ product }: { product: Product }) {
   return (
-    <div className="group bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-black/15 hover:shadow-panel transition-all duration-500">
+    <div className="group flex h-full flex-col bg-white rounded-2xl border border-black/5 overflow-hidden hover:border-black/15 hover:shadow-panel transition-all duration-500">
       {/* Image */}
-      <div className="relative aspect-square bg-gray-light overflow-hidden">
+      <Link
+        to={`/catalogo/${product.slug}`}
+        aria-label={`Vedi la scheda di ${product.name}`}
+        className="relative block aspect-square bg-gray-light overflow-hidden"
+      >
         {product.image ? (
           <SmartImage
             src={product.image}
@@ -231,15 +68,26 @@ function ProductCard({ product }: { product: Product }) {
         <div className="absolute top-3 right-3 w-8 h-8 rounded-lg bg-white/90 backdrop-blur-sm flex items-center justify-center text-gray-dark">
           {categoryIcons[product.category] || <Puzzle size={14} />}
         </div>
-      </div>
+        {/* Hover affordance */}
+        <span className="pointer-events-none absolute inset-x-0 bottom-4 flex justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300">
+          <span className="bg-black/80 text-white text-xs font-medium px-3 py-1.5 rounded-full backdrop-blur-sm">
+            Vedi i dettagli
+          </span>
+        </span>
+      </Link>
 
       {/* Content */}
-      <div className="p-5">
+      <div className="flex flex-col flex-1 p-5">
         <div className="flex items-start justify-between gap-2">
           <div>
             <p className="text-xs text-gray-medium font-mono">{product.code}</p>
-            <h3 className="font-semibold text-base text-black mt-0.5 group-hover:text-gray-dark transition-colors duration-300">
-              {product.name}
+            <h3 className="font-semibold text-base text-black mt-0.5">
+              <Link
+                to={`/catalogo/${product.slug}`}
+                className="hover:text-elektra-accent transition-colors duration-300"
+              >
+                {product.name}
+              </Link>
             </h3>
           </div>
         </div>
@@ -256,16 +104,19 @@ function ProductCard({ product }: { product: Product }) {
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2 mt-4">
+        <div className="flex gap-2 mt-auto pt-4">
           <a
-            href={`mailto:uff.tecnico@afelektra.com?subject=${encodeURIComponent(`Richiesta scheda tecnica ${product.code}`)}`}
+            href={datasheetUrl(product)}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Scarica la scheda tecnica PDF di ${product.name}`}
             className="flex-1 flex items-center justify-center gap-1.5 text-xs font-medium bg-gray-light text-gray-dark px-3 py-2.5 rounded-lg hover:bg-gray-dark hover:text-white transition-colors duration-300"
           >
             <FileText size={14} />
-            Scheda Tecnica
+            Scheda PDF
           </a>
           <Link
-            to="/contatti"
+            to={`/contatti?prodotto=${encodeURIComponent(product.name)}`}
             className="flex items-center justify-center gap-1.5 text-xs font-medium bg-elektra-accent text-white px-3 py-2.5 rounded-lg hover:bg-black transition-colors duration-300"
           >
             <Plus size={14} />
@@ -277,95 +128,52 @@ function ProductCard({ product }: { product: Product }) {
   );
 }
 
-/* ─── Filter Panel ─── */
-interface FilterPanelProps {
-  selectedCategory: string;
-  onCategoryChange: (category: string) => void;
-  selectedVoltage: string;
-  onVoltageChange: (voltage: string) => void;
-  selectedMounting: string;
-  onMountingChange: (mounting: string) => void;
+/* ─── Facet Select ─── */
+interface FacetOption {
+  value: string;
+  count: number;
 }
 
-function FilterPanel({
-  selectedCategory,
-  onCategoryChange,
-  selectedVoltage,
-  onVoltageChange,
-  selectedMounting,
-  onMountingChange,
-}: FilterPanelProps) {
+function FacetSelect({
+  id,
+  label,
+  value,
+  options,
+  onChange,
+  anyLabel = 'Tutte',
+}: {
+  id: string;
+  label: string;
+  value: string;
+  options: FacetOption[];
+  onChange: (value: string) => void;
+  anyLabel?: string;
+}) {
   return (
-    <div className="space-y-8">
-      {/* Category */}
-      <div>
-        <h4 className="text-xs uppercase tracking-widest text-gray-medium mb-4">Categoria</h4>
-        <div className="space-y-1.5">
-          {categories.map((cat) => (
-            <button
-              key={cat}
-              type="button"
-              aria-pressed={selectedCategory === cat}
-              onClick={() => onCategoryChange(cat)}
-              className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
-                selectedCategory === cat
-                  ? 'bg-elektra-accent text-white font-medium'
-                  : 'text-gray-medium hover:bg-gray-light hover:text-black'
-              }`}
-            >
-              {cat}
-            </button>
+    <div className="min-w-0">
+      <label htmlFor={id} className="block text-[11px] uppercase tracking-widest text-gray-medium mb-2">
+        {label}
+      </label>
+      <div className="relative">
+        <select
+          id={id}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="appearance-none w-full bg-white border border-black/10 rounded-xl pl-3.5 pr-9 py-2.5 text-sm text-black hover:border-black/25 focus:outline-none focus:border-elektra-accent focus:ring-2 focus:ring-elektra-accent/20 transition-colors duration-200 cursor-pointer"
+        >
+          <option value="Tutti">{anyLabel}</option>
+          {options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.value} ({option.count})
+            </option>
           ))}
-        </div>
+        </select>
+        <ChevronDown
+          size={15}
+          aria-hidden="true"
+          className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-medium pointer-events-none"
+        />
       </div>
-
-      {/* Voltage */}
-      <div>
-        <h4 className="text-xs uppercase tracking-widest text-gray-medium mb-4">Tensione Ingresso</h4>
-        <div className="space-y-1.5">
-          {voltages.map((v) => (
-            <button
-              key={v}
-              type="button"
-              aria-pressed={selectedVoltage === v}
-              onClick={() => onVoltageChange(v)}
-              className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
-                selectedVoltage === v
-                  ? 'bg-elektra-accent text-white font-medium'
-                  : 'text-gray-medium hover:bg-gray-light hover:text-black'
-              }`}
-            >
-              {v}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Mounting */}
-      <div>
-        <h4 className="text-xs uppercase tracking-widest text-gray-medium mb-4">Tipo Montaggio</h4>
-        <div className="space-y-1.5">
-          {mountings.map((m) => (
-            <button
-              key={m}
-              type="button"
-              aria-pressed={selectedMounting === m}
-              onClick={() => onMountingChange(m)}
-              className={`block w-full text-left text-sm px-3 py-2 rounded-lg transition-colors duration-300 ${
-                selectedMounting === m
-                  ? 'bg-elektra-accent text-white font-medium'
-                  : 'text-gray-medium hover:bg-gray-light hover:text-black'
-              }`}
-            >
-              {m}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      <p className="text-xs text-gray-medium leading-relaxed border-t border-black/10 pt-6">
-        Tutti i prodotti sono normalmente disponibili a magazzino. Tensioni, contatti e configurazioni possono essere personalizzati su richiesta.
-      </p>
     </div>
   );
 }
@@ -379,35 +187,93 @@ export default function Catalogo() {
     '/catalogo',
   );
 
-  const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const categoryParam = searchParams.get('categoria');
   const selectedCategory = categoryParam && categories.includes(categoryParam) ? categoryParam : 'Tutti';
   const [selectedVoltage, setSelectedVoltage] = useState('Tutti');
   const [selectedMounting, setSelectedMounting] = useState('Tutti');
+  const [query, setQuery] = useState('');
 
   const setSelectedCategory = (category: string) => {
     const next = new URLSearchParams(searchParams);
     if (category === 'Tutti') next.delete('categoria');
     else next.set('categoria', category);
     setSearchParams(next, { replace: true });
+
+    // Scarta subito i filtri che non hanno prodotti nella nuova categoria.
+    const nextProducts = category === 'Tutti' ? products : products.filter((p) => p.category === category);
+    let voltage = selectedVoltage;
+    if (voltage !== 'Tutti' && !nextProducts.some((p) => p.voltage === voltage)) {
+      voltage = 'Tutti';
+      setSelectedVoltage('Tutti');
+    }
+    if (
+      selectedMounting !== 'Tutti'
+      && !nextProducts.some((p) => p.mounting === selectedMounting && (voltage === 'Tutti' || p.voltage === voltage))
+    ) {
+      setSelectedMounting('Tutti');
+    }
   };
 
-  const filteredProducts = products.filter((p) => {
-    if (selectedCategory !== 'Tutti' && p.category !== selectedCategory) return false;
-    if (selectedVoltage !== 'Tutti' && p.voltage !== selectedVoltage) return false;
-    if (selectedMounting !== 'Tutti' && p.mounting !== selectedMounting) return false;
+  // Valori effettivi: se la categoria cambia da URL o con back/forward, i filtri
+  // rimasti senza prodotti tornano automaticamente a "Tutti".
+  const categoryProducts = selectedCategory === 'Tutti'
+    ? products
+    : products.filter((p) => p.category === selectedCategory);
+  const effectiveVoltage = selectedVoltage !== 'Tutti'
+    && !categoryProducts.some((p) => p.voltage === selectedVoltage)
+    ? 'Tutti'
+    : selectedVoltage;
+  const effectiveMounting = selectedMounting !== 'Tutti'
+    && !categoryProducts.some(
+      (p) => p.mounting === selectedMounting && (effectiveVoltage === 'Tutti' || p.voltage === effectiveVoltage),
+    )
+    ? 'Tutti'
+    : selectedMounting;
+
+  const normalizedQuery = query.trim().toLowerCase();
+
+  // Filtri "a faccette": ogni gruppo ignora se stesso, così ogni opzione
+  // mostrata corrisponde sempre ad almeno un prodotto.
+  const matchesFilters = (p: Product, ignore?: 'category' | 'voltage' | 'mounting') => {
+    if (ignore !== 'category' && selectedCategory !== 'Tutti' && p.category !== selectedCategory) return false;
+    if (ignore !== 'voltage' && effectiveVoltage !== 'Tutti' && p.voltage !== effectiveVoltage) return false;
+    if (ignore !== 'mounting' && effectiveMounting !== 'Tutti' && p.mounting !== effectiveMounting) return false;
     return true;
-  });
+  };
+
+  const matchesQuery = (p: Product) => {
+    if (!normalizedQuery) return true;
+    const haystack = `${p.name} ${p.code} ${p.category} ${p.voltage} ${p.mounting} ${p.tagline} ${p.specs.join(' ')}`.toLowerCase();
+    return haystack.includes(normalizedQuery);
+  };
+
+  const buildFacet = (key: 'voltage' | 'mounting'): FacetOption[] => {
+    const counts = new Map<string, number>();
+    products
+      .filter((p) => matchesFilters(p, key))
+      .forEach((p) => counts.set(p[key], (counts.get(p[key]) ?? 0) + 1));
+    return Array.from(counts, ([value, count]) => ({ value, count }));
+  };
+
+  const voltageOptions = buildFacet('voltage');
+  const mountingOptions = buildFacet('mounting');
+  const filteredProducts = products.filter((p) => matchesFilters(p) && matchesQuery(p));
+
+  // Un filtro si mostra solo se ci sono alternative reali tra cui scegliere.
+  const showVoltageFilter = voltageOptions.length > 1;
+  const showMountingFilter = mountingOptions.length > 1;
 
   const filtersActive = selectedCategory !== 'Tutti'
-    || selectedVoltage !== 'Tutti'
-    || selectedMounting !== 'Tutti';
+    || effectiveVoltage !== 'Tutti'
+    || effectiveMounting !== 'Tutti'
+    || normalizedQuery.length > 0;
 
   const resetFilters = () => {
     setSelectedCategory('Tutti');
     setSelectedVoltage('Tutti');
     setSelectedMounting('Tutti');
+    setQuery('');
   };
 
   return (
@@ -434,130 +300,189 @@ export default function Catalogo() {
       {/* ─── CATALOG CONTENT ─── */}
       <section className="py-12 lg:py-16 px-6 lg:px-10 bg-white">
         <div className="max-w-7xl mx-auto">
-          <div className="flex flex-col lg:flex-row gap-10">
-            {/* Sidebar Filters - Desktop */}
-            <aside className="hidden lg:block w-64 flex-shrink-0">
-              <div className="sticky top-24">
-                <h3 className="font-semibold text-sm text-black mb-6">Filtri</h3>
-                <FilterPanel
-                  selectedCategory={selectedCategory}
-                  onCategoryChange={setSelectedCategory}
-                  selectedVoltage={selectedVoltage}
-                  onVoltageChange={setSelectedVoltage}
-                  selectedMounting={selectedMounting}
-                  onMountingChange={setSelectedMounting}
-                />
-              </div>
-            </aside>
-
-            {/* Mobile Filter Toggle */}
-            <div className="lg:hidden w-full mb-6">
-              <button
-                type="button"
-                onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-                aria-expanded={mobileFilterOpen}
-                aria-controls="mobile-filter-panel"
-                className="flex items-center gap-2 bg-gray-light text-black text-sm font-medium px-4 py-2.5 rounded-lg"
-              >
-                <Filter size={16} />
-                Filtri
-                <ChevronDown size={14} className={`transition-transform duration-300 ${mobileFilterOpen ? 'rotate-180' : ''}`} />
-              </button>
-
-              {mobileFilterOpen && (
-                <div id="mobile-filter-panel" className="mt-4 bg-gray-light rounded-2xl p-6">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="font-semibold text-sm">Filtri</h3>
-                    <button type="button" onClick={() => setMobileFilterOpen(false)} aria-label="Chiudi i filtri">
-                      <X size={18} />
-                    </button>
-                  </div>
-                  <FilterPanel
-                    selectedCategory={selectedCategory}
-                    onCategoryChange={setSelectedCategory}
-                    selectedVoltage={selectedVoltage}
-                    onVoltageChange={setSelectedVoltage}
-                    selectedMounting={selectedMounting}
-                    onMountingChange={setSelectedMounting}
+          {/* ─── Toolbar filtri ─── */}
+          <div className="rounded-2xl border border-black/10 bg-white p-4 lg:p-5 mb-8">
+            <div className="flex flex-col lg:flex-row lg:items-end gap-4">
+              <div className="flex-1 min-w-0">
+                <label
+                  htmlFor="catalogo-search"
+                  className="block text-[11px] uppercase tracking-widest text-gray-medium mb-2"
+                >
+                  Cerca
+                </label>
+                <div className="relative">
+                  <Search
+                    size={16}
+                    aria-hidden="true"
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-medium"
                   />
-                </div>
-              )}
-            </div>
-
-            {/* Products Grid */}
-            <div className="flex-1">
-              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-6">
-                <p className="text-sm text-gray-medium" aria-live="polite">
-                  {filteredProducts.length} prodott{filteredProducts.length === 1 ? 'o' : 'i'} trovat{filteredProducts.length === 1 ? 'o' : 'i'}
-                </p>
-                {/* Active filter pills */}
-                <div className="flex items-center gap-2 flex-wrap">
-                  {selectedCategory !== 'Tutti' && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
-                      {selectedCategory}
-                      <button type="button" onClick={() => setSelectedCategory('Tutti')} aria-label={`Rimuovi il filtro ${selectedCategory}`}>
-                        <X size={12} />
-                      </button>
-                    </span>
-                  )}
-                  {selectedVoltage !== 'Tutti' && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
-                      {selectedVoltage}
-                      <button type="button" onClick={() => setSelectedVoltage('Tutti')} aria-label={`Rimuovi il filtro ${selectedVoltage}`}>
-                        <X size={12} />
-                      </button>
-                    </span>
-                  )}
-                  {selectedMounting !== 'Tutti' && (
-                    <span className="inline-flex items-center gap-1 text-xs bg-elektra-accent text-white px-2.5 py-1 rounded-full">
-                      {selectedMounting}
-                      <button type="button" onClick={() => setSelectedMounting('Tutti')} aria-label={`Rimuovi il filtro ${selectedMounting}`}>
-                        <X size={12} />
-                      </button>
-                    </span>
-                  )}
-                  {filtersActive && (
+                  <input
+                    id="catalogo-search"
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Nome, codice o caratteristica"
+                    autoComplete="off"
+                    className="w-full bg-white border border-black/10 rounded-xl pl-10 pr-10 py-2.5 text-sm text-black placeholder:text-gray-medium/70 hover:border-black/25 focus:outline-none focus:border-elektra-accent focus:ring-2 focus:ring-elektra-accent/20 transition-colors duration-200"
+                  />
+                  {query && (
                     <button
                       type="button"
-                      onClick={resetFilters}
-                      className="text-xs font-medium text-black underline hover:no-underline px-1"
+                      onClick={() => setQuery('')}
+                      aria-label="Cancella la ricerca"
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-medium hover:text-black transition-colors"
                     >
-                      Azzera filtri
+                      <X size={15} />
                     </button>
                   )}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
-                {filteredProducts.map((product, i) => (
-                  <motion.div
-                    key={product.id}
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5, delay: i * 0.08, ease: [0.075, 0.82, 0.165, 1] }}
-                  >
-                    <ProductCard product={product} />
-                  </motion.div>
-                ))}
-              </div>
-
-              {filteredProducts.length === 0 && (
-                <div className="text-center py-20">
-                  <p className="text-gray-medium text-lg">Nessun prodotto trovato con i filtri selezionati.</p>
-                  <button
-                    type="button"
-                    onClick={resetFilters}
-                    className="mt-4 text-sm font-medium text-black underline hover:no-underline"
-                  >
-                    Resetta filtri
-                  </button>
+              {(showVoltageFilter || showMountingFilter) && (
+                <div className="grid grid-cols-2 gap-4 lg:flex lg:w-auto">
+                  {showVoltageFilter && (
+                    <FacetSelect
+                      id="filtro-tensione"
+                      label="Tensione ingresso"
+                      value={effectiveVoltage}
+                      options={voltageOptions}
+                      onChange={setSelectedVoltage}
+                    />
+                  )}
+                  {showMountingFilter && (
+                    <FacetSelect
+                      id="filtro-montaggio"
+                      label="Montaggio"
+                      value={effectiveMounting}
+                      options={mountingOptions}
+                      onChange={setSelectedMounting}
+                      anyLabel="Tutti"
+                    />
+                  )}
                 </div>
               )}
-
-              <p className="text-xs text-gray-medium mt-10 max-w-2xl">
-                Immagini dei prodotti reali. Caratteristiche, tensioni e configurazioni possono essere personalizzate su richiesta. Per schede tecniche, disponibilità aggiornata e codici alternativi scrivici: ti rispondiamo con la documentazione del prodotto.
-              </p>
             </div>
+
+            {/* Categorie */}
+            <div className="mt-4 pt-4 border-t border-black/10 flex flex-wrap items-center gap-2">
+              {categories.map((cat) => {
+                const active = selectedCategory === cat;
+                return (
+                  <button
+                    key={cat}
+                    type="button"
+                    aria-pressed={active}
+                    onClick={() => setSelectedCategory(cat)}
+                    className={`inline-flex shrink-0 items-center gap-2 text-sm px-4 py-2 rounded-full border transition-colors duration-300 ${
+                      active
+                        ? 'bg-elektra-accent border-elektra-accent text-white font-medium'
+                        : 'border-black/10 text-gray-medium hover:border-black/30 hover:text-black'
+                    }`}
+                  >
+                    {cat === 'Tutti' ? 'Tutti i prodotti' : cat}
+                    <span className={`text-xs tabular-nums ${active ? 'text-white/75' : 'text-gray-medium/70'}`}>
+                      {categoryCounts.get(cat)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* ─── Riepilogo ─── */}
+          <div className="flex items-center justify-between gap-4 mb-5">
+            <p className="text-sm text-gray-medium" aria-live="polite">
+              {filteredProducts.length}{' '}
+              {filteredProducts.length === 1 ? 'prodotto trovato' : 'prodotti trovati'}
+            </p>
+            {filtersActive && (
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="text-xs font-medium text-black underline hover:no-underline"
+              >
+                Azzera filtri
+              </button>
+            )}
+          </div>
+
+          {/* ─── Prodotti ─── */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
+            {filteredProducts.map((product, i) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: i * 0.08, ease: [0.075, 0.82, 0.165, 1] }}
+              >
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </div>
+
+          {filteredProducts.length === 0 && (
+            <div className="text-center py-20">
+              <p className="text-gray-medium text-lg">Nessun prodotto trovato.</p>
+              <button
+                type="button"
+                onClick={resetFilters}
+                className="mt-4 text-sm font-medium text-black underline hover:no-underline"
+              >
+                Azzera filtri e ricerca
+              </button>
+            </div>
+          )}
+
+          <p className="text-xs text-gray-medium mt-10 max-w-2xl">
+            Immagini dei prodotti reali. Caratteristiche, tensioni e configurazioni possono essere personalizzate su richiesta: per varianti, disponibilità aggiornata e codici alternativi scrivici.
+          </p>
+        </div>
+      </section>
+
+      {/* ─── COMPONENTISTICA ─── */}
+      <section className="py-16 lg:py-20 px-6 lg:px-10 bg-gray-light">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+          <div className="lg:col-span-5">
+            <p className="text-xs uppercase tracking-widest text-gray-medium mb-4">Oltre il catalogo</p>
+            <h2 className="text-3xl lg:text-4xl font-semibold text-black tracking-tight">
+              Componentistica a magazzino
+            </h2>
+            <p className="text-base text-gray-medium mt-5 leading-relaxed">
+              Per la nostra clientela è sempre possibile reperire la componentistica necessaria per le sostituzioni e le riparazioni. Se non trovi un codice, scrivici: verifichiamo disponibilità e alternative.
+            </p>
+            <Link
+              to="/contatti"
+              className="inline-flex items-center gap-2 mt-7 bg-gray-dark text-white text-sm font-medium px-6 py-3 rounded-lg hover:bg-black transition-colors duration-300"
+            >
+              Chiedi disponibilità <ArrowRight size={16} />
+            </Link>
+          </div>
+
+          <div className="lg:col-span-7">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                { title: 'Resistenze', desc: 'Valori e tolleranze per sostituzioni e prototipi.' },
+                { title: 'Condensatori', desc: 'Componenti di filtro e alimentazione.' },
+                { title: 'Circuiti integrati', desc: 'Logica, driver e regolatori.' },
+                { title: 'LED e segnalazioni', desc: 'Indicatori di stato per schede e quadri.' },
+                { title: 'Morsettiere e connettori', desc: 'Fissi ed estraibili, passo standard.' },
+                { title: 'Fusibili', desc: 'Protezione di schede e apparecchiature.' },
+              ].map((item) => (
+                <li
+                  key={item.title}
+                  className="flex items-start gap-3 bg-white rounded-xl border border-black/5 px-4 py-3.5"
+                >
+                  <Package size={16} className="mt-0.5 flex-shrink-0 text-elektra-accent" />
+                  <div>
+                    <p className="text-sm font-medium text-black">{item.title}</p>
+                    <p className="text-xs text-gray-medium mt-0.5 leading-relaxed">{item.desc}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            <p className="text-xs text-gray-medium mt-4">
+              …e molto altro ancora. Disponibilità e codici si confermano su richiesta.
+            </p>
           </div>
         </div>
       </section>

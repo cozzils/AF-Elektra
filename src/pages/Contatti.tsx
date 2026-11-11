@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { Link } from 'react-router';
+import { Link, useSearchParams } from 'react-router';
 import { motion } from 'framer-motion';
 import {
   MapPin,
@@ -27,12 +27,18 @@ export default function Contatti() {
     '/contatti',
   );
 
+  const [searchParams] = useSearchParams();
+  const richiestoProdotto = (searchParams.get('prodotto') ?? '').slice(0, 120);
+  const messaggioIniziale = richiestoProdotto
+    ? `Sono interessato al prodotto ${richiestoProdotto}. Vorrei ricevere un preventivo e maggiori informazioni.`
+    : '';
+
   const [formData, setFormData] = useState({
     nome: '',
     email: '',
     telefono: '',
-    area: '',
-    messaggio: '',
+    area: richiestoProdotto ? 'prodotti' : '',
+    messaggio: messaggioIniziale,
     privacy: false,
     website: '', // honeypot anti-bot: deve restare vuoto
   });
@@ -86,7 +92,15 @@ export default function Contatti() {
     setSubmitted(false);
     setSendError('');
     setPrivacyError('');
-    setFormData({ nome: '', email: '', telefono: '', area: '', messaggio: '', privacy: false, website: '' });
+    setFormData({
+      nome: '',
+      email: '',
+      telefono: '',
+      area: richiestoProdotto ? 'prodotti' : '',
+      messaggio: messaggioIniziale,
+      privacy: false,
+      website: '',
+    });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -239,6 +253,7 @@ export default function Contatti() {
                           className="w-full bg-white border border-black/10 rounded-lg px-4 py-3 text-sm text-black focus:outline-none focus:border-elektra-accent focus:ring-1 focus:ring-elektra-accent transition-all duration-300 appearance-none"
                         >
                           <option value="">Seleziona...</option>
+                          <option value="prodotti">Prodotti e preventivi</option>
                           <option value="progettazione">Progettazione Schede</option>
                           <option value="pcb">Realizzazione Master PCB</option>
                           <option value="smt">Montaggio SMT</option>
